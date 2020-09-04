@@ -1,0 +1,22 @@
+<div class="login-panel ui-fluid">
+  <div class="login-panel-header">
+    <img src="assets/layout/images/logo.png" alt="sapphire"/>
+  </div>
+  <div class="login-panel-content">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="p-col-12">
+        <h1>DSVN</h1>
+        <h2>CHAT SYSTEM FOR EMPLOYEE</h2>
+      </div>
+      <formly-form [form]="loginForm" [fields]="fields" [model]="model"></formly-form>
+      <div class="p-grid">
+        <div class="p-col-6">
+          <a class="p-link" style="color: #1E88E5" routerLink="/pre-auth/forgot-password">Forget Password?</a>
+        </div>
+        <div class="p-col-6" style="text-align: right">
+          <button pButton pRipple label="Next" style="width: 100%" [disabled]="!loginForm.valid"></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

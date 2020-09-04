@@ -1,0 +1,337 @@
+body {
+    .p-panel {
+        padding: 0;
+
+        .p-panel-titlebar {
+            border: 0 none;
+            padding: $headerPadding;
+            @include border-radius-top(2px);
+            @include border-radius-bottom(0);
+
+            .p-panel-title {
+                margin: 0;
+                line-height: $panelContentLineHeight;
+            }
+
+            .p-panel-titlebar-icon {
+                position: relative;
+                width: $iconWidth;
+                height: $iconHeight;
+                line-height: $iconHeight;
+                text-align: center;
+                color: $headerTextColor;
+                margin: 0;
+                @include transition(background-color $transitionDuration);
+                @include border-radius(50%);
+
+                &:hover {
+                    background-color: $primaryLightColor;
+                }
+            }
+        }
+
+        .p-panel-content {
+            height: 100%;
+            box-sizing: border-box;
+            padding: $contentPadding;
+            line-height: $panelContentLineHeight;
+        }
+
+        .p-panel-footer {
+            padding: $headerPadding;
+            border: 0 none;
+            border-top: 1px solid $dividerColor;
+            margin: 0;
+        }
+
+        &.p-panel-light {
+            .p-panel-titlebar {
+                background-color: $panelLightHeaderBgColor;
+                color: $panelLightHeaderTextColor;
+
+                .p-panel-titlebar-icon {
+                    span {
+                        color: $panelLightHeaderTextColor;
+                    }
+
+                    &:hover {
+                        background-color: $panelLightHeaderIconHoverBgColor;
+                    }
+                }
+            }
+        }
+
+        &.p-panel-dark {
+            .p-panel-titlebar {
+                background-color: $panelDarkHeaderBgColor;
+                color: $panelDarkHeaderTextColor;
+
+                .p-panel-titlebar-icon {
+                    span {
+                        color: $panelDarkHeaderTextColor;
+                    }
+
+                    &:hover {
+                        background-color: $panelDarkHeaderIconHoverBgColor;
+                    }
+                }
+            }
+        }
+    }
+
+    .p-fieldset {
+        padding: $contentPadding;
+
+        .p-fieldset-legend {
+            padding: $headerPadding;
+            padding-left: 2px;
+            padding-right: 8px;
+            color: $primaryColor;
+
+            .p-fieldset-toggler {
+                width: 36px;
+                height: 36px;
+                padding: 8px;
+                background-color: $primaryColor;
+                color: #ffffff;
+                font-size: 1.5em;
+                @include border-radius(50%);
+                @include transition(background-color $transitionDuration);
+                margin-top: -10px;
+                margin-right: 8px;
+                @include content-shadow();
+                @include rippleitem();
+
+                &:hover {
+                    background-color: $primaryDarkColor;
+                }
+            }
+            a {
+                &:focus {
+                    background-color: transparent;
+                    outline: 0;
+                }
+            }
+
+            .p-fieldset-legend-text {
+                color: $primaryColor;
+            }
+        }
+    }
+
+    .p-accordion {
+        .p-accordion-header {
+            margin-top: .25em;
+            background-color: $accordionHeaderBgColor;
+            font-size: $fontSize;
+            color: $accordionHeaderTextColor;
+            font-weight: $headerFontWeight;
+            @include border-radius($borderRadius);
+            @include transition(background-color $transitionDuration);
+
+            > a {
+                padding: $headerPadding;
+                color: $accordionHeaderTextColor;
+
+                .p-accordion-toggle-icon,
+                .p-accordion-header-text {
+                    vertical-align: middle;
+                }
+            }
+
+            &:not(.p-state-active):not(.p-state-disabled):hover {
+                background-color: $accordionHeaderHoverBgColor;
+                color: $accordionHeaderHoverTextColor;
+            }
+
+            &.p-state-active {
+                background-color: $primaryColor;
+                color: $primaryTextColor;
+                @include border-radius-bottom(0);
+
+                > a {
+                    color: $primaryTextColor;
+                }
+
+                .p-accordion-toggle-icon {
+                    color: $primaryTextColor;
+                }
+            }
+        }
+
+        .p-accordion-content {
+            padding: $contentPadding;
+            line-height: $panelContentLineHeight;
+            margin-top: 0;
+            @include border-radius-bottom($borderRadius);
+        }
+    }
+
+    .p-toolbar {
+        background-color: $primaryDarkColor;
+        @include content-shadow();
+        padding: 10px;
+
+        .p-toolbar-separator {
+            margin-right: 0.25em;
+        }
+    }
+
+    .p-tabview {
+        padding: 0;
+        border: 0 none;
+
+        .p-tabview-nav {
+            background-color: #ffffff;
+            border: 0 none;
+            @include border-radius(0);
+
+            > li {
+                padding: 0;
+                overflow: hidden;
+                @include transition(border-color $transitionDuration);
+
+                > a {
+                    cursor: pointer;
+                    padding: $headerPadding;
+
+                    &:focus {
+                        outline: 0 none;
+                    }
+                }
+
+                > .pi-times {
+                    margin: .5em 0 0 0;
+                    @include transition(color $transitionDuration);
+                    color: $textSecondaryColor;
+                }
+
+                &.p-state-default {
+                    a {
+                        color: $textSecondaryColor;
+                    }
+                }
+
+                &:not(.p-state-active):not(.p-state-disabled):hover {
+                    background-color: #ffffff;
+                }
+
+                &.p-state-active {
+                    background-color: transparent;
+                    border-color: $primaryColor;
+                    border-style: solid;
+
+                    a {
+                        color: $textColor;
+                    }
+
+                    > .pi-times {
+                        color: $primaryColor;
+                    }
+                }
+
+                &.p-tabview-outline {
+                    outline: 0 none;
+                    border-color: $primaryLightColor;
+                }
+
+                .p-tabview-left-icon, .p-tabview-right-icon {
+                    color: $textSecondaryColor;
+                    display: inline-block;
+                    vertical-align: middle;
+                    font-size: $iconFontSize;
+                }
+
+                .p-tabview-title {
+                    line-height: 1.5em;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        .p-tabview-panel {
+            padding: $contentPadding;
+            line-height: $panelContentLineHeight;
+        }
+
+        &.p-tabview-top {
+            > .p-tabview-nav {
+                padding: 0;
+                margin: 0;
+                @include border-radius-top(4px);
+                border-bottom: 1px solid $dividerColor;
+
+                > li {
+                    border-style: solid;
+                    border-width: 0 0 2px 0;
+                }
+            }
+        }
+
+        &.p-tabview-bottom {
+            > .p-tabview-nav {
+                padding: 0;
+                margin: 0;
+                @include border-radius-bottom(4px);
+                border-top: 1px solid $dividerColor;
+
+                > li {
+                    border-width: 2px 0 0 0;
+                }
+            }
+        }
+
+        &.p-tabview-left {
+            > .p-tabview-nav {
+                padding: 0;
+                margin: 0;
+                @include border-radius-left(4px);
+                border-right: 1px solid $dividerColor;
+
+                > li {
+                    box-sizing: border-box;
+                    border-width: 0 2px 0 0;
+
+                    > a {
+                        width: 100%;
+                        box-sizing: border-box;
+                    }
+                }
+            }
+        }
+
+        &.p-tabview-right {
+            > .p-tabview-nav {
+                padding: 0;
+                @include border-radius-right(4px);
+                border-left: 1px solid $dividerColor;
+
+                > li {
+                    box-sizing: border-box;
+                    border-width: 0 0 0 2px;
+
+                    > a {
+                        width: 100%;
+                        box-sizing: border-box;
+                    }
+
+                    &.p-state-active {
+                        > a {
+                            padding-left: 0.875em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    body {
+        .p-toolbar {
+            .p-toolbar-group-right {
+                margin-top: 1em;
+            }
+        }
+    }
+}

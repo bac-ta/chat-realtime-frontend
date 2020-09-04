@@ -1,0 +1,13 @@
+>>> .p-inputtext:enabled:focus {
+  box-shadow: none !important;
+  border-color: unset;
+}
+
+>>> .p-link:focus {
+  box-shadow: none !important;
+}
+
+
+>>> .p-toast .p-toast-message.p-toast-message-error {
+  background-color: #ea4832 !important;
+}

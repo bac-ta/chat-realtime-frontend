@@ -1,0 +1,16 @@
+<span [class]="{'md-inputfield' : true, 'p-input-icon-right' : to.icon}">
+  <i class="{{to.icon}}" *ngIf="to.icon"></i>
+<input pInputText *ngIf="!field.hide"
+       id="{{field.key.replace('.','-')}}"
+       [type]="to.type||'text'"
+       [formControl]="formControl"
+       [formlyAttributes]="field"
+       [required]="to.required"
+       [maxLength]="to.maxLength ? to.maxLength : 999999"
+       [min]="to.min"
+       [max]="to.max"
+       [placeholder]="to.placeholder" style="width: 100%">
+  <label for="{{field.key.replace('.','-')}}"
+         *ngIf="to.label">{{to.label}} <span
+    *ngIf="(to.required) && to.label" style="color: red"> (*) </span> </label>
+</span>

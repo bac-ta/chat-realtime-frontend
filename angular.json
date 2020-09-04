@@ -3,9 +3,13 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "chat-realtime-frontend": {
+    "chat-ap": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "sass"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/chat-realtime-frontend",
+            "outputPath": "dist/chat-ap",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,9 +28,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/bootstrap4-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "src/styles.sass"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -62,18 +72,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "chat-realtime-frontend:build"
+            "browserTarget": "chat-ap:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "chat-realtime-frontend:build:production"
+              "browserTarget": "chat-ap:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "chat-realtime-frontend:build"
+            "browserTarget": "chat-ap:build"
           }
         },
         "test": {
@@ -88,7 +98,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/bootstrap4-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "src/styles.sass"
             ],
             "scripts": []
           }
@@ -110,15 +123,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "chat-realtime-frontend:serve"
+            "devServerTarget": "chat-ap:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "chat-realtime-frontend:serve:production"
+              "devServerTarget": "chat-ap:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "chat-realtime-frontend"
+  "defaultProject": "chat-ap"
 }
