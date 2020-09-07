@@ -14,6 +14,5 @@ export class ChatService {
 
   addNewChatWindow(chatWindow): void {
     this.chatWindows.next(chatWindow);
-    console.log('added');
   }
 }
