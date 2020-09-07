@@ -1,0 +1,10 @@
+<p-tabView>
+  <p-tabView [controlClose]="true" (onClose)="handleClose($event)">
+    <p-tabPanel *ngFor="let item of chatWindows; let i = index" [selected]="i == 0"  [closable]="true">
+      <ng-template pTemplate="header">{{item.username}}</ng-template>
+      <ng-template pTemplate="content">
+        <app-chat-window [content]="item.content"></app-chat-window>
+      </ng-template>
+    </p-tabPanel>
+  </p-tabView>
+</p-tabView>

@@ -1,0 +1,28 @@
+<div class="layout-profile">
+  <a class="button-profile" (click)="onShowProfileMenu()">
+    <img src="/assets/layout/images/avatar.png" alt="">
+    <div class="profile-info">
+      <span class="profile-name">Username</span>
+    </div>
+  </a>
+  <ul [@slideInOut]="stateProfileMenu" class="profile-menu">
+    <li role="menuitem">
+      <a href="#" class="ripplelink">
+        <em class="material-icons">account_circle</em>
+        <span>Profile</span>
+      </a>
+    </li>
+    <li role="menuitem">
+      <a href="#" class="ripplelink">
+        <em class="material-icons">settings</em>
+        <span>Settings</span>
+      </a>
+    </li>
+    <li role="menuitem">
+      <a href="#" class="ripplelink" (click)="onLogout()">
+        <em class="material-icons">cancel</em>
+        <span>Logout</span>
+      </a>
+    </li>
+  </ul>
+</div>

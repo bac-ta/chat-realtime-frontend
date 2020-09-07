@@ -1,0 +1,57 @@
+.layout-profile {
+  /*border-bottom: 1px solid #ebebef;*/
+}
+
+.button-profile {
+  display: flex;
+  cursor: pointer;
+}
+
+.button-profile img {
+  width: 96px;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-info .profile-name {
+  color: #666666;
+  font-weight: 500;
+}
+
+.profile-menu {
+  display: block;
+  background-color: #ffffff;
+  list-style-type: none;
+  padding: 0.75em;
+  margin: unset;
+}
+
+.profile-menu a {
+  display: block;
+  position: relative;
+  padding: 0.75em;
+  border-radius: 6px;
+}
+
+.profile-menu a:hover {
+  background-color: #e0e0e0;
+}
+
+.profile-menu a em {
+  color: #616161;
+  vertical-align: middle;
+  font-size: 20px;
+  margin-right: 7px;
+}
+
+
+.profile-menu a span {
+  color: #616161;
+  vertical-align: middle;
+}

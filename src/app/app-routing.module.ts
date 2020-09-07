@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {PreAuthComponent} from './module/pre-auth/pre-auth.component';
-import {MainContentComponent} from './layout/main-content/main-content.component';
 import {AuthGuard} from './core/guards/auth.guard';
+import {ChatComponent} from './module/chat/chat.component';
 
 const routes: Routes = [
   {
@@ -27,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: MainContentComponent,
+    component: ChatComponent,
     canActivate: [AuthGuard]
   }
 ];

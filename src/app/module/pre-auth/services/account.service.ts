@@ -27,7 +27,7 @@ export class AccountService extends BaseService<User>{
   }
 
   login({username, password}): Observable<any> {
-    return this.post('/login', { username, password } )
+    return this.post('/auth/login', { username, password } )
       .pipe(map(res => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         const user = new User(username, password, res.body.accessToken, res.body.message);
@@ -41,6 +41,6 @@ export class AccountService extends BaseService<User>{
     // remove user from local storage and set current user to null
     localStorage.removeItem('user');
     this.userSubject.next(null);
-    this.router.navigate(['/account/login']);
+    this.router.navigate(['/pre-auth/login']);
   }
 }

@@ -6,7 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormlyModule} from '@ngx-formly/core';
 import {config} from './ui-components/config';
 import {FormlyPrimeNGModule} from '@ngx-formly/primeng';
-import {ButtonModule, InputTextModule} from 'primeng';
+import {ButtonModule, InputTextModule, TabViewModule} from 'primeng';
 import {RippleModule} from 'primeng/ripple';
 
 
@@ -24,7 +24,8 @@ import {RippleModule} from 'primeng/ripple';
     FormlyModule,
     InputTextModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
+    TabViewModule
   ],
   exports: [
     CommonModule,
@@ -33,7 +34,8 @@ import {RippleModule} from 'primeng/ripple';
     FormlyModule,
     InputTextModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
+    TabViewModule
   ]
 })
 export class SharedModule { }

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,12 +16,12 @@ import {PreAuthModule} from './module/pre-auth/pre-auth.module';
 import {SharedModule} from './shared/shared.module';
 import {CoreModule} from './core/core.module';
 import {AuthGuard} from './core/guards/auth.guard';
-import { MainContentComponent } from './layout/main-content/main-content.component';
+import {NgxSpinnerModule} from 'ngx-spinner';
+import {ChatModule} from './module/chat/chat.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MainContentComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -29,8 +29,11 @@ import { MainContentComponent } from './layout/main-content/main-content.compone
     AppRoutingModule,
     ToastModule,
     PreAuthModule,
-    CoreModule
+    CoreModule,
+    NgxSpinnerModule,
+    ChatModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [MessageService, AuthGuard],
   bootstrap: [AppComponent]
 })

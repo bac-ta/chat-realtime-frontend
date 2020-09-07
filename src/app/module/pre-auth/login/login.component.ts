@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig} from '@ngx-formly/core';
 import {AccountService} from '../services/account.service';
-import {first} from 'rxjs/operators';
+import {finalize, first} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {MessageService} from 'primeng';
+import {NgxSpinnerModule, NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -43,9 +44,9 @@ export class LoginComponent implements OnInit {
           required: true,
           icon: 'pi pi-lock'
         },
-        validators: {
-          validation: ['pass']
-        }
+        // validators: {
+        //   validation: ['pass']
+        // }
       }
     ]
   }
@@ -54,7 +55,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -62,8 +64,10 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
+      this.spinner.show('login');
       this.accountService.login(this.model)
-        .pipe(first())
+        .pipe(first(),
+          finalize(() => this.spinner.hide('login')))
         .subscribe({
           next: () => {
             this.router.navigate(['/']);

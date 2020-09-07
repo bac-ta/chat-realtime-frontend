@@ -11,3 +11,8 @@
 >>> .p-toast .p-toast-message.p-toast-message-error {
   background-color: #ea4832 !important;
 }
+
+
+>>> .p-tabview-close{
+  z-index: 9999;
+}

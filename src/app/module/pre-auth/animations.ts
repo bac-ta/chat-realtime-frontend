@@ -1,4 +1,4 @@
-import {animate, animateChild, group, query, style, transition, trigger} from '@angular/animations';
+import {animate, animateChild, group, query, state, style, transition, trigger} from '@angular/animations';
 
 export const slider =
   trigger('routeAnimations', [
@@ -26,7 +26,7 @@ query(':enter', [
       ]),
       query(':enter', animateChild()),
     ]),
-  ])
+  ]);
 
 function slideTo(direction): any {
   const optional = { optional: true };
@@ -57,3 +57,38 @@ function slideTo(direction): any {
     // query(':enter', animateChild()),
   ];
 }
+
+
+export const slideDown =
+  trigger('slideInOut', [
+    state('in', style({
+      height: 'auto', opacity: '1', visibility: 'visible'
+    })),
+    state('out', style({
+      height: '0px', opacity: '0', visibility: 'hidden'
+    })),
+    transition('in => out', [group([
+        animate('400ms ease-in-out', style({
+          opacity: '0'
+        })),
+        animate('600ms ease-in-out', style({
+          height: '0px'
+        })),
+        animate('700ms ease-in-out', style({
+          visibility: 'hidden'
+        }))
+      ]
+    )]),
+    transition('out => in', [group([
+        animate('1ms ease-in-out', style({
+          visibility: 'visible'
+        })),
+        animate('600ms ease-in-out', style({
+          height: 'auto'
+        })),
+        animate('800ms ease-in-out', style({
+          opacity: '1'
+        }))
+      ]
+    )])
+  ]);
