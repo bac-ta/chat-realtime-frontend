@@ -16,3 +16,36 @@
 >>> .p-tabview-close{
   z-index: 9999;
 }
+
+
+>>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background-color: #c3c3e2 !important;
+}
+
+
+>>> .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  background-color: #dedede;
+}
+
+
+>>> body .p-tabview .p-tabview-nav > li:not(.p-state-active):not(.p-state-disabled):hover,
+>>> .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link{
+  background-color: #dedede !important;
+}
+
+
+>>> .p-tabview-panels {
+  height: auto;
+  flex-basis: 100%;
+}
+
+
+>>> body .p-tabview {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+>>> body .p-tabview .p-tabview-panel {
+  height: 100%;
+}

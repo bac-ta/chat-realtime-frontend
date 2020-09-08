@@ -1,0 +1,21 @@
+<div class="chat-editor">
+  <p-overlayPanel #op appendTo="body">
+    <ng-template pTemplate>
+      <emoji-mart #emoji [autoFocus]="true" [enableSearch]="false" [showPreview]="false" emoji="" set="facebook"></emoji-mart>
+    </ng-template>
+  </p-overlayPanel>
+  <div class="chat-input-wrapper">
+    <button class="btn-pick-emoji"  (click)="op.toggle($event)" pTooltip="Choose emoji" tooltipPosition="left">
+    <span class="material-icons" style="font-size: 30px; color: gray">
+      sentiment_satisfied_alt
+    </span>
+    </button>
+    <textarea rows="1" pInputTextarea autoResize="autoResize" class="chat-input" placeholder="Say something..."></textarea>
+    <button class="btn-send-msg" pTooltip="Send" tooltipPosition="right">
+    <span class="material-icons" style="font-size: 30px; color: gray">
+      send
+    </span>
+    </button>
+  </div>
+
+</div>

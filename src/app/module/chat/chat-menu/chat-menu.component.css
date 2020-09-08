@@ -1,6 +1,4 @@
 .layout-sidebar {
-  position: fixed;
-  left: 0;
   height: 100%;
   background-color: var(--surface-a);
   overflow: auto;

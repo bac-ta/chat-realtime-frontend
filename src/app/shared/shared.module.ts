@@ -6,9 +6,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormlyModule} from '@ngx-formly/core';
 import {config} from './ui-components/config';
 import {FormlyPrimeNGModule} from '@ngx-formly/primeng';
-import {ButtonModule, InputTextModule, TabViewModule} from 'primeng';
+import {ButtonModule, InputTextareaModule, InputTextModule, OverlayPanelModule, TabViewModule, TooltipModule} from 'primeng';
 import {RippleModule} from 'primeng/ripple';
-
+import {PickerModule} from '@ctrl/ngx-emoji-mart';
+import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 
 @NgModule({
@@ -25,7 +26,12 @@ import {RippleModule} from 'primeng/ripple';
     InputTextModule,
     ButtonModule,
     RippleModule,
-    TabViewModule
+    TabViewModule,
+    PickerModule,
+    EmojiModule,
+    OverlayPanelModule,
+    InputTextareaModule,
+    TooltipModule
   ],
   exports: [
     CommonModule,
@@ -35,7 +41,12 @@ import {RippleModule} from 'primeng/ripple';
     InputTextModule,
     ButtonModule,
     RippleModule,
-    TabViewModule
+    TabViewModule,
+    PickerModule,
+    EmojiModule,
+    OverlayPanelModule,
+    InputTextareaModule,
+    TooltipModule
   ]
 })
 export class SharedModule { }

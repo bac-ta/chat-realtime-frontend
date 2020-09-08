@@ -37,13 +37,10 @@ export class ChatGuiComponent implements OnInit, AfterViewInit {
   }
 
   handleClose(e): void {
-    // console.log(e);
-    // this.chatWindows.splice(e.index, 1);
-    this.chatWindows.push({username: 'ADMIN', content: 'content'});
+    this.chatWindows.splice(e.index, 1);
   }
 
   handleActiveIndexChange(e): void {
-    console.log(e)
   }
 
 }

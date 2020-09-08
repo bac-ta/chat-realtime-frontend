@@ -1,0 +1,41 @@
+.chat-editor {
+  bottom: 20px;
+}
+
+.btn-pick-emoji {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.btn-pick-emoji:focus {
+  border: none;
+  outline: none;
+}
+
+.chat-input {
+  border: none !important;
+  background-image: none !important;
+  flex-basis: 100%;
+  z-index: 99;
+  max-height: 200px;
+}
+
+.chat-input-wrapper {
+  border: 1px solid gray !important;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.btn-send-msg {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+textarea {
+  resize: none;
+}
