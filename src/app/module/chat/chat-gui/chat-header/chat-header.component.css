@@ -1,0 +1,38 @@
+.chat-header {
+  max-width: 300px;
+  display: flex;
+}
+
+.header-icon {
+  height: 32px;
+  width: 32px;
+  position: relative;
+}
+
+.header-icon img {
+  border-radius: 50%;
+  height: 100%;
+}
+
+.header-icon .status {
+  height: 8px;
+  position: absolute;
+  border-radius: 50%;
+  bottom: 4px;
+  right: 4px;
+  width: 8px;
+  border: 1px solid rgb(51, 54, 58);
+}
+
+.chat-username {
+  display: flex;
+  align-items: center;
+}
+
+.online {
+  background-color: greenyellow;
+}
+
+.offline {
+  display: none;
+}

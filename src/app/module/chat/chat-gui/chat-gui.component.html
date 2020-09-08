@@ -1,0 +1,18 @@
+<div style="height: 100%;">
+  <p-tabView #tabView [controlClose]="true" (onClose)="handleClose($event)"
+             *ngIf="chatWindows.length > 0; else showNothing"
+             (activeIndexChange)="handleActiveIndexChange($event)">
+    <p-tabPanel *ngFor="let item of chatWindows; let i = index" [selected]="i == chatWindows.length -1"
+                [closable]="true">
+      <ng-template pTemplate="header">
+        <app-chat-header></app-chat-header>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <app-chat-window [content]="item.content"></app-chat-window>
+      </ng-template>
+    </p-tabPanel>
+  </p-tabView>
+  <ng-template #showNothing>Nothing to display</ng-template>
+
+</div>
+
