@@ -49,3 +49,21 @@
 >>> body .p-tabview .p-tabview-panel {
   height: 100%;
 }
+
+>>> .p-tooltip-text {
+  background: grey !important;
+}
+
+>>> .p-tooltip.p-tooltip-top .p-tooltip-arrow {
+  border-top-color: grey !important;
+}
+
+>>> .p-tooltip.p-tooltip-bottom .p-tooltip-arrow {
+  border-bottom-color: grey !important;
+}
+>>> .p-tooltip.p-tooltip-right .p-tooltip-arrow {
+  border-right-color: grey !important;
+}
+>>> .p-tooltip.p-tooltip-left .p-tooltip-arrow {
+  border-left-color: grey !important;
+}

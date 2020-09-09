@@ -28,7 +28,7 @@ export class ChatEditorComponent implements OnInit {
   }
 
   addEmoji(e): void {
-    console.log(this.el);
+    console.log(e);
     // this.isShow = false;
   }
 }

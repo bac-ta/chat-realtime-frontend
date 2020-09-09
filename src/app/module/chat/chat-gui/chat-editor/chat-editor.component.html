@@ -1,7 +1,7 @@
 <div class="chat-editor">
   <p-overlayPanel #op appendTo="body">
     <ng-template pTemplate>
-      <emoji-mart #emoji [autoFocus]="true" [enableSearch]="false" [showPreview]="false" emoji="" set="facebook"></emoji-mart>
+      <emoji-mart #emoji [autoFocus]="true" [enableSearch]="false" [showPreview]="false" emoji="" set="facebook" (emojiClick)="addEmoji($event)"></emoji-mart>
     </ng-template>
   </p-overlayPanel>
   <div class="chat-input-wrapper">

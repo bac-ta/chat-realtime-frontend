@@ -10,11 +10,13 @@ import { ChatWindowComponent } from './chat-gui/chat-window/chat-window.componen
 import { ChatHeaderComponent } from './chat-gui/chat-header/chat-header.component';
 import { ChatEditorComponent } from './chat-gui/chat-editor/chat-editor.component';
 import { FileManagerComponent } from './file-manager/file-manager.component';
+import { ChatContentComponent } from './chat-gui/chat-content/chat-content.component';
+import { MessageChatComponent } from './chat-gui/chat-content/message-chat/message-chat.component';
 
 
 
 @NgModule({
-  declarations: [ChatMenuComponent, ChatComponent, ProfileComponent, ChatGuiComponent, ChatWindowComponent, ChatHeaderComponent, ChatEditorComponent, FileManagerComponent],
+  declarations: [ChatMenuComponent, ChatComponent, ProfileComponent, ChatGuiComponent, ChatWindowComponent, ChatHeaderComponent, ChatEditorComponent, FileManagerComponent, ChatContentComponent, MessageChatComponent],
   imports: [
     CommonModule,
     SharedModule
