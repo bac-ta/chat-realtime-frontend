@@ -37,6 +37,7 @@
 >>> .p-tabview-panels {
   height: auto;
   flex-basis: 100%;
+  padding-bottom: unset !important;
 }
 
 
@@ -66,4 +67,9 @@
 }
 >>> .p-tooltip.p-tooltip-left .p-tooltip-arrow {
   border-left-color: grey !important;
+}
+
+
+>>> :focus {
+  outline: none !important;
 }

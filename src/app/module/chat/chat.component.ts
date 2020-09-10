@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ChatService} from './chat.service';
+import {ChatService} from './services/chat.service';
 import {AccountService} from '../pre-auth/services/account.service';
 import {environment} from '../../../environments/environment';
 
@@ -20,6 +20,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.chatService.disconnect();
   }
 
 }

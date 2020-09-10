@@ -10,8 +10,8 @@
       sentiment_satisfied_alt
     </span>
     </button>
-    <textarea rows="1" pInputTextarea autoResize="autoResize" class="chat-input" placeholder="Say something..."></textarea>
-    <button class="btn-send-msg" pTooltip="Send" tooltipPosition="right">
+    <textarea rows="1" pInputTextarea autoResize="autoResize" class="chat-input" placeholder="Say something..." [(ngModel)]="message" (keypress)="onKey($event)"></textarea>
+    <button class="btn-send-msg" pTooltip="Send" tooltipPosition="right" (click)="sendMessage()">
     <span class="material-icons" style="font-size: 30px; color: gray">
       send
     </span>

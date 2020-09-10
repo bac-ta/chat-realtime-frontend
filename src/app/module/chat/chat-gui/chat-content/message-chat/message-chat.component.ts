@@ -25,7 +25,10 @@ export class MessageChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.accountService.userValue.username === this.msg.username) {
+    if (!this.msg.avatarUrl) {
+      this.msg.avatarUrl = '/assets/layout/images/avatar.png';
+    }
+    if (this.msg.isMe) {
       this.clzz = 'my-message';
       this.clzzWrapper = 'p-flex-row-reverse';
     } else {
@@ -35,6 +38,10 @@ export class MessageChatComponent implements OnInit {
     const regex = /:.*:/g;
     let msg = this.msg.detail;
     const emojis = msg.match(regex);
+    if (!emojis) {
+      this.listStr.push({isEmoji: false, text: msg});
+      return;
+    }
     for (const emoji of emojis) {
       const i = msg.indexOf(emoji);
       this.listStr.push({isEmoji: false, text: msg.substring(0, i)});
@@ -48,7 +55,6 @@ export class MessageChatComponent implements OnInit {
     if (msg.length > 0) {
       this.listStr.push({isEmoji: false, text: msg});
     }
-    console.log(this.listStr);
   }
 
   emojiFallBack = (emoji: any, props: any) =>

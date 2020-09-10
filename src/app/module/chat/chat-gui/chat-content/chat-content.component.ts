@@ -2,17 +2,12 @@ import {Component, Input, OnInit} from '@angular/core';
 
 export class MessageChat {
   username: string;
-  timeChat: string;
+  timeChat: Date;
   detail: string;
-  style: {};
+  isMe: boolean;
   avatarUrl: string;
 
-  constructor(username: string, timeChat: string, detail: string, style: {}, avatarUrl: string) {
-    this.username = username;
-    this.timeChat = timeChat;
-    this.detail = detail;
-    this.style = style;
-    this.avatarUrl = avatarUrl;
+  constructor() {
   }
 }
 
@@ -23,8 +18,7 @@ export class MessageChat {
 })
 export class ChatContentComponent implements OnInit {
 
-  @Input() chatId;
-  chatMsgs: MessageChat[] = [];
+  @Input() chatMsgs: MessageChat[] = [];
   constructor() { }
 
   ngOnInit(): void {

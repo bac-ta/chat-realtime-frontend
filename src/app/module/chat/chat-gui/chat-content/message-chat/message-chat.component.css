@@ -22,6 +22,7 @@
   margin-bottom: 30px;
   width: 80%;
   position: relative;
+  white-space: pre;
 }
 
 .detail:after {
@@ -35,14 +36,14 @@
 }
 
 .p-flex-row-reverse .detail:after{
-  bottom: 79%;
-  left: 100%;
+  bottom: 81%;
+  left: 99%;
   border-bottom-color: #86BB71;
 }
 
 .p-flex-row .detail:after{
-  bottom: 79%;
-  left: 0%;
+  bottom: 81%;
+  left: 1%;
   border-bottom-color: #94C2ED;
 }
 

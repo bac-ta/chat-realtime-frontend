@@ -2,13 +2,13 @@
   <p-tabView #tabView [controlClose]="true" (onClose)="handleClose($event)"
              *ngIf="chatWindows.length > 0; else showNothing"
              (activeIndexChange)="handleActiveIndexChange($event)">
-    <p-tabPanel *ngFor="let item of chatWindows; let i = index" [selected]="i == chatWindows.length -1"
+    <p-tabPanel *ngFor="let item of chatWindows; let i = index" [selected]="i == activeTab"
                 [closable]="true">
       <ng-template pTemplate="header">
-        <app-chat-header></app-chat-header>
+        <app-chat-header [title]="item.username"></app-chat-header>
       </ng-template>
       <ng-template pTemplate="content">
-        <app-chat-window [content]="item.content"></app-chat-window>
+        <app-chat-window [chatWith]= "item.username"></app-chat-window>
       </ng-template>
     </p-tabPanel>
   </p-tabView>

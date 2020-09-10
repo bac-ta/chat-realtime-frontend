@@ -1,5 +1,6 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild} from '@angular/core';
 import {PickerComponent} from '@ctrl/ngx-emoji-mart';
+import {MessageChat} from '../chat-content/chat-content.component';
 
 @Component({
   selector: 'app-chat-editor',
@@ -8,27 +9,36 @@ import {PickerComponent} from '@ctrl/ngx-emoji-mart';
 })
 export class ChatEditorComponent implements OnInit {
 
-  @ViewChild('emoji', { static: false }) emoji: ElementRef;
-  isShow = false;
+  @ViewChild('emoji', {static: false}) emoji: ElementRef;
+  message = '';
+  @Output() sendMsg: EventEmitter<MessageChat> = new EventEmitter();
 
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef) {
+  }
 
   ngOnInit(): void {
   }
 
-  showEmoji(): void {
-    this.isShow = true;
-    console.log(this.el);
-    // this.emoji.nativeElement.focus();
-  }
-
-  hideEmoji(e): void {
-    console.log(e);
-    // this.isShow = false;
-  }
-
   addEmoji(e): void {
-    console.log(e);
-    // this.isShow = false;
+    this.message = this.message + ' ' + e.emoji.colons;
+  }
+
+  sendMessage(): void {
+    if (!this.message) {
+      return;
+    }
+    const msg = new MessageChat();
+    msg.isMe = true;
+    msg.detail = this.message;
+    msg.timeChat = new Date();
+    this.sendMsg.emit(msg);
+    this.message = '';
+  }
+
+  onKey(e): void {
+    if (e.keyCode === 13 && !e.shiftKey) {
+      e.preventDefault();
+      this.sendMessage();
+    }
   }
 }

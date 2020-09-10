@@ -3,4 +3,6 @@
   flex-flow: column-reverse;
   height: 100%;
   padding-bottom: 20px;
+  overflow: auto;
+  max-height: 777px;
 }

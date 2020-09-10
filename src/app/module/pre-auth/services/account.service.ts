@@ -18,7 +18,7 @@ export class AccountService extends BaseService<User>{
     protected injector: Injector
   ) {
     super(injector);
-    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+    this.userSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('user')));
     this.user = this.userSubject.asObservable();
   }
 
@@ -30,8 +30,11 @@ export class AccountService extends BaseService<User>{
     return this.post('/auth/login', { username, password } )
       .pipe(map(res => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        const user = new User(username, password, res.body.accessToken, res.body.message);
-        localStorage.setItem('user', JSON.stringify(user));
+        const user = new User();
+        user.username = username;
+        user.password = password;
+        user.accessToken = res.body.accessToken;
+        sessionStorage.setItem('user', JSON.stringify(user));
         this.userSubject.next(user);
         return user;
       }));
@@ -39,7 +42,7 @@ export class AccountService extends BaseService<User>{
 
   logout(): void {
     // remove user from local storage and set current user to null
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     this.userSubject.next(null);
     this.router.navigate(['/pre-auth/login']);
   }

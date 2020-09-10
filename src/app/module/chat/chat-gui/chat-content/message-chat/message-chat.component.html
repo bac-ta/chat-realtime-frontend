@@ -2,7 +2,7 @@
   <div class="avatar" pTooltip="{{msg.username}}" tooltipPosition="top">
     <img [src]="msg.avatarUrl" alt="">
   </div>
-  <div class="detail" [ngClass]="clzz" pTooltip="{{msg.timeChat}}" tooltipPosition="bottom">
+  <div class="detail" [ngClass]="clzz" pTooltip="{{msg.timeChat | formatDate}}" tooltipPosition="bottom">
     <ng-template [ngForOf]="listStr" let-str ngFor>
       <ng-template [ngIf]="!str.isEmoji">
         {{str.text}}

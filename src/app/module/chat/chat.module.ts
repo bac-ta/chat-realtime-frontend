@@ -5,7 +5,7 @@ import { ChatComponent } from './chat.component';
 import {SharedModule} from '../../shared/shared.module';
 import { ProfileComponent } from './chat-menu/profile/profile.component';
 import { ChatGuiComponent } from './chat-gui/chat-gui.component';
-import {ChatService} from './chat.service';
+import {ChatService} from './services/chat.service';
 import { ChatWindowComponent } from './chat-gui/chat-window/chat-window.component';
 import { ChatHeaderComponent } from './chat-gui/chat-header/chat-header.component';
 import { ChatEditorComponent } from './chat-gui/chat-editor/chat-editor.component';
