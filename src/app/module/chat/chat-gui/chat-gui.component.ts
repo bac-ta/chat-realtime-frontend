@@ -29,6 +29,7 @@ export class ChatGuiComponent implements OnInit, AfterViewInit {
     this.chatSubscription = this.tabService.chatWindows.subscribe(value => {
       if (this.chatWindows.filter(w => w.username === value.username).length <= 0) {
         this.chatWindows.push(value);
+        this.tabService.modifyListWindow(true, value.username);
       }
       this.activeTab = this.chatWindows.map(e => e.username).indexOf(value.username);
       if (this.tabView) {
@@ -43,8 +44,11 @@ export class ChatGuiComponent implements OnInit, AfterViewInit {
   }
 
   handleClose(e): void {
+    this.tabService.modifyListWindow(false, this.chatWindows[e.index].username);
     this.chatWindows.splice(e.index, 1);
     this.activeTab = e.index - 1;
+    const tabName = this.activeTab >= 0 ? this.tabService.setActiveTab(this.chatWindows[this.activeTab].username) : null;
+    this.tabService.setActiveTab(tabName);
   }
 
   handleActiveIndexChange(e): void {

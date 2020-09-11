@@ -35,13 +35,14 @@ export class MessageChatComponent implements OnInit {
       this.clzz = 'other-message';
       this.clzzWrapper = 'p-flex-row';
     }
-    const regex = /:.*:/g;
+    const regex = /:(.*?):/g;
     let msg = this.msg.detail;
     const emojis = msg.match(regex);
     if (!emojis) {
       this.listStr.push({isEmoji: false, text: msg});
       return;
     }
+
     for (const emoji of emojis) {
       const i = msg.indexOf(emoji);
       this.listStr.push({isEmoji: false, text: msg.substring(0, i)});

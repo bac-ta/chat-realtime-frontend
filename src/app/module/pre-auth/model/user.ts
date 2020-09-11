@@ -5,5 +5,5 @@ export class User {
   message: string;
   avatarUrl: string;
   notify = 0;
-  status = '';
+  status = 'Offline';
 }

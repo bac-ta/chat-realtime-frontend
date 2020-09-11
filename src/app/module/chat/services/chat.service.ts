@@ -12,9 +12,12 @@ import {User} from '../../pre-auth/model/user';
 })
 export class ChatService {
   connection;
+  // remove when has load history
+  listMsgNotDisplayed: MessageChat[];
+  private statusSubject = new Subject<User>();
 
   constructor() {
-
+    this.listMsgNotDisplayed = [];
   }
 
   openConnection(jid, password): void {
@@ -23,6 +26,7 @@ export class ChatService {
 
   disconnect(): void {
     this.connection.disconnect('');
+    this.connection.reset();
   }
 
   getReceiver(): Subject<MessageChat> {
@@ -39,6 +43,7 @@ export class ChatService {
   }
 
   getStatus(): Subject<User> {
+    this.statusSubject.subscribe()
     return status;
   }
 }

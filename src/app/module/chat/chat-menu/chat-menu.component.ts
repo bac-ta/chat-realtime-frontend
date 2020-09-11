@@ -45,6 +45,10 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
         const user = this.buddy.find(u => u.username === msg.username);
         if (user && this.tabName !== user.username) {
           user.notify++;
+          // remove when has load history
+          if (!this.tabService.chatWindowName.has(msg.username)) {
+            this.chatService.listMsgNotDisplayed.push(msg);
+          }
         }
       }
     });

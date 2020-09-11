@@ -22,7 +22,8 @@
   margin-bottom: 30px;
   width: 80%;
   position: relative;
-  white-space: pre;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .detail:after {

@@ -4,10 +4,26 @@ import * as $ from 'jquery';
 import {Subject} from 'rxjs';
 import {MessageChat} from './chat-gui/chat-content/chat-content.component';
 import {User} from '../pre-auth/model/user';
+import {Howl, Howler} from 'howler';
+import {ajax} from 'rxjs/ajax';
+import {buffer, concatMap, map} from 'rxjs/operators';
 
 export const receiver = new Subject<MessageChat>();
 export const roster = new Subject<User>();
+const sessionCheck = (user) => {
+  return ajax({
+    url: environment.apiOP + 'sessions/' + user.username,
+    method: 'GET',
+    headers: {
+      Authorization: environment.tokenOP
+    }
+  });
+};
 export const status = new Subject<User>();
+
+const sound = new Howl({
+  src: ['/assets/sound/notify.mp3']
+});
 
 function log(msg: string): void {
   console.log(msg);
@@ -47,10 +63,8 @@ function onMessage(msg: Element): boolean {
   const elems = msg.getElementsByTagName('body');
 
   if (type === 'chat' && elems.length > 0) {
+    sound.play();
     const body = elems[0];
-
-    log('ECHOBOT: I got a message from ' + from + ': ' +
-      Strophe.getText(body));
 
     const text = Strophe.getText(body);
     const message = new MessageChat();
@@ -59,8 +73,6 @@ function onMessage(msg: Element): boolean {
     message.detail = text;
     message.timeChat = new Date();
     receiver.next(message);
-
-    log('ECHOBOT: I sent ' + from + ': ' + Strophe.getText(body));
   }
 
   // we must return true to keep the handler alive.
@@ -77,8 +89,6 @@ export function sendMessage(message, to): void {
     }).c('body').t(message);
 
     connection.send(reply);
-
-    log('I sent ' + to + ': ' + message);
   }
 }
 
@@ -96,8 +106,6 @@ function onConnect(s: Strophe.Status): void {
   } else if (s === Strophe.Status.DISCONNECTED) {
   } else if (s === Strophe.Status.CONNECTED) {
     log('Strophe is connected.');
-    log('ECHOBOT: Send a message to ' + connection.jid +
-      ' to talk to me.');
     getRoster();
     connection.addHandler(onMessage, null, 'message', null, null, null);
     connection.addHandler(onOwnMessage, null, 'iq', 'set', null, null);
@@ -171,7 +179,6 @@ function onPresence(presence): boolean {
     presenceType = 'Online';
   }
   const user = new User();
-  log('	>' + from + ' --> ' + presenceType);
   if (presenceType !== 'error') {
     user.username = from.substring(0, from.indexOf('@'));
     if (presenceType === 'unavailable') {
@@ -181,7 +188,7 @@ function onPresence(presence): boolean {
       if (show === 'chat' || show === '') {
         presenceType = 'Online';
       } else {
-        // etc...
+        // presenceType = 'Offline';
       }
     }
     user.status = presenceType;

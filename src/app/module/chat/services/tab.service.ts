@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {ChatWindow} from '../chat-gui/chat-gui.component';
 
@@ -8,12 +8,26 @@ import {ChatWindow} from '../chat-gui/chat-gui.component';
 export class TabService {
   chatWindows: BehaviorSubject<ChatWindow>;
   activeTab: Subject<string> = new Subject<string>();
-  constructor() {this.chatWindows = new BehaviorSubject<ChatWindow>({username: 'admin'}); }
+  // remove when has load history
+  chatWindowName = new Set<string>([]);
+
+  constructor() {
+    this.chatWindows = new BehaviorSubject<ChatWindow>({username: 'admin'});
+  }
+
   addNewChatWindow(chatWindow): void {
     this.chatWindows.next(chatWindow);
   }
 
   setActiveTab(idx): void {
     this.activeTab.next(idx);
+  }
+
+  modifyListWindow(isAppend, name): void {
+    if (isAppend) {
+      this.chatWindowName.add(name);
+    } else {
+      this.chatWindowName.delete(name);
+    }
   }
 }

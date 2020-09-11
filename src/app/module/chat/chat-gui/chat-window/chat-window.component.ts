@@ -24,6 +24,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // remove when has load history
+    const msgNotDisplay = this.chatService.listMsgNotDisplayed.filter(item => item.username === this.chatWith);
+    msgNotDisplay.forEach(msg => this.chatService.listMsgNotDisplayed
+      .splice(this.chatService.listMsgNotDisplayed.findIndex(i => i.username === msg.username), 1));
+    this.chatMsgs.push(...msgNotDisplay);
+    // remove when has load history
     this.subcriptionRecv = this.chatService.getReceiver().subscribe({
       next: (msg) => {
         if (msg.username === this.chatWith) {
