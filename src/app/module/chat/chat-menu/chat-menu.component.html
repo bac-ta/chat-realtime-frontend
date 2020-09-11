@@ -7,7 +7,18 @@
     <a href="#">Room 1</a>
   </div>
   <div class="category">People</div>
-  <div class="category-item">
-    <a href="#" (click)="openChat()">#Admin</a>
+  <div class="category-item" *ngFor="let fr of buddy" >
+    <a href="#" (click)="openChat(fr)" class="p-d-flex p-align-center">
+      <div class="menu-avatar">
+        <img src="/assets/layout/images/avatar.png">
+      </div>
+      <div class="info">
+        <span class="name">{{fr.username}}</span>
+        <span class="status" [ngClass]="fr.status">{{fr.status}}</span>
+      </div>
+      <div class="notifications" *ngIf="fr.notify > 0">
+        <span class="p-badge p-badge-danger">{{fr.notify}}</span>
+      </div>
+    </a>
   </div>
 </div>
