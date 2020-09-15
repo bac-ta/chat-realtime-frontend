@@ -10,15 +10,15 @@ import {buffer, concatMap, map} from 'rxjs/operators';
 
 export const receiver = new Subject<MessageChat>();
 export const roster = new Subject<User>();
-const sessionCheck = (user) => {
-  return ajax({
-    url: environment.apiOP + 'sessions/' + user.username,
-    method: 'GET',
-    headers: {
-      Authorization: environment.tokenOP
-    }
-  });
-};
+// const sessionCheck = (user) => {
+//   return ajax({
+//     url: environment.apiOP + 'sessions/' + user.username,
+//     method: 'GET',
+//     headers: {
+//       Authorization: environment.tokenOP
+//     }
+//   });
+// };
 export const status = new Subject<User>();
 
 const sound = new Howl({

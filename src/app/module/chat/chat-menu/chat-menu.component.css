@@ -2,10 +2,19 @@
   height: 100%;
   background-color: var(--surface-a);
   overflow: auto;
-  width: 250px;
+  width: 400px;
   border-right: 1px solid var(--surface-d);
   padding: 1rem;
   transition: transform .4s cubic-bezier(.05, .74, .2, .99);
+}
+
+.category-room {
+  display: block;
+  color: var(--text-color-secondary);
+  font-weight: 600;
+  padding: 1.5rem 0 1rem;
+  font-size: .857rem;
+  text-transform: uppercase;
 }
 
 .category {
@@ -73,3 +82,4 @@
   position: absolute;
   right: 0;
 }
+

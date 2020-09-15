@@ -12,14 +12,20 @@ import { ChatEditorComponent } from './chat-gui/chat-editor/chat-editor.componen
 import { FileManagerComponent } from './file-manager/file-manager.component';
 import { ChatContentComponent } from './chat-gui/chat-content/chat-content.component';
 import { MessageChatComponent } from './chat-gui/chat-content/message-chat/message-chat.component';
+import { SearchComponent } from './chat-menu/search/search.component';
+import { RoomComponent } from './chat-menu/room/room.component';
+import { PeopleComponent } from './chat-menu/people/people.component';
+import { SearchTypeComponent } from './chat-menu/search/search-type/search-type.component';
+import {TabMenuModule} from 'primeng';
 
 
 
 @NgModule({
-  declarations: [ChatMenuComponent, ChatComponent, ProfileComponent, ChatGuiComponent, ChatWindowComponent, ChatHeaderComponent, ChatEditorComponent, FileManagerComponent, ChatContentComponent, MessageChatComponent],
+  declarations: [ChatMenuComponent, ChatComponent, ProfileComponent, ChatGuiComponent, ChatWindowComponent, ChatHeaderComponent, ChatEditorComponent, FileManagerComponent, ChatContentComponent, MessageChatComponent, SearchComponent, RoomComponent, PeopleComponent, SearchTypeComponent],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    TabMenuModule
   ],
   providers: [
     ChatService

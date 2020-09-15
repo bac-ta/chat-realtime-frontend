@@ -2,12 +2,16 @@
   <div class="layout-menu">
     <app-profile></app-profile>
   </div>
-  <div class="category">Room</div>
+
+  <div>
+    <app-search></app-search>
+  </div>
+  <div class="category-room">Room</div>
   <div class="category-item">
     <a href="#">Room 1</a>
   </div>
   <div class="category">People</div>
-  <div class="category-item" *ngFor="let fr of buddy" >
+  <div class="category-item" *ngFor="let fr of buddy">
     <a href="#" (click)="openChat(fr)" class="p-d-flex p-align-center">
       <div class="menu-avatar">
         <img src="/assets/layout/images/avatar.png">
