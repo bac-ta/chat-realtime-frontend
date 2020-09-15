@@ -17,11 +17,12 @@ import { RoomComponent } from './chat-menu/room/room.component';
 import { PeopleComponent } from './chat-menu/people/people.component';
 import { SearchTypeComponent } from './chat-menu/search/search-type/search-type.component';
 import {TabMenuModule} from 'primeng';
+import { SearchContentComponent } from './chat-menu/search/search-content/search-content.component';
 
 
 
 @NgModule({
-  declarations: [ChatMenuComponent, ChatComponent, ProfileComponent, ChatGuiComponent, ChatWindowComponent, ChatHeaderComponent, ChatEditorComponent, FileManagerComponent, ChatContentComponent, MessageChatComponent, SearchComponent, RoomComponent, PeopleComponent, SearchTypeComponent],
+  declarations: [ChatMenuComponent, ChatComponent, ProfileComponent, ChatGuiComponent, ChatWindowComponent, ChatHeaderComponent, ChatEditorComponent, FileManagerComponent, ChatContentComponent, MessageChatComponent, SearchComponent, RoomComponent, PeopleComponent, SearchTypeComponent, SearchContentComponent],
   imports: [
     CommonModule,
     SharedModule,

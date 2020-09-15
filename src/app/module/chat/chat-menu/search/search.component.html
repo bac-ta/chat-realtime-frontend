@@ -1,8 +1,9 @@
-<div >
-<div class="p-input-icon-left" *ngIf="!isShowSearchType">
-  <i class="pi pi-search"></i>
-    <input type="text" pInputText placeholder="Search" (click)="showSearchType()">
-</div>
+<div>
+  <div class="p-input-icon-left p-input-icon-right">
+    <i class="pi pi-search"></i>
+    <input type="text" pInputText placeholder="Search users & groups" (click)="showSearchType()">
+    <i class="pi pi-times" *ngIf="isShowSearchType" (click)="hideSearchType()"></i>
+  </div>
 </div>
 <div *ngIf="isShowSearchType">
   <app-search-type></app-search-type>

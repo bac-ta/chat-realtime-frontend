@@ -1,6 +1,10 @@
 .p-input-icon-left > .p-inputtext {
   padding-left: 2.5rem;
-  width: 363px;
+  width: 365px;
   overflow: auto;
+}
+
+.pi.pi-times {
+  cursor: pointer;
 }
 
