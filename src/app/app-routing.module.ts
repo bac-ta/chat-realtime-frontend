@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {PreAuthComponent} from './module/pre-auth/pre-auth.component';
 import {AuthGuard} from './core/guards/auth.guard';
 import {ChatComponent} from './module/chat/chat.component';
+import {NotFoundComponent} from './module/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,14 @@ const routes: Routes = [
     path: '',
     component: ChatComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: '404',
+    component: NotFoundComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/404'
   }
 ];
 
