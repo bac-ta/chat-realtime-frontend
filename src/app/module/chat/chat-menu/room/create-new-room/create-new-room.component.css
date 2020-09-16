@@ -1,0 +1,19 @@
+.chat-avatar-choose {
+  cursor: pointer;
+}
+
+.p-inputtext {
+  width: 300px;
+  padding-top: 100px;
+}
+
+.avatar-view {
+  width: 100px;
+  height: 100px;
+  background-color: grey;
+}
+
+.form-chat-room {
+  height: 300px;
+  display: block;
+}

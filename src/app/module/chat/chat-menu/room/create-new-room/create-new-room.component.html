@@ -1,0 +1,9 @@
+<button pButton type="button" label="Create new room" class="p-button-text" (click)="openRoomPopup()"></button>
+<p-dialog header="Create new room" [(visible)]="isOpenCreateNewRoomPopup">
+  <form class="form-chat-room">
+    <label for="files" class="p-button-secondary chat-avatar-choose">Choose avatar</label>
+    <input type="file" value="Choose avatar" id="files" style="visibility:hidden;">
+    <div class="avatar-view"></div>
+    <input type="text" pInputText placeholder="Chat room name"/>
+  </form>
+</p-dialog>
