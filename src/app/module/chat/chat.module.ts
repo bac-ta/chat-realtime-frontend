@@ -16,7 +16,7 @@ import { SearchComponent } from './chat-menu/search/search.component';
 import { RoomComponent } from './chat-menu/room/room.component';
 import { PeopleComponent } from './chat-menu/people/people.component';
 import { SearchTypeComponent } from './chat-menu/search/search-type/search-type.component';
-import {DialogModule, TabMenuModule} from 'primeng';
+import {DialogModule, ListboxModule, TabMenuModule} from 'primeng';
 import { SearchContentComponent } from './chat-menu/search/search-content/search-content.component';
 import { CreateNewRoomComponent } from './chat-menu/room/create-new-room/create-new-room.component';
 
@@ -28,7 +28,8 @@ import { CreateNewRoomComponent } from './chat-menu/room/create-new-room/create-
         CommonModule,
         SharedModule,
         TabMenuModule,
-        DialogModule
+        DialogModule,
+        ListboxModule
     ],
   providers: [
     ChatService
