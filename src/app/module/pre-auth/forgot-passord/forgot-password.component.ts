@@ -15,7 +15,7 @@ import {finalize, first} from 'rxjs/operators';
 export class ForgotPasswordComponent implements OnInit {
   forgetPasswordForm: FormGroup = new FormGroup({});
   model = {
-    email: '',
+    email: null,
   };
   fields: FormlyFieldConfig[] = [{
     fieldGroupClassName: 'p-grid',
@@ -45,12 +45,13 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   onSubmit(): void {
     if (this.forgetPasswordForm.valid) {
-      this.spinner.show('verifyUser');
-      this.accountService.verifyUser(this.model)
+      this.spinner.show('forgotPassword');
+      this.accountService.forgotPassword(this.model)
         .pipe(first(),
-          finalize(() => this.spinner.hide('verifyUser')))
+          finalize(() => this.spinner.hide('forgotPassword')))
         .subscribe({
           next: () => {
             this.router.navigate(['/**']);
@@ -60,6 +61,14 @@ export class ForgotPasswordComponent implements OnInit {
           }
         });
       // alert(JSON.stringify(this.model));
+      // this.accountService.forgotPassword(this.model).subscribe(
+      //   data => console.log(data),
+      //   error => console.log(error)
+      // );
     }
   }
+
+  // handleResponse(res){
+  //   this.model.email = null;
+  // }
 }

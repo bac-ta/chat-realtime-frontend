@@ -45,23 +45,26 @@ export class AccountService extends BaseService<User> {
       }));
   }
 
-  // forgotPassword(email): Observable<any> {
-  //   return this.post('/user/forgot-password', email)
-  //     .pipe(map(res => {
-  //         const passwordReset = new RequestPasswordReset();
-  //         passwordReset.email = email;
-  //         sessionStorage.setItem('forgotPassword', JSON.stringify(passwordReset));
-  //         this.passwordResetSubject.next(passwordReset);
-  //       }
-  //       )
-  //     );
-  // }
-
-  verifyUser(data): Observable<any> {
-    return this.post('/user/forgot-password', data).pipe(
-      catchError((error: HttpErrorResponse) => throwError(error))
-    );
+  forgotPassword(email) {
+    return this.post('/user/forgot-password', email)
+      .pipe(map(res => {
+          const passwordReset = new RequestPasswordReset();
+          passwordReset.email = email;
+          sessionStorage.setItem('forgotPassword', JSON.stringify(passwordReset));
+          this.passwordResetSubject.next(passwordReset);
+        }
+        )
+      );
   }
+  // tslint:disable-next-line:typedef
+  // forgotPassword(email) {
+  //   return this.post('/user/forgot-password', email);
+  // }
+  // verifyUser(data): Observable<any> {
+  //   return this.post('/user/forgot-password', data).pipe(
+  //     catchError((error: HttpErrorResponse) => throwError(error))
+  //   );
+  // }
 
   logout(): void {
     // remove user from local storage and set current user to null
