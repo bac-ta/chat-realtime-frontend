@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MenuItem} from 'primeng';
 
 @Component({
@@ -11,7 +11,7 @@ export class SearchTypeComponent implements OnInit {
   activeItem: MenuItem;
   searchType = 0;
   @ViewChild('searchTypeTab') searchTypeTab: MenuItem[];
-
+  @Output() changeTab: EventEmitter<any> = new EventEmitter();
   constructor() {
   }
 
@@ -36,5 +36,6 @@ export class SearchTypeComponent implements OnInit {
 
   activeMenu(): void {
     this.activeItem = this.searchTypeTab['activeItem'];
+    this.changeTab.emit(true);
   }
 }

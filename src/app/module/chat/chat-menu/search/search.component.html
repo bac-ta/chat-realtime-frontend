@@ -1,26 +1,42 @@
 <div>
   <div class="p-input-icon-left p-input-icon-right">
     <i class="pi pi-search"></i>
-    <input type="text" pInputText placeholder="Search people & rooms" (click)="showSearchType()"
+    <input type="text" [(ngModel)]="searchText" pInputText placeholder="Search people & rooms" (click)="showSearchType()"
            (keyup.enter)="search()">
     <i class="pi pi-times" *ngIf="isShowSearchType" (click)="hideSearchType()" (keyup.escape)="hideSearchType()"></i>
   </div>
 </div>
 <div *ngIf="isShowSearchType">
-  <app-search-type></app-search-type>
+  <app-search-type (changeTab)="callSearch($event)"></app-search-type>
   <div class="p-button-icon-right">
     <i class="pi p-growl-icon-close"></i>
   </div>
 </div>
 
-<div *ngIf="isShowSearchType">
-  <p-listbox [options]="fetchUserResponses()" [(ngModel)]="selectedUsers" [filter]="false">
-    <ng-template pTemplate="header" >
+<div *ngIf="isShowSearchType" class="s-search-content">
+  <p-listbox [options]="fetchUserResponses()" [(ngModel)]="selectedUsers" [filter]="false" [multiple]="true"
+             optionLabel="name" [listStyle]="{'max-height':'350px'}"
+             *ngIf="!activeItem || activeItem.label=='All'|| activeItem.label=='People'">
+    <ng-template pTemplate="header">
       People
+    </ng-template>
+
+    <ng-template let-user pTemplate="item">
+      <span class="s-status-online">
+        ●
+      </span>
+      <span class="s-status-offline">
+        ●
+      </span>
+      <div class="s-search-item">
+        {{user.value.name}}
+      </div>
     </ng-template>
   </p-listbox>
 
-  <p-listbox [options]="fetchRoomResponses()" [(ngModel)]="selectedRooms" [filter]="false">
+  <p-listbox [options]="fetchRoomResponses()" [(ngModel)]="selectedRooms" [filter]="false" [multiple]="true"
+             optionLabel="name" [listStyle]="{'max-height':'350px'}"
+             *ngIf="!activeItem || activeItem.label=='All'|| activeItem.label=='Rooms'">
     <ng-template pTemplate="header">
       Rooms
     </ng-template>

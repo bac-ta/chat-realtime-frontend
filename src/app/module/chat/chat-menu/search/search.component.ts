@@ -9,14 +9,17 @@ import {RoomResponse} from '../../models/room-response';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css', '../chat-menu.component.css']
 })
 export class SearchComponent implements OnInit {
   isShowSearchType = false;
-  searchText: string = '';
-  start: number = 0;
-  searchType: number = 0;
+  searchText = '';
+  start = 0;
+  searchType = 0;
   searchResponse: SearchResponse;
+  userResponses: UserResponse[];
+  roomResponses: RoomResponse[];
+
   activeItem: MenuItem;
 
   selectedUsers: any[];
@@ -56,23 +59,49 @@ export class SearchComponent implements OnInit {
         this.searchType = 0;
         break;
     }
+
     this.searchService.search(this.searchText, this.start, this.searchType).subscribe(response => {
       this.searchResponse = response;
     });
   }
 
-  fetchUserResponses(): UserResponse[] {
-    if (this.searchResponse) {
-      return this.searchResponse.userResponses;
-    }
-    return [];
+  callSearch(event) {
+    if (event)
+      this.search();
   }
 
-  fetchRoomResponses(): RoomResponse[] {
-    if (this.searchResponse) {
-      return this.searchResponse.roomResponses;
+  fetchUserResponses(): any {
+    if (!this.searchResponse) {
+      return [];
     }
-    return [];
+
+    let users = [];
+    for (let item of this.searchResponse.userResponses) {
+      const user = {
+        username: item.username,
+        name: item.name,
+        email: item.email
+      };
+      users.push(user);
+    }
+    return users;
+
+  }
+
+  fetchRoomResponses(): any {
+    if (!this.searchResponse) {
+      return [];
+    }
+    let rooms = [];
+    for (let item of this.searchResponse.roomResponses) {
+      const room = {
+        name: item.name,
+        naturalName: item.naturalName,
+        description: item.description
+      };
+      rooms.push(room);
+    }
+    return rooms;
   }
 
 }

@@ -36,18 +36,18 @@ export class SearchService extends BaseService<any> {
       const userResponsesObj = body['userResponses'];
       for (let userElement of userResponsesObj) {
         let userResponse = new UserResponse();
-        userResponse.email = userElement['email'].toString;
-        userResponse.username = userElement['username'].toString;
-        userResponse.name = userElement['name'].toString;
+        userResponse.email = userElement['email'];
+        userResponse.username = userElement['username'];
+        userResponse.name = userElement['name'];
         userResponses.push(userResponse);
       }
       const roomResponsesObj = body['roomResponses'];
 
       for (let roomElement of roomResponsesObj) {
         let roomResponse = new RoomResponse();
-        roomResponse.name = roomElement['name'].toString;
-        roomResponse.description = roomElement['description'].toString;
-        roomResponse.naturalName = roomElement['naturalName'].toString;
+        roomResponse.name = roomElement['name'];
+        roomResponse.description = roomElement['description'];
+        roomResponse.naturalName = roomElement['naturalName'];
         roomResponses.push(roomResponse);
       }
       return new SearchResponse(userResponses, roomResponses);

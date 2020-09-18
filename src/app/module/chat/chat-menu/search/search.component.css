@@ -8,6 +8,21 @@
   cursor: pointer;
 }
 
-::ng-deep .p-listbox-header {
-  background-color: gainsboro;
+::ng-deep .p-listbox .p-listbox-header {
+  background-color: #c3c3e2 !important;
+}
+
+.s-search-content {
+  max-height: 800px;
+}
+
+.s-status-online {
+  color: #65ff37;
+}
+
+.s-status-offline {
+  color: grey;
+}
+.s-search-item {
+  margin-left: 10px;
 }
