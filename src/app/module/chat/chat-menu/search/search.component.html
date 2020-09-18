@@ -12,3 +12,17 @@
     <i class="pi p-growl-icon-close"></i>
   </div>
 </div>
+
+<div *ngIf="isShowSearchType">
+  <p-listbox [options]="fetchUserResponses()" [(ngModel)]="selectedUsers" [filter]="false">
+    <ng-template pTemplate="header" >
+      People
+    </ng-template>
+  </p-listbox>
+
+  <p-listbox [options]="fetchRoomResponses()" [(ngModel)]="selectedRooms" [filter]="false">
+    <ng-template pTemplate="header">
+      Rooms
+    </ng-template>
+  </p-listbox>
+</div>

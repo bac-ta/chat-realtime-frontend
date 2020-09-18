@@ -18,13 +18,11 @@ import {PeopleComponent} from './chat-menu/people/people.component';
 import {SearchTypeComponent} from './chat-menu/search/search-type/search-type.component';
 import {DialogModule, ListboxModule, TabMenuModule} from 'primeng';
 import {CreateNewRoomComponent} from './chat-menu/room/create-new-room/create-new-room.component';
-import { SearchRoomsContentComponent } from './chat-menu/search/search-rooms-content/search-rooms-content.component';
-import { SearchPeopleComponentComponent } from './chat-menu/search/search-people-component/search-people-component.component';
 
 
 @NgModule({
   declarations: [ChatMenuComponent, ChatComponent, ProfileComponent, ChatGuiComponent, ChatWindowComponent, ChatHeaderComponent, ChatEditorComponent, FileManagerComponent,
-    ChatContentComponent, MessageChatComponent, SearchComponent, RoomComponent, PeopleComponent, SearchTypeComponent, CreateNewRoomComponent, SearchRoomsContentComponent, SearchPeopleComponentComponent],
+    ChatContentComponent, MessageChatComponent, SearchComponent, RoomComponent, PeopleComponent, SearchTypeComponent, CreateNewRoomComponent],
   imports: [
     CommonModule,
     SharedModule,

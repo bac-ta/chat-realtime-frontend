@@ -18,8 +18,9 @@ export class SearchComponent implements OnInit {
   searchType: number = 0;
   searchResponse: SearchResponse;
   activeItem: MenuItem;
-  userResponses: UserResponse[];
-  roomResponses: RoomResponse[];
+
+  selectedUsers: any[];
+  selectedRooms: any[];
 
   @ViewChild(SearchTypeComponent, {static: false}) searchTypeComponent: SearchTypeComponent;
 
@@ -60,12 +61,18 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  fetchUserResponses(): void {
-    this.userResponses = this.searchResponse.userResponses;
+  fetchUserResponses(): UserResponse[] {
+    if (this.searchResponse) {
+      return this.searchResponse.userResponses;
+    }
+    return [];
   }
 
-  fetchRoomResponses(): void {
-    this.roomResponses = this.searchResponse.roomResponses;
+  fetchRoomResponses(): RoomResponse[] {
+    if (this.searchResponse) {
+      return this.searchResponse.roomResponses;
+    }
+    return [];
   }
 
 }

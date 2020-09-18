@@ -8,3 +8,6 @@
   cursor: pointer;
 }
 
+::ng-deep .p-listbox-header {
+  background-color: gainsboro;
+}

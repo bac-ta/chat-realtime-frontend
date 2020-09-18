@@ -38,6 +38,7 @@ export class SearchService extends BaseService<any> {
         let userResponse = new UserResponse();
         userResponse.email = userElement['email'].toString;
         userResponse.username = userElement['username'].toString;
+        userResponse.name = userElement['name'].toString;
         userResponses.push(userResponse);
       }
       const roomResponsesObj = body['roomResponses'];
