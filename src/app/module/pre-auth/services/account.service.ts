@@ -9,7 +9,7 @@ import {map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService extends BaseService<User>{
+export class AccountService extends BaseService<User> {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
 
@@ -27,7 +27,7 @@ export class AccountService extends BaseService<User>{
   }
 
   login({username, password}): Observable<any> {
-    return this.post('/auth/login', { username, password } )
+    return this.post('/auth/login', {username, password})
       .pipe(map(res => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         const user = new User(username, password, res.body.accessToken, res.body.message);
@@ -42,5 +42,12 @@ export class AccountService extends BaseService<User>{
     localStorage.removeItem('user');
     this.userSubject.next(null);
     this.router.navigate(['/pre-auth/login']);
+  }
+
+  createUser({username, name, email, password}): Observable<any> {
+    return this.post('/user/create', {username, name, email, password})
+      .pipe(map(() => {
+        this.router.navigate(['/pre-auth/login']);
+      }));
   }
 }
