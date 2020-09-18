@@ -2,14 +2,13 @@ import {Injectable, Injector} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../model/user';
 import {Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
 import {BaseService} from '../../../core/services/base.service';
 import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService extends BaseService<User>{
+export class AccountService extends BaseService<User> {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
 
@@ -27,7 +26,7 @@ export class AccountService extends BaseService<User>{
   }
 
   login({username, password}): Observable<any> {
-    return this.post('/auth/login', { username, password } )
+    return this.post('/auth/login', {username, password})
       .pipe(map(res => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         const user = new User();

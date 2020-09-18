@@ -1,8 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ChatService} from '../services/chat.service';
 import {Subscription} from 'rxjs';
 import {User} from '../../pre-auth/model/user';
 import {TabService} from '../services/tab.service';
+import {SearchComponent} from './search/search.component';
 
 @Component({
   selector: 'app-chat-menu',
@@ -17,6 +18,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   private subscriptionTab: Subscription;
   private tabName: string;
   private subscriptionStatus: Subscription;
+  @ViewChild(SearchComponent, {static: false}) searchTypeComponent: SearchComponent;
 
   constructor(private chatService: ChatService,
               private tabService: TabService) {

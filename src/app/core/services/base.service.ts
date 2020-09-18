@@ -32,4 +32,14 @@ export class BaseService<T> {
       observe: 'response'
     });
   }
+
+  public put(url: string, data, customHeaders = {}): Observable<HttpResponse<T>> {
+    const headers = new HttpHeaders(Object.assign({
+      'Content-Type': 'application/json',
+    }, customHeaders));
+    return this.http.put<T>(this.baseUrl + url, data, {
+      headers,
+      observe: 'response'
+    });
+  }
 }
