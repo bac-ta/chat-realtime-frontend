@@ -12,10 +12,10 @@ export const receiver = new Subject<MessageChat>();
 export const roster = new Subject<User>();
 const sessionCheck = (user) => {
   return ajax({
-    url: environment.apiOP + 'sessions/' + user.username,
+    // url: environment.apiOP + 'sessions/' + user.username,
     method: 'GET',
     headers: {
-      Authorization: environment.tokenOP
+      // Authorization: environment.tokenOP
     }
   });
 };

@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig} from '@ngx-formly/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AccountService} from '../services/account.service';
+import {errorObject} from 'rxjs/internal-compatibility';
+import {MessageService} from 'primeng';
 
 @Component({
   selector: 'app-new-password',
@@ -11,11 +14,15 @@ import {ActivatedRoute} from '@angular/router';
 export class NewPasswordComponent implements OnInit {
   newPasswordForm: FormGroup = new FormGroup({});
   model = {
-    password: null,
-    password_confirmation: null,
-    resetToken: null
+    resetToken: '',
+    password: ''
   };
   fields: FormlyFieldConfig[] = [{
+    validators: {
+      validation: [
+        {name: 'fieldMatch', options: {errorPath: 'passwordConfirm'}},
+      ],
+    },
     fieldGroupClassName: 'p-grid',
     fieldGroup: [
       {
@@ -35,7 +42,7 @@ export class NewPasswordComponent implements OnInit {
       },
       {
         className: 'p-col-12',
-        key: 'password',
+        key: 'passwordConfirm',
         type: 'input',
         wrappers: ['common-wrapper'],
         templateOptions: {
@@ -44,26 +51,41 @@ export class NewPasswordComponent implements OnInit {
           required: true,
           icon: 'pi pi-lock'
         },
-        // validators: {
-        //   validation: ['pass']
-        // }
       }
     ]
   }
   ];
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private accountService: AccountService,
+    private router: Router,
+    private messageService: MessageService
   ) {
-    route.queryParams.subscribe(params => {
-      this.model.resetToken = params.tokens;
+  }
+
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.model.resetToken = params.token;
     });
   }
 
-  ngOnInit(): void {
+  onSubmit(): void {
+    if (this.newPasswordForm.valid) {
+      this.accountService.changePassword(this.model).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error)
+      );
+    }
   }
 
-  onSubmit(): void {
-
+  // tslint:disable-next-line:typedef
+  handleResponse(data){
+    this.router.navigateByUrl('/pre-auth/login');
+  }
+  // tslint:disable-next-line:typedef
+  handleError(data){
+      this.messageService.add({severity: 'error', summary: 'Email valid', detail: data});
   }
 }

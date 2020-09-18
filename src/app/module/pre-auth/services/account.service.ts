@@ -6,6 +6,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {BaseService} from '../../../core/services/base.service';
 import {catchError, map} from 'rxjs/operators';
 import {RequestPasswordReset} from '../model/request-password-reset';
+import {NewPassword} from '../model/new-password';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,9 @@ export class AccountService extends BaseService<User> {
   public user: Observable<User>;
   private passwordResetSubject: BehaviorSubject<RequestPasswordReset>;
   public passwordReset: Observable<RequestPasswordReset>;
-
+  private newPasswordSubject: BehaviorSubject<NewPassword>;
+  public newPassword: Observable<NewPassword>;
+  
   constructor(
     private router: Router,
     protected injector: Injector
@@ -25,6 +28,8 @@ export class AccountService extends BaseService<User> {
     this.passwordReset = this.passwordResetSubject.asObservable();
     this.userSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('user')));
     this.user = this.userSubject.asObservable();
+    this.newPasswordSubject = new BehaviorSubject<NewPassword>(JSON.parse(sessionStorage.getItem('changePassword')));
+    this.newPassword = this.newPasswordSubject.asObservable();
   }
 
   public get userValue(): User {
@@ -45,6 +50,7 @@ export class AccountService extends BaseService<User> {
       }));
   }
 
+  // tslint:disable-next-line:typedef
   forgotPassword(email) {
     return this.post('/user/forgot-password', email)
       .pipe(map(res => {
@@ -56,6 +62,7 @@ export class AccountService extends BaseService<User> {
         )
       );
   }
+
   // tslint:disable-next-line:typedef
   // forgotPassword(email) {
   //   return this.post('/user/forgot-password', email);
@@ -65,6 +72,17 @@ export class AccountService extends BaseService<User> {
   //     catchError((error: HttpErrorResponse) => throwError(error))
   //   );
   // }
+  changePassword({resetToken, password}): Observable<any> {
+    return this.put('/user/reset-password', {resetToken, password})
+      .pipe(map(res => {
+        const newPassword = new NewPassword();
+        newPassword.resetToken = resetToken;
+        newPassword.password = password;
+        sessionStorage.setItem('changePassword', JSON.stringify(newPassword));
+        this.newPasswordSubject.next(newPassword);
+        return newPassword;
+      }));
+  }
 
   logout(): void {
     // remove user from local storage and set current user to null
