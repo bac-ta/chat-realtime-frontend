@@ -2,7 +2,6 @@ import {Injectable, Injector} from '@angular/core';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {User} from '../model/user';
 import {Router} from '@angular/router';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {BaseService} from '../../../core/services/base.service';
 import {catchError, map} from 'rxjs/operators';
 import {RequestPasswordReset} from '../model/request-password-reset';
@@ -18,17 +17,17 @@ export class AccountService extends BaseService<User> {
   public passwordReset: Observable<RequestPasswordReset>;
   private newPasswordSubject: BehaviorSubject<NewPassword>;
   public newPassword: Observable<NewPassword>;
-  
+
   constructor(
     private router: Router,
     protected injector: Injector
   ) {
     super(injector);
-    this.passwordResetSubject = new BehaviorSubject<RequestPasswordReset>(JSON.parse(sessionStorage.getItem('forgotPassword')));
+    this.passwordResetSubject = new BehaviorSubject<RequestPasswordReset>(new RequestPasswordReset());
     this.passwordReset = this.passwordResetSubject.asObservable();
     this.userSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('user')));
     this.user = this.userSubject.asObservable();
-    this.newPasswordSubject = new BehaviorSubject<NewPassword>(JSON.parse(sessionStorage.getItem('changePassword')));
+    this.newPasswordSubject = new BehaviorSubject<NewPassword>(new NewPassword());
     this.newPassword = this.newPasswordSubject.asObservable();
   }
 
@@ -50,35 +49,25 @@ export class AccountService extends BaseService<User> {
       }));
   }
 
-  // tslint:disable-next-line:typedef
-  forgotPassword(email) {
-    return this.post('/user/forgot-password', email)
+  forgotPassword({email}): Observable<any> {
+    return this.post('/user/forgot-password', {email})
       .pipe(map(res => {
           const passwordReset = new RequestPasswordReset();
           passwordReset.email = email;
-          sessionStorage.setItem('forgotPassword', JSON.stringify(passwordReset));
+          JSON.stringify(passwordReset);
           this.passwordResetSubject.next(passwordReset);
         }
         )
       );
   }
 
-  // tslint:disable-next-line:typedef
-  // forgotPassword(email) {
-  //   return this.post('/user/forgot-password', email);
-  // }
-  // verifyUser(data): Observable<any> {
-  //   return this.post('/user/forgot-password', data).pipe(
-  //     catchError((error: HttpErrorResponse) => throwError(error))
-  //   );
-  // }
   changePassword({resetToken, password}): Observable<any> {
     return this.put('/user/reset-password', {resetToken, password})
       .pipe(map(res => {
         const newPassword = new NewPassword();
         newPassword.resetToken = resetToken;
         newPassword.password = password;
-        sessionStorage.setItem('changePassword', JSON.stringify(newPassword));
+        JSON.stringify(newPassword);
         this.newPasswordSubject.next(newPassword);
         return newPassword;
       }));

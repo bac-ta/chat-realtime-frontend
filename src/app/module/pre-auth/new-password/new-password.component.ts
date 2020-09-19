@@ -5,6 +5,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AccountService} from '../services/account.service';
 import {errorObject} from 'rxjs/internal-compatibility';
 import {MessageService} from 'primeng';
+import {finalize, first} from 'rxjs/operators';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-new-password',
@@ -60,7 +62,8 @@ export class NewPasswordComponent implements OnInit {
     private route: ActivatedRoute,
     private accountService: AccountService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private spinner: NgxSpinnerService
   ) {
   }
 
@@ -73,19 +76,19 @@ export class NewPasswordComponent implements OnInit {
 
   onSubmit(): void {
     if (this.newPasswordForm.valid) {
-      this.accountService.changePassword(this.model).subscribe(
-        data => this.handleResponse(data),
-        error => this.handleError(error)
-      );
+      this.spinner.show('changePassword');
+      this.accountService.changePassword(this.model)
+        .pipe(first(),
+          finalize(() => this.spinner.hide('changePassword')))
+        .subscribe({
+          next: () => {
+            this.router.navigate(['/pre-auth/login']);
+          },
+          error: error => {
+            this.messageService.add({severity: 'error', summary: 'Cannot change', detail: error});
+          }
+        });
     }
   }
 
-  // tslint:disable-next-line:typedef
-  handleResponse(data){
-    this.router.navigateByUrl('/pre-auth/login');
-  }
-  // tslint:disable-next-line:typedef
-  handleError(data){
-      this.messageService.add({severity: 'error', summary: 'Email valid', detail: data});
-  }
 }

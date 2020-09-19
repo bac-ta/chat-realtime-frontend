@@ -4,8 +4,8 @@ import {FormlyFieldConfig} from '@ngx-formly/core';
 import {AccountService} from '../services/account.service';
 import {Router} from '@angular/router';
 import {MessageService} from 'primeng';
-import {NgxSpinnerModule, NgxSpinnerService} from 'ngx-spinner';
 import {finalize, first} from 'rxjs/operators';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-forgot-passord',
@@ -54,21 +54,14 @@ export class ForgotPasswordComponent implements OnInit {
           finalize(() => this.spinner.hide('forgotPassword')))
         .subscribe({
           next: () => {
-            this.router.navigate(['/**']);
+            this.router.navigate(['/pre-auth/login']);
           },
           error: error => {
             this.messageService.add({severity: 'error', summary: 'Email valid', detail: error});
           }
         });
-      // alert(JSON.stringify(this.model));
-      // this.accountService.forgotPassword(this.model).subscribe(
-      //   data => console.log(data),
-      //   error => console.log(error)
-      // );
     }
   }
 
-  // handleResponse(res){
-  //   this.model.email = null;
-  // }
+
 }
