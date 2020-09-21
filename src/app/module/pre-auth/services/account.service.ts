@@ -45,4 +45,11 @@ export class AccountService extends BaseService<User> {
     this.userSubject.next(null);
     this.router.navigate(['/pre-auth/login']);
   }
+
+  createUser({username, name, email, password}): Observable<any> {
+    return this.post('/user/create', {username, name, email, password})
+      .pipe(map(() => {
+        this.router.navigate(['/pre-auth/login']);
+      }));
+  }
 }

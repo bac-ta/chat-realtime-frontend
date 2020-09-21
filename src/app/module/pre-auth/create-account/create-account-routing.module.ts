@@ -1,0 +1,19 @@
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {CreateAccountComponent} from './create-account.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: CreateAccountComponent,
+    data: {animation: 'isLeft'}
+  }
+
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class CreateAccountRoutingModule {
+}

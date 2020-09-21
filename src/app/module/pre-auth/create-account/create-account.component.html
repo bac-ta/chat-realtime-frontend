@@ -1,0 +1,21 @@
+<div class="login-panel ui-fluid" style="height: 550px">
+  <div style="text-align: center">
+    <h2 class="text-center" style="margin: 40px 0px 100px 0px">Sign Up</h2>
+  </div>
+  <div class="login-panel-content">
+    <form [formGroup]="registForm" (ngSubmit)="onSubmit()">
+      <formly-form [model]="model" [fields]="fields" [options]="options" [form]="registForm"></formly-form>
+      <div style="margin-top: 9px">
+      <formly-form [model]="model" [fields]="fieldsPw" [options]="optionsPw" [form]="formPw"></formly-form>
+      </div>
+      <div class="p-grid" style="margin-top: 25px ">
+        <div class="p-col-6">
+          <a class="p-link" style="color: #1E88E5" routerLink="/pre-auth/login">Back to Login</a>
+        </div>
+        <div class="p-col-6" style="text-align: right">
+          <button pButton pRipple label="Sign Up" style="width: 100%" [disabled]="!registForm.valid"></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
