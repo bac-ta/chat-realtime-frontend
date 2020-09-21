@@ -22,14 +22,14 @@
     </ng-template>
 
     <ng-template let-user pTemplate="item">
-      <span class="s-status-online">
+      <span class="s-status-online" *ngIf="usernamesOnline.includes(user.value.username)">
         ●
       </span>
-      <span class="s-status-offline">
+      <span class="s-status-offline" *ngIf="!usernamesOnline.includes(user.value.username)">
         ●
       </span>
       <div class="s-search-item">
-        {{user.value.name}}
+        {{user.value.username}}
       </div>
     </ng-template>
   </p-listbox>

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {SearchResponse} from '../../models/search-response';
 import {SearchService} from '../../services/search.service';
 import {MenuItem} from 'primeng';
@@ -25,6 +25,8 @@ export class SearchComponent implements OnInit {
   selectedUsers: any[];
   selectedRooms: any[];
 
+  @Input() usernamesOnline: string[];
+
   @ViewChild(SearchTypeComponent, {static: false}) searchTypeComponent: SearchTypeComponent;
 
 
@@ -33,6 +35,9 @@ export class SearchComponent implements OnInit {
 
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
   }
 
   showSearchType(): void {
@@ -66,8 +71,9 @@ export class SearchComponent implements OnInit {
   }
 
   callSearch(event) {
-    if (event)
+    if (event) {
       this.search();
+    }
   }
 
   fetchUserResponses(): any {

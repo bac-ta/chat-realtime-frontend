@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ChatService} from '../services/chat.service';
-import {Subscription} from 'rxjs';
+import {interval, Subscription} from 'rxjs';
 import {User} from '../../pre-auth/model/user';
 import {TabService} from '../services/tab.service';
 import {SearchComponent} from './search/search.component';
+import {StatusService} from '../services/status.service';
 
 @Component({
   selector: 'app-chat-menu',
@@ -17,11 +18,13 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   private subscriptionNotify: Subscription;
   private subscriptionTab: Subscription;
   private tabName: string;
-  private subscriptionStatus: Subscription;
   @ViewChild(SearchComponent, {static: false}) searchTypeComponent: SearchComponent;
 
+  usernamesOnline: string [] = [];
+
   constructor(private chatService: ChatService,
-              private tabService: TabService) {
+              private tabService: TabService,
+              private statusService: StatusService) {
   }
 
   ngOnInit(): void {
@@ -62,6 +65,17 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
         user.notify = 0;
       }
     });
+
+
+    //online user
+    interval(10000).subscribe(() => {
+
+      this.statusService.findUsersOnline().subscribe(response => {
+        this.usernamesOnline = response;
+      });
+
+    });
+
   }
 
 
