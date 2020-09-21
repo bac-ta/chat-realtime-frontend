@@ -2,12 +2,36 @@
   <div class="layout-menu">
     <app-profile></app-profile>
   </div>
-  <div class="category">Room</div>
-  <div class="category-item">
-    <a href="#">Room 1</a>
+
+  <div>
+    <app-search [usernamesOnline]="usernamesOnline"></app-search>
   </div>
-  <div class="category">People</div>
-  <div class="category-item">
-    <a href="#" (click)="openChat()">#Admin</a>
+
+
+  <div>
+    <div>
+      <app-create-new-room></app-create-new-room>
+    </div>
+
+    <div class="category-room">Room</div>
+    <div class="category-item">
+      <a href="#">Room 1</a>
+    </div>
+    <div class="category">People</div>
+    <div class="category-item" *ngFor="let fr of buddy">
+      <a href="#" (click)="openChat(fr)" class="p-d-flex p-align-center">
+        <div class="menu-avatar">
+          <img src="/assets/layout/images/avatar.png">
+        </div>
+        <div class="info">
+          <span class="name">{{fr.username}}</span>
+          <span class="status" [ngClass]="fr.status">{{fr.status}}</span>
+        </div>
+        <div class="notifications" *ngIf="fr.notify > 0">
+          <span class="p-badge p-badge-danger">{{fr.notify}}</span>
+        </div>
+      </a>
+    </div>
   </div>
+
 </div>

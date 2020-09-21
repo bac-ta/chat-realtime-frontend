@@ -1,0 +1,7 @@
+
+<div class="content" *ngIf="chatMsgs.length > 0; else showNothing">
+  <div *ngFor="let item of chatMsgs; let i = index" [ngClass]="item.isMe ? 'p-justify-end' : 'p-justify-start'">
+    <app-message-chat [msg]="item"></app-message-chat>
+  </div>
+</div>
+<ng-template #showNothing>Nothing to display</ng-template>

@@ -33,6 +33,16 @@ export class BaseService<T> {
     });
   }
 
+  public put(url: string, data, customHeaders = {}): Observable<HttpResponse<T>> {
+    const headers = new HttpHeaders(Object.assign({
+      'Content-Type': 'application/json',
+    }, customHeaders));
+    return this.http.put<T>(this.baseUrl + url, data, {
+      headers,
+      observe: 'response'
+    });
+  }
+
   public delete(url, customHeaders = {}): Observable<HttpResponse<T>> {
     const headers = new HttpHeaders(Object.assign({
       'Content-Type': 'application/json',
@@ -42,4 +52,5 @@ export class BaseService<T> {
       observe: 'response'
     });
   }
+
 }

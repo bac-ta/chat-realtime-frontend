@@ -10,12 +10,16 @@ import {ButtonModule, InputTextareaModule, InputTextModule, OverlayPanelModule, 
 import {RippleModule} from 'primeng/ripple';
 import {PickerModule} from '@ctrl/ngx-emoji-mart';
 import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { FormatDatePipe } from './pipes/format-date.pipe';
+import { TrimPipe } from './pipes/trim.pipe';
 
 
 @NgModule({
   declarations: [
     InputTypeComponent,
-    WrapperInputComponent
+    WrapperInputComponent,
+    FormatDatePipe,
+    TrimPipe
   ],
   imports: [
     CommonModule,
@@ -46,7 +50,8 @@ import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
     EmojiModule,
     OverlayPanelModule,
     InputTextareaModule,
-    TooltipModule
+    TooltipModule,
+    FormatDatePipe, TrimPipe
   ]
 })
 export class SharedModule { }
