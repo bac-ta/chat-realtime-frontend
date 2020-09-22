@@ -12,17 +12,27 @@
   background-color: #c3c3e2 !important;
 }
 
+
 .s-search-content {
   max-height: 800px;
 }
 
 .s-status-online {
-  color: #65ff37;
+  background: #65ff37;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid;
 }
 
 .s-status-offline {
-  color: grey;
+  background: grey;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid;
 }
+
 .s-search-item {
   margin-left: 10px;
 }
