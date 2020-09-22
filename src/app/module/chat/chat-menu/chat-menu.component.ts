@@ -21,6 +21,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   private tabName: string;
   @ViewChild(SearchComponent, {static: false}) searchTypeComponent: SearchComponent;
 
+
   usernamesOnline: string [] = [];
 
   constructor(private chatService: ChatService,
@@ -29,8 +30,6 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getFriends();
-
     this.subscriptionRoster = this.chatService.getStatus().subscribe({
       next: (value) => {
         const user = this.buddy.find(u => u.username === value.username);
@@ -61,14 +60,13 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
       }
     });
 
-
-    //online user
-    interval(10000).subscribe(() => {
+    //online user, update list friends
+    interval(5000).subscribe(() => {
 
       this.statusService.findUsersOnline().subscribe(response => {
         this.usernamesOnline = response;
       });
-
+      this.getFriends();
     });
 
   }
@@ -87,16 +85,25 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
 
   getFriends(): void {
     this.subscriptionRoster = this.chatService.getRoster().subscribe(response => {
-
-      for (let friend of response) {
+      for (let friend of response.body.rosterItem) {
         let jid = friend.jid;
         const username = jid.replace('@' + environment.DOMAIN, '');
         let user = new User();
         user.username = username;
-        if (!this.buddy.includes(user))
+
+        if (this.usernamesOnline.includes(username))
+          user.status = 'Online';
+        let hasInList = false;
+        for (let userItem of this.buddy) {
+          if (username === userItem.username) {
+            userItem.status = user.status;
+            hasInList = true;
+            break;
+          }
+        }
+        if (!hasInList)
           this.buddy.push(user);
       }
-
     });
   }
 
