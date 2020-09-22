@@ -115,7 +115,7 @@ function onConnect(s: Strophe.Status): void {
   }
 }
 
-function subscribePresence(jid): void {
+export function subscribePresence(jid): void {
   log('subscribePresence: ' + jid);
   connection.send($pres({
     to: jid,
