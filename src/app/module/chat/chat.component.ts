@@ -11,7 +11,8 @@ import {environment} from '../../../environments/environment';
 export class ChatComponent implements OnInit, OnDestroy {
 
   constructor(private chatService: ChatService,
-              private accountService: AccountService) { }
+              private accountService: AccountService) {
+  }
 
   ngOnInit(): void {
     const jid = this.accountService.userValue.username + '@' + environment.DOMAIN;
