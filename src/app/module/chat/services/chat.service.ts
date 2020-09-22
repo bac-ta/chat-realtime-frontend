@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {ChatWindow} from '../chat-gui/chat-gui.component';
-import {Strophe, $build, $iq, $msg, $pres} from 'strophe.js';
+import {Subject} from 'rxjs';
 import {environment} from '../../../../environments/environment';
-import {getConnection, receiver, roster, sendMessage, status} from '../strophe';
+import {getConnection, receiver, roster, sendMessage, status, subscribeUserPresence} from '../strophe';
 import {MessageChat} from '../chat-gui/chat-content/chat-content.component';
 import {User} from '../../pre-auth/model/user';
 
@@ -43,7 +41,11 @@ export class ChatService {
   }
 
   getStatus(): Subject<User> {
-    this.statusSubject.subscribe()
+    this.statusSubject.subscribe();
     return status;
+  }
+
+  subscribePresence(toJId): void {
+    subscribeUserPresence(toJId);
   }
 }

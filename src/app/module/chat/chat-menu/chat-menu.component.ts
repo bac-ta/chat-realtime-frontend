@@ -68,7 +68,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
 
 
     //online user
-    interval(10000).subscribe(() => {
+    interval(5000).subscribe(() => {
 
       this.statusService.findUsersOnline().subscribe(response => {
         this.usernamesOnline = response;
