@@ -41,4 +41,7 @@ export class ProfileComponent implements OnInit {
         }
       });
   }
+  getUsername():string {
+    return this.accountService.userValue.username;
+  }
 }

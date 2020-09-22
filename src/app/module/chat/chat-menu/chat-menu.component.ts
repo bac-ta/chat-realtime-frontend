@@ -28,13 +28,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptionRoster = this.chatService.getRoster().subscribe({
-      next: (user) => {
-        if (!this.buddy.includes(user)) {
-          this.buddy.push(user);
-        }
-      }
-    });
+    this.getFriends();
 
     this.subscriptionRoster = this.chatService.getStatus().subscribe({
       next: (value) => {
@@ -88,6 +82,22 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     this.subscriptionRoster.unsubscribe();
     this.subscriptionNotify.unsubscribe();
     this.subscriptionTab.unsubscribe();
+  }
+
+  getFriends(): void {
+    this.subscriptionRoster = this.chatService.getRoster().subscribe({
+      next: (user) => {
+        if (!this.buddy.includes(user)) {
+          this.buddy.push(user);
+        }
+      }
+    });
+  }
+
+  refreshFriends(event): void {
+    if (event) {
+      this.getFriends();
+    }
   }
 
 }

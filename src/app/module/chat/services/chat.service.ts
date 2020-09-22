@@ -1,22 +1,22 @@
-import {Injectable, Injector} from '@angular/core';
-import {Subject} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {ChatWindow} from '../chat-gui/chat-gui.component';
+import {Strophe, $build, $iq, $msg, $pres} from 'strophe.js';
 import {environment} from '../../../../environments/environment';
 import {getConnection, receiver, roster, sendMessage, status} from '../strophe';
 import {MessageChat} from '../chat-gui/chat-content/chat-content.component';
 import {User} from '../../pre-auth/model/user';
-import {BaseService} from "../../../core/services/base.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService extends BaseService<any> {
+export class ChatService {
   connection;
   // remove when has load history
   listMsgNotDisplayed: MessageChat[];
   private statusSubject = new Subject<User>();
 
-  constructor(protected injector: Injector) {
-    super(injector);
+  constructor() {
     this.listMsgNotDisplayed = [];
   }
 
@@ -46,6 +46,4 @@ export class ChatService extends BaseService<any> {
     this.statusSubject.subscribe()
     return status;
   }
-
-
 }
