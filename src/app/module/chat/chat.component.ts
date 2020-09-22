@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ChatService} from './services/chat.service';
 import {AccountService} from '../pre-auth/services/account.service';
 import {environment} from '../../../environments/environment';
+import {subscribePresence} from "./strophe";
 
 @Component({
   selector: 'app-chat',
