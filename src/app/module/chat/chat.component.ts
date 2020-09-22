@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ChatService} from './services/chat.service';
 import {AccountService} from '../pre-auth/services/account.service';
 import {environment} from '../../../environments/environment';
-import {subscribePresence} from "./strophe";
 
 @Component({
   selector: 'app-chat',
@@ -12,7 +11,8 @@ import {subscribePresence} from "./strophe";
 export class ChatComponent implements OnInit, OnDestroy {
 
   constructor(private chatService: ChatService,
-              private accountService: AccountService) { }
+              private accountService: AccountService) {
+  }
 
   ngOnInit(): void {
     const jid = this.accountService.userValue.username + '@' + environment.DOMAIN;

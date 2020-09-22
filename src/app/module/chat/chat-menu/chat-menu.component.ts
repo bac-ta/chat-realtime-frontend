@@ -5,6 +5,7 @@ import {User} from '../../pre-auth/model/user';
 import {TabService} from '../services/tab.service';
 import {SearchComponent} from './search/search.component';
 import {StatusService} from '../services/status.service';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-chat-menu',
@@ -85,12 +86,17 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   }
 
   getFriends(): void {
-    this.subscriptionRoster = this.chatService.getRoster().subscribe({
-      next: (user) => {
-        if (!this.buddy.includes(user)) {
+    this.subscriptionRoster = this.chatService.getRoster().subscribe(response => {
+
+      for (let friend of response) {
+        let jid = friend.jid;
+        const username = jid.replace('@' + environment.DOMAIN, '');
+        let user = new User();
+        user.username = username;
+        if (!this.buddy.includes(user))
           this.buddy.push(user);
-        }
       }
+
     });
   }
 
