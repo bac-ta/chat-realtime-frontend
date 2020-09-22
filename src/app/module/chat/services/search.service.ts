@@ -11,8 +11,6 @@ import {RoomResponse} from '../models/room-response';
   providedIn: 'root'
 })
 export class SearchService extends BaseService<any> {
-  searchResponse: SearchResponse;
-
   constructor(
     protected injector: Injector,
     private accountService: AccountService
@@ -52,5 +50,13 @@ export class SearchService extends BaseService<any> {
       }
       return new SearchResponse(userResponses, roomResponses);
     }));
+  }
+
+  addFriend(username: string): Observable<any> {
+    const user = this.accountService.userValue;
+    const customHeaders = {
+      'Authorization': 'Bearer ' + user.accessToken
+    };
+    return this.post('/user/addFriend/' + username, customHeaders).pipe();
   }
 }
