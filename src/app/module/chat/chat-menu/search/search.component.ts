@@ -5,6 +5,7 @@ import {MenuItem} from 'primeng';
 import {SearchTypeComponent} from './search-type/search-type.component';
 import {UserResponse} from '../../models/user-response';
 import {RoomResponse} from '../../models/room-response';
+import {TabService} from '../../services/tab.service';
 
 @Component({
   selector: 'app-search',
@@ -25,12 +26,15 @@ export class SearchComponent implements OnInit {
   selectedUsers: any[];
   selectedRooms: any[];
 
+  users: string[] = [];
+  rooms: string[] = [];
+
   @Input() usernamesOnline: string[];
 
   @ViewChild(SearchTypeComponent, {static: false}) searchTypeComponent: SearchTypeComponent;
 
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, private tabService: TabService) {
   }
 
 
@@ -68,6 +72,9 @@ export class SearchComponent implements OnInit {
     this.searchService.search(this.searchText, this.start, this.searchType).subscribe(response => {
       this.searchResponse = response;
     });
+
+    this.fetchUserResponses();
+    this.fetchRoomResponses();
   }
 
   callSearch(event) {
@@ -76,9 +83,9 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  fetchUserResponses(): any {
+  fetchUserResponses(): void {
     if (!this.searchResponse) {
-      return [];
+      return;
     }
 
     let users = [];
@@ -90,13 +97,13 @@ export class SearchComponent implements OnInit {
       };
       users.push(user);
     }
-    return users;
+    this.users = users;
 
   }
 
-  fetchRoomResponses(): any {
+  fetchRoomResponses(): void {
     if (!this.searchResponse) {
-      return [];
+      return;
     }
     let rooms = [];
     for (let item of this.searchResponse.roomResponses) {
@@ -107,7 +114,11 @@ export class SearchComponent implements OnInit {
       };
       rooms.push(room);
     }
-    return rooms;
+    this.rooms = rooms;
+  }
+
+  openChatWindow(event): void {
+    this.tabService.addNewChatWindow({username: event.option.label});
   }
 
 }
