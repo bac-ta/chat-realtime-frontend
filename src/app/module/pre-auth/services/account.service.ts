@@ -39,11 +39,20 @@ export class AccountService extends BaseService<User> {
       }));
   }
 
-  logout(): void {
-    // remove user from local storage and set current user to null
+  logout(): Observable<any> {
+    const user = this.userValue;
+    console.log(user);
+
+    const customHeaders = {
+      'Authorization': 'Bearer ' + user.accessToken
+    };
+
     sessionStorage.removeItem('user');
     this.userSubject.next(null);
-    this.router.navigate(['/pre-auth/login']);
+    return this.delete('/auth/logout', customHeaders)
+      .pipe(map(() => {
+        this.router.navigate(['/pre-auth/login']);
+      }));
   }
 
   createUser({username, name, email, password}): Observable<any> {
