@@ -30,6 +30,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.getFriends();
     this.subscriptionRoster = this.chatService.getStatus().subscribe({
       next: (value) => {
         const user = this.buddy.find(u => u.username === value.username);
