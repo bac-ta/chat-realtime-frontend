@@ -1,10 +1,12 @@
-import {$iq, $msg, $pres, Strophe} from 'strophe.js';
+import {Strophe, $build, $iq, $msg, $pres} from 'strophe.js';
 import {environment} from '../../../environments/environment';
 import * as $ from 'jquery';
 import {Subject} from 'rxjs';
 import {MessageChat} from './chat-gui/chat-content/chat-content.component';
 import {User} from '../pre-auth/model/user';
-import {Howl} from 'howler';
+import {Howl, Howler} from 'howler';
+import {ajax} from 'rxjs/ajax';
+import {buffer, concatMap, map} from 'rxjs/operators';
 
 export const receiver = new Subject<MessageChat>();
 export const roster = new Subject<User>();
@@ -113,7 +115,7 @@ function onConnect(s: Strophe.Status): void {
   }
 }
 
-export function subscribeUserPresence(jid): void {
+export function subscribePresence(jid): void {
   log('subscribePresence: ' + jid);
   connection.send($pres({
     to: jid,

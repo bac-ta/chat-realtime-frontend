@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {SearchResponse} from '../../models/search-response';
 import {SearchService} from '../../services/search.service';
 import {MenuItem} from 'primeng';
@@ -6,6 +6,8 @@ import {SearchTypeComponent} from './search-type/search-type.component';
 import {UserResponse} from '../../models/user-response';
 import {RoomResponse} from '../../models/room-response';
 import {TabService} from '../../services/tab.service';
+import {subscribePresence} from "../../strophe";
+import {environment} from "../../../../../environments/environment";
 
 @Component({
   selector: 'app-search',
@@ -32,6 +34,7 @@ export class SearchComponent implements OnInit {
   @Input() usernamesOnline: string[];
 
   @ViewChild(SearchTypeComponent, {static: false}) searchTypeComponent: SearchTypeComponent;
+  @Output() addNewFriend: EventEmitter<any> = new EventEmitter();
 
 
   constructor(private searchService: SearchService, private tabService: TabService) {
@@ -41,8 +44,6 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngOnDestroy(): void {
-  }
 
   showSearchType(): void {
     this.isShowSearchType = true;
@@ -118,7 +119,14 @@ export class SearchComponent implements OnInit {
   }
 
   openChatWindow(event): void {
-    this.tabService.addNewChatWindow({username: event.option.label});
+    let username = event.option.value.username;
+    //add friend
+    this.searchService.addFriend(username);
+    //subcribe
+    subscribePresence(username + '@' + environment.DOMAIN);
+
+    this.tabService.addNewChatWindow({username});
+    this.addNewFriend.emit(true);
   }
 
 }

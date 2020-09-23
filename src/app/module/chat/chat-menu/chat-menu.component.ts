@@ -5,6 +5,7 @@ import {User} from '../../pre-auth/model/user';
 import {TabService} from '../services/tab.service';
 import {SearchComponent} from './search/search.component';
 import {StatusService} from '../services/status.service';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-chat-menu',
@@ -20,6 +21,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   private tabName: string;
   @ViewChild(SearchComponent, {static: false}) searchTypeComponent: SearchComponent;
 
+
   usernamesOnline: string [] = [];
 
   constructor(private chatService: ChatService,
@@ -28,14 +30,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptionRoster = this.chatService.getRoster().subscribe({
-      next: (user) => {
-        if (!this.buddy.includes(user)) {
-          this.buddy.push(user);
-        }
-      }
-    });
-
+    this.getFriends();
     this.subscriptionRoster = this.chatService.getStatus().subscribe({
       next: (value) => {
         const user = this.buddy.find(u => u.username === value.username);
@@ -66,14 +61,13 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
       }
     });
 
-
-    //online user
+    //online user, update list friends
     interval(5000).subscribe(() => {
 
       this.statusService.findUsersOnline().subscribe(response => {
         this.usernamesOnline = response;
       });
-
+      this.getFriends();
     });
 
   }
@@ -88,6 +82,36 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     this.subscriptionRoster.unsubscribe();
     this.subscriptionNotify.unsubscribe();
     this.subscriptionTab.unsubscribe();
+  }
+
+  getFriends(): void {
+    this.subscriptionRoster = this.chatService.getRoster().subscribe(response => {
+      for (let friend of response.body.rosterItem) {
+        let jid = friend.jid;
+        const username = jid.replace('@' + environment.DOMAIN, '');
+        let user = new User();
+        user.username = username;
+
+        if (this.usernamesOnline.includes(username))
+          user.status = 'Online';
+        let hasInList = false;
+        for (let userItem of this.buddy) {
+          if (username === userItem.username) {
+            userItem.status = user.status;
+            hasInList = true;
+            break;
+          }
+        }
+        if (!hasInList)
+          this.buddy.push(user);
+      }
+    });
+  }
+
+  refreshFriends(event): void {
+    if (event) {
+      this.getFriends();
+    }
   }
 
 }
