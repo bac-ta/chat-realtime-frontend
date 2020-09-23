@@ -9,7 +9,7 @@
     <li role="menuitem">
       <a href="#" class="ripplelink">
         <em class="material-icons">account_circle</em>
-        <span>Profile</span>
+        <span (click)="onShowProfileDetail()">Profile</span>
       </a>
     </li>
     <li role="menuitem">
@@ -26,3 +26,44 @@
     </li>
   </ul>
 </div>
+
+
+<p-dialog header="Chỉnh sửa trang cá nhân" [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
+  <div>
+
+    <div class="avatar">
+      <span>Ảnh đại diện</span>
+      <label for="fileInput">
+        <button pButton pRipple type="button" label="Thêm" class="p-button-text"></button>
+      </label>
+      <input id="fileInput" type='file' (change)="onSelectFile($event)" accept="image/*">
+    </div>
+    <div>
+      <label class="hoverable">
+        <img [src]="url ? url : '/assets/layout/images/avatar.png'">
+        <div class="background"></div>
+      </label>
+    </div>
+
+    <div class="profile-name">
+      <div>
+        <span>Tên hiển thị</span>
+        <button pButton pRipple type="button" label="Thêm" class="p-button-text"></button>
+      </div>
+      <div>
+
+      </div>
+    </div>
+
+    <div class="description">
+      <div>
+        <span>Mô tả bản thân</span>
+        <p-toggleButton [(ngModel)]="checked2" onLabel="Thêm" offLabel="Hủy" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width': '10em'}"></p-toggleButton>
+      </div>
+      <div>
+        <textarea rows="1" cols="30" pInputTextarea autoResize="autoResize" placeholder="Mô tả bản thân..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</p-dialog>

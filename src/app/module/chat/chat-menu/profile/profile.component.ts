@@ -15,6 +15,7 @@ import {MessageService} from 'primeng';
 export class ProfileComponent implements OnInit {
 
   stateProfileMenu = 'out';
+  displayBasic: boolean;
 
   constructor(private accountService: AccountService,
               private router: Router,
@@ -41,4 +42,22 @@ export class ProfileComponent implements OnInit {
         }
       });
   }
+
+  //dialog-profile-detail
+  url: any;
+  checked2: boolean = true;
+  onShowProfileDetail() {
+    this.displayBasic = true;
+  }
+
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (event) => {
+        this.url = event.target.result;
+      }
+    }
+  }
+
 }
