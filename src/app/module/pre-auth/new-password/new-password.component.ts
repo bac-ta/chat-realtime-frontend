@@ -71,7 +71,11 @@ export class NewPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.model.resetToken = params.token;
+      if (params.token == null) {
+        this.router.navigate(['/404']);
+      }
     });
+
   }
 
   onSubmit(): void {
@@ -85,7 +89,12 @@ export class NewPasswordComponent implements OnInit {
             this.router.navigate(['/pre-auth/login']);
           },
           error: error => {
-            this.messageService.add({severity: 'error', summary: 'Cannot change', detail: error});
+            if (error === 'OK') {
+              this.router.navigate(['/pre-auth/login']);
+              this.messageService.add({severity: 'success', summary: 'Change password successful', detail: error});
+            } else {
+              this.messageService.add({severity: 'error', summary: 'error', detail: error});
+            }
           }
         });
     }

@@ -8,9 +8,9 @@ import {finalize, first} from 'rxjs/operators';
 import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
-  selector: 'app-forgot-passord',
-  templateUrl: './forgot-passord.component.html',
-  styleUrls: ['./forgot-passord.component.sass']
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.sass']
 })
 export class ForgotPasswordComponent implements OnInit {
   forgetPasswordForm: FormGroup = new FormGroup({});
@@ -57,7 +57,11 @@ export class ForgotPasswordComponent implements OnInit {
             this.router.navigate(['/pre-auth/login']);
           },
           error: error => {
-            this.messageService.add({severity: 'error', summary: 'Email valid', detail: error});
+            if (error === 'OK') {
+              this.messageService.add({severity: 'success', summary: 'Send mail successful', detail: error});
+            }else{
+              this.messageService.add({severity: 'error', summary: 'Invalid email', detail: error});
+            }
           }
         });
     }

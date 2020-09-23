@@ -19,7 +19,7 @@ const routes: Routes = [
       },
       {
         path: 'forgot-password',
-        loadChildren: () => import('./module/pre-auth/forgot-passord/forgot-pasword.module').then(m => m.ForgotPaswordModule),
+        loadChildren: () => import('./module/pre-auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule),
         data: {
           animation: 'isLeft'
         }
