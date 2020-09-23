@@ -10,20 +10,15 @@ import {map} from 'rxjs/operators';
 export class StatusService extends BaseService<any> {
 
   constructor(
-    protected injector: Injector,
-    private accountService: AccountService
+    protected injector: Injector
   ) {
     super(injector);
   }
 
 
   public findUsersOnline(): Observable<string[]> {
-    const user = this.accountService.userValue;
-    const customHeaders = {
-      'Authorization': 'Bearer ' + user.accessToken
-    };
 
-    return this.get('/user/online', customHeaders).pipe(map(responses => {
+    return this.get('/user/online', {}).pipe(map(responses => {
       return responses.body;
     }));
   }
