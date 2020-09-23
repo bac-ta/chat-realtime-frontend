@@ -43,6 +43,9 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  getUsername():string {
+    return this.accountService.userValue.username;
+
   //dialog-profile-detail
   url: any;
   checked2: boolean = true;
