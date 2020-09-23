@@ -10,6 +10,7 @@ import {CoreModule} from './core/core.module';
 import {AuthGuard} from './core/guards/auth.guard';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {ChatModule} from './module/chat/chat.module';
+import {NotFoundModule} from './module/not-found/not-found.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {ChatModule} from './module/chat/chat.module';
     PreAuthModule,
     CoreModule,
     NgxSpinnerModule,
-    ChatModule
+    ChatModule,
+    NotFoundModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [MessageService, AuthGuard],
