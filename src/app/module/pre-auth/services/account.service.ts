@@ -41,11 +41,14 @@ export class AccountService extends BaseService<User> {
 
   logout(): Observable<any> {
     const user = this.userValue;
-    console.log(user);
+
+    const customHeaders = {
+      'Authorization': 'Bearer ' + user.accessToken
+    };
 
     sessionStorage.removeItem('user');
     this.userSubject.next(null);
-    return this.delete('/auth/logout', {})
+    return this.delete('/auth/logout', customHeaders)
       .pipe(map(() => {
         this.router.navigate(['/pre-auth/login']);
       }));
