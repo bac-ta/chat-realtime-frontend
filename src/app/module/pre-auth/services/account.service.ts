@@ -43,13 +43,9 @@ export class AccountService extends BaseService<User> {
     const user = this.userValue;
     console.log(user);
 
-    const customHeaders = {
-      'Authorization': 'Bearer ' + user.accessToken
-    };
-
     sessionStorage.removeItem('user');
     this.userSubject.next(null);
-    return this.delete('/auth/logout', customHeaders)
+    return this.delete('/auth/logout', {})
       .pipe(map(() => {
         this.router.navigate(['/pre-auth/login']);
       }));

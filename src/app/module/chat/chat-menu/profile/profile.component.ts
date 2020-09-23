@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
           this.router.navigate(['/pre-auth/login']);
         },
         error: error => {
-          this.messageService.add({severity: 'error', summary: 'Login fail', detail: error});
+          this.messageService.add({severity: 'error', summary: 'Logout fail', detail: error});
         }
       });
   }

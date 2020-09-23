@@ -1,26 +1,21 @@
 import {Injectable, Injector} from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {ChatWindow} from '../chat-gui/chat-gui.component';
-import {Strophe, $build, $iq, $msg, $pres} from 'strophe.js';
+import {Observable, Subject} from 'rxjs';
 import {environment} from '../../../../environments/environment';
-import {getConnection, receiver, roster, sendMessage, status} from '../strophe';
+import {getConnection, receiver, sendMessage, status} from '../strophe';
 import {MessageChat} from '../chat-gui/chat-content/chat-content.component';
 import {User} from '../../pre-auth/model/user';
-import {BaseService} from "../../../core/services/base.service";
-import {AccountService} from "../../pre-auth/services/account.service";
-import {Roster} from "../models/roster";
-import {map} from "rxjs/operators";
+import {BaseService} from '../../../core/services/base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService extends BaseService<any>{
+export class ChatService extends BaseService<any> {
   connection;
   // remove when has load history
   listMsgNotDisplayed: MessageChat[];
   private statusSubject = new Subject<User>();
 
-  constructor(protected injector: Injector, private accountService: AccountService) {
+  constructor(protected injector: Injector) {
     super(injector);
     this.listMsgNotDisplayed = [];
   }
@@ -44,16 +39,11 @@ export class ChatService extends BaseService<any>{
   }
 
   getRoster(): Observable<any> {
-    const user = this.accountService.userValue;
-    const customHeaders = {
-      'Authorization': 'Bearer ' + user.accessToken
-    };
-
-    return this.get('/user/getFriends', customHeaders).pipe();
+    return this.get('/user/getFriends', {}).pipe();
   }
 
   getStatus(): Subject<User> {
-    this.statusSubject.subscribe()
+    this.statusSubject.subscribe();
     return status;
   }
 }

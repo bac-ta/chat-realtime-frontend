@@ -1,7 +1,6 @@
 import {Injectable, Injector} from '@angular/core';
 import {SearchResponse} from '../models/search-response';
 import {BaseService} from '../../../core/services/base.service';
-import {AccountService} from '../../pre-auth/services/account.service';
 import {map} from 'rxjs/operators';
 import {UserResponse} from '../models/user-response';
 import {Observable} from 'rxjs';
@@ -12,19 +11,14 @@ import {RoomResponse} from '../models/room-response';
 })
 export class SearchService extends BaseService<any> {
   constructor(
-    protected injector: Injector,
-    private accountService: AccountService
+    protected injector: Injector
   ) {
     super(injector);
   }
 
   public search(searchText: string, start: number, searchType: Number): Observable<SearchResponse> {
-    const user = this.accountService.userValue;
-    const customHeaders = {
-      'Authorization': 'Bearer ' + user.accessToken
-    };
 
-    const observable = this.get('/search?searchText=' + searchText + '&start=' + start + '&searchType=' + searchType, customHeaders);
+    const observable = this.get('/search?searchText=' + searchText + '&start=' + start + '&searchType=' + searchType, {});
 
     return observable.pipe(map(res => {
       const body = res.body;
@@ -53,10 +47,6 @@ export class SearchService extends BaseService<any> {
   }
 
   addFriend(username: string): Observable<any> {
-    const user = this.accountService.userValue;
-    const customHeaders = {
-      'Authorization': 'Bearer ' + user.accessToken
-    };
-    return this.post('/user/addFriend/' + username, customHeaders).pipe();
+    return this.post('/user/addFriend/' + username, {}).pipe();
   }
 }
