@@ -5,9 +5,6 @@
   <div class="login-panel-content">
     <form [formGroup]="registForm" (ngSubmit)="onSubmit()">
       <formly-form [model]="model" [fields]="fields" [options]="options" [form]="registForm"></formly-form>
-      <div style="margin-top: 9px">
-      <formly-form [model]="model" [fields]="fieldsPw" [options]="optionsPw" [form]="formPw"></formly-form>
-      </div>
       <div class="p-grid" style="margin-top: 25px ">
         <div class="p-col-6">
           <a class="p-link" style="color: #1E88E5" routerLink="/pre-auth/login">Back to Login</a>

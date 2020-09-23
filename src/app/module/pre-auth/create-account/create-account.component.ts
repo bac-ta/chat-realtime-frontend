@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormlyFormOptions, FormlyFieldConfig} from '@ngx-formly/core';
 import {FormGroup} from '@angular/forms';
 import {AccountService} from '../services/account.service';
-import {finalize, first} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {MessageService} from 'primeng';
 
@@ -24,6 +23,11 @@ export class CreateAccountComponent implements OnInit {
 
   fields: FormlyFieldConfig[] = [{
     fieldGroupClassName: 'p-grid',
+    validators: {
+      validation: [
+        {name: 'fieldMatch', options: {errorPath: 'passwordConfirm'}},
+      ],
+    },
     fieldGroup: [
       {
         className: 'p-col-12',
@@ -61,19 +65,6 @@ export class CreateAccountComponent implements OnInit {
           validation: ['email'],
         },
       },
-    ]
-  }
-  ];
-  formPw = new FormGroup({});
-  optionsPw: FormlyFormOptions = {};
-  fieldsPw: FormlyFieldConfig[] = [{
-    fieldGroupClassName: 'p-grid',
-    validators: {
-      validation: [
-        {name: 'fieldMatch', options: {errorPath: 'passwordConfirm'}},
-      ],
-    },
-    fieldGroup: [
       {
         className: 'p-col-12',
         key: 'password',
@@ -106,7 +97,8 @@ export class CreateAccountComponent implements OnInit {
     private accountService: AccountService,
     private router: Router,
     private messageService: MessageService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
   }
