@@ -9,7 +9,6 @@ import {Observable} from 'rxjs';
 export class BaseService<T> {
   protected http: HttpClient = this.injector.get(HttpClient);
   private readonly baseUrl: string;
-
   constructor(protected injector: Injector) {
     this.baseUrl = environment.apiUrl;
   }
@@ -43,4 +42,15 @@ export class BaseService<T> {
       observe: 'response'
     });
   }
+
+  public delete(url, customHeaders = {}): Observable<HttpResponse<T>> {
+    const headers = new HttpHeaders(Object.assign({
+      'Content-Type': 'application/json',
+    }, customHeaders));
+    return this.http.delete<T>(this.baseUrl + url, {
+      headers,
+      observe: 'response'
+    });
+  }
+
 }

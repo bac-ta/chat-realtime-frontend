@@ -6,7 +6,6 @@ import {BaseService} from '../../../core/services/base.service';
 import {catchError, map} from 'rxjs/operators';
 import {RequestPasswordReset} from '../model/request-password-reset';
 import {NewPassword} from '../model/new-password';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -49,6 +48,29 @@ export class AccountService extends BaseService<User> {
       }));
   }
 
+  logout(): Observable<any> {
+    const user = this.userValue;
+    console.log(user);
+
+    const customHeaders = {
+      'Authorization': 'Bearer ' + user.accessToken
+    };
+
+    sessionStorage.removeItem('user');
+    this.userSubject.next(null);
+    return this.delete('/auth/logout', customHeaders)
+      .pipe(map(() => {
+        this.router.navigate(['/pre-auth/login']);
+      }));
+  }
+
+  createUser({username, name, email, password}): Observable<any> {
+    return this.post('/user/create', {username, name, email, password})
+      .pipe(map(() => {
+        this.router.navigate(['/pre-auth/login']);
+      }));
+  }
+
   forgotPassword({email}): Observable<any> {
     return this.post('/user/forgot-password', {email})
       .pipe(map(res => {
@@ -71,12 +93,5 @@ export class AccountService extends BaseService<User> {
         this.newPasswordSubject.next(newPassword);
         return newPassword;
       }));
-  }
-
-  logout(): void {
-    // remove user from local storage and set current user to null
-    sessionStorage.removeItem('user');
-    this.userSubject.next(null);
-    this.router.navigate(['/pre-auth/login']);
   }
 }

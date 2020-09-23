@@ -1,4 +1,4 @@
-<div class="login-panel ui-fluid">
+<div class="login-panel ui-fluid" style="width: 620px">
   <div class="login-panel-header">
     <img src="assets/layout/images/logo.png" alt="sapphire"/>
   </div>
@@ -15,6 +15,12 @@
         </div>
         <div class="p-col-6" style="text-align: right">
           <button pButton pRipple label="Next" style="width: 100%" [disabled]="!loginForm.valid"></button>
+        </div>
+      </div>
+      <div class="p-grid">
+        <div class="p-col-6">
+          No account?
+          <a class="p-link" style="color: #1E88E5" routerLink="/pre-auth/create-account">Create one!</a>
         </div>
       </div>
     </form>

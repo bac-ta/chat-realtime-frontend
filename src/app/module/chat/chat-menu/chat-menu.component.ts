@@ -1,8 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ChatService} from '../services/chat.service';
-import {Subscription} from 'rxjs';
+import {interval, Subscription} from 'rxjs';
 import {User} from '../../pre-auth/model/user';
 import {TabService} from '../services/tab.service';
+import {SearchComponent} from './search/search.component';
+import {StatusService} from '../services/status.service';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-chat-menu',
@@ -16,21 +19,18 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   private subscriptionNotify: Subscription;
   private subscriptionTab: Subscription;
   private tabName: string;
-  private subscriptionStatus: Subscription;
+  @ViewChild(SearchComponent, {static: false}) searchTypeComponent: SearchComponent;
+
+
+  usernamesOnline: string [] = [];
 
   constructor(private chatService: ChatService,
-              private tabService: TabService) {
+              private tabService: TabService,
+              private statusService: StatusService) {
   }
 
   ngOnInit(): void {
-    this.subscriptionRoster = this.chatService.getRoster().subscribe({
-      next: (user) => {
-        if (!this.buddy.includes(user)) {
-          this.buddy.push(user);
-        }
-      }
-    });
-
+    this.getFriends();
     this.subscriptionRoster = this.chatService.getStatus().subscribe({
       next: (value) => {
         const user = this.buddy.find(u => u.username === value.username);
@@ -60,6 +60,16 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
         user.notify = 0;
       }
     });
+
+    //online user, update list friends
+    interval(5000).subscribe(() => {
+
+      this.statusService.findUsersOnline().subscribe(response => {
+        this.usernamesOnline = response;
+      });
+      this.getFriends();
+    });
+
   }
 
 
@@ -72,6 +82,36 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     this.subscriptionRoster.unsubscribe();
     this.subscriptionNotify.unsubscribe();
     this.subscriptionTab.unsubscribe();
+  }
+
+  getFriends(): void {
+    this.subscriptionRoster = this.chatService.getRoster().subscribe(response => {
+      for (let friend of response.body.rosterItem) {
+        let jid = friend.jid;
+        const username = jid.replace('@' + environment.DOMAIN, '');
+        let user = new User();
+        user.username = username;
+
+        if (this.usernamesOnline.includes(username))
+          user.status = 'Online';
+        let hasInList = false;
+        for (let userItem of this.buddy) {
+          if (username === userItem.username) {
+            userItem.status = user.status;
+            hasInList = true;
+            break;
+          }
+        }
+        if (!hasInList)
+          this.buddy.push(user);
+      }
+    });
+  }
+
+  refreshFriends(event): void {
+    if (event) {
+      this.getFriends();
+    }
   }
 
 }

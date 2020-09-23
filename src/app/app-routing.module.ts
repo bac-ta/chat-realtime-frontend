@@ -25,6 +25,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'create-account',
+        loadChildren: () => import('./module/pre-auth/create-account/create-account.module').then(m => m.CreateAccountModule),
+        data: {
+          animation: 'isLeft'
+        },
+      },
+      {
         path: 'new-password',
         loadChildren: () => import('./module/pre-auth/new-password/new-password.module').then(m => m.NewPasswordModule),
       },
