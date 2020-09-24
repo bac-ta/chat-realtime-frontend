@@ -19,8 +19,7 @@ export class ProfileService extends BaseService<any> {
     };
     const observable = this.put('/profile/update-profile', {name, description, avatar}, customHeader);
     return observable.pipe(map(res => {
-      const body = res.body;
-      return body;
+      return res.body;
     }));
   }
 
@@ -29,10 +28,9 @@ export class ProfileService extends BaseService<any> {
     const customHeader = {
       'Authorization': 'Bearer ' + user.accessToken
     };
-    const observable = this.put('/file/upload-file', {file}, customHeader);
+    const observable = this.post('/file/upload-file', {file}, customHeader);
     return observable.pipe(map(res => {
-      const body = res.body;
-      return body;
+      return res.body;
     }));
   }
 }

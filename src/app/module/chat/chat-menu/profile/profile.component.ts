@@ -3,6 +3,7 @@ import {slideDown} from '../../../pre-auth/animations';
 import {AccountService} from '../../../pre-auth/services/account.service';
 import {Router} from '@angular/router';
 import {MessageService} from 'primeng';
+import {ProfileService} from '../../services/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,11 +16,18 @@ import {MessageService} from 'primeng';
 export class ProfileComponent implements OnInit {
 
   stateProfileMenu = 'out';
+  // url: '';
   displayBasic: boolean;
+  model={
+    description: '',
+    name: '',
+    avatar: ''
+  }
 
   constructor(private accountService: AccountService,
               private router: Router,
-              private messageService: MessageService
+              private messageService: MessageService,
+              private profileService: ProfileService
   ) {
   }
 
@@ -45,22 +53,23 @@ export class ProfileComponent implements OnInit {
 
   getUsername():string {
     return this.accountService.userValue.username;
+  }
 
-  //dialog-profile-detail
-  url: any;
-  checked2: boolean = true;
+  //dialog-profile
   onShowProfileDetail() {
     this.displayBasic = true;
   }
 
+  file: File = null;
+  imageUrl: any = '/assets/layout/images/avatar.png';
+
   onSelectFile(event) {
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (event) => {
-        this.url = event.target.result;
+    this.profileService.uploadFile(event.file)
+      .pipe().subscribe({next : () =>{
+        this.router.navigate([this.profileService.updateProfile(this.model)])
       }
-    }
+    });
   }
+
 
 }

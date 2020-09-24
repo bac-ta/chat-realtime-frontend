@@ -44,6 +44,8 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+  }
 
   showSearchType(): void {
     this.isShowSearchType = true;
