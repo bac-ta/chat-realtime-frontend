@@ -3,7 +3,7 @@
 <p-dialog header="Create new room" [(visible)]="isOpenCreateNewRoomPopup" (onHide)="closePopup()">
   <form class="form-chat-room">
     <div *ngIf="!isListUserAddToRoom">
-      <label for="files" class="p-button-secondary chat-avatar-choose">Choose group image</label>
+      <label for="files" class="p-button-secondary chat-avatar-choose">Choose room image</label>
       <input type="file" value="Choose group image" id="files" style="visibility:hidden;"
              accept=".jpg,.jpeg,.png">
       <div class="c-group-image-view">
