@@ -21,8 +21,8 @@ export class ProfileComponent implements OnInit {
   stateProfileMenu = 'out';
   displayBasic: boolean;
   profile = {
-    description: '',
     name: '',
+    description: '',
     avatar: ''
   };
   file = {
