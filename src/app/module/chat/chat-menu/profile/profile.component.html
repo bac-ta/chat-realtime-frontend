@@ -39,7 +39,9 @@
     </div>
     <div style="align-items: center;">
       <label class="hoverable">
-        <img [src]="url ? url : '/assets/layout/images/avatar.png'">
+        <a [routerLink]="[url]">
+          <img [src]="url ? url : '/assets/layout/images/avatar.png'">
+        </a>
         <div class="background"></div>
       </label>
     </div>

@@ -4,6 +4,8 @@ import {AccountService} from '../../../pre-auth/services/account.service';
 import {Router} from '@angular/router';
 import {MessageService} from 'primeng';
 import {ProfileService} from '../../services/profile.service';
+import {Strophe} from 'strophe.js';
+import error = Strophe.error;
 
 
 @Component({
@@ -17,13 +19,16 @@ import {ProfileService} from '../../services/profile.service';
 export class ProfileComponent implements OnInit {
 
   stateProfileMenu = 'out';
-  // url: '';
   displayBasic: boolean;
-  model={
+  profile = {
     description: '',
     name: '',
     avatar: ''
-  }
+  };
+  file = {
+    fileName: '',
+    fileUri: ''
+  };
 
   constructor(private accountService: AccountService,
               private router: Router,
@@ -64,16 +69,24 @@ export class ProfileComponent implements OnInit {
     this.displayBasic = true;
   }
 
-  file: File = null;
-  imageUrl: any = '/assets/layout/images/avatar.png';
-  url: any;
+  url: string | ArrayBuffer;
 
   onSelectFile(event) {
-    this.profileService.uploadFile(event.file)
-      .pipe().subscribe({next : () =>{
-        this.router.navigate([this.profileService.updateProfile(this.model)])
-      }
-    });
+    if (event.target.files && event.target.files[0]) {
+      this.profileService.uploadFile(event.target.files[0])
+        .pipe()
+        .subscribe((data) => {
+          this.file = data;
+          this.url = this.file.fileUri;
+          this.profile.avatar = this.file.fileName;
+        },
+      );
+    }
+    this.profileService.updateProfile(this.profile)
+      .pipe()
+      .subscribe(()=>{
+        this.router.navigate(['/#'])
+      })
   }
 
 
