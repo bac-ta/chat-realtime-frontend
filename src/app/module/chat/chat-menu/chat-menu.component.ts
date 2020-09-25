@@ -5,7 +5,9 @@ import {User} from '../../pre-auth/model/user';
 import {TabService} from '../services/tab.service';
 import {SearchComponent} from './search/search.component';
 import {StatusService} from '../services/status.service';
-import {environment} from "../../../../environments/environment";
+import {environment} from '../../../../environments/environment';
+import {subscribePresence} from '../strophe';
+import {AccountService} from '../../pre-auth/services/account.service';
 
 @Component({
   selector: 'app-chat-menu',
@@ -24,13 +26,18 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
 
   usernamesOnline: string [] = [];
 
+  intervalCall: any;
+
   constructor(private chatService: ChatService,
               private tabService: TabService,
-              private statusService: StatusService) {
+              private statusService: StatusService,
+              private accountService: AccountService) {
   }
 
   ngOnInit(): void {
     this.getFriends();
+    //subcribe all online friends
+    this.subcribleFriends();
     this.subscriptionRoster = this.chatService.getStatus().subscribe({
       next: (value) => {
         const user = this.buddy.find(u => u.username === value.username);
@@ -62,18 +69,17 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     });
 
     //online user, update list friends
-    interval(5000).subscribe(() => {
-
+    this.intervalCall = interval(5000).subscribe(() => {
       this.statusService.findUsersOnline().subscribe(response => {
         this.usernamesOnline = response;
       });
       this.getFriends();
     });
-
   }
 
 
   openChat(user): void {
+    subscribePresence(user.username + '@' + environment.DOMAIN);
     user.notify = 0;
     this.tabService.addNewChatWindow({username: user.username});
   }
@@ -82,6 +88,9 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     this.subscriptionRoster.unsubscribe();
     this.subscriptionNotify.unsubscribe();
     this.subscriptionTab.unsubscribe();
+    if (this.intervalCall) {
+      setTimeout(() => this.intervalCall.unsubscribe(), 0);
+    }
   }
 
   getFriends(): void {
@@ -92,8 +101,9 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
         let user = new User();
         user.username = username;
 
-        if (this.usernamesOnline.includes(username))
+        if (this.usernamesOnline.includes(username)) {
           user.status = 'Online';
+        }
         let hasInList = false;
         for (let userItem of this.buddy) {
           if (username === userItem.username) {
@@ -102,8 +112,9 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
             break;
           }
         }
-        if (!hasInList)
+        if (!hasInList) {
           this.buddy.push(user);
+        }
       }
     });
   }
@@ -114,4 +125,9 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     }
   }
 
+  subcribleFriends(): void {
+    for (let item of this.buddy) {
+      subscribePresence(item.username + '@' + environment.DOMAIN);
+    }
+  }
 }
