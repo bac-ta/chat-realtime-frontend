@@ -37,9 +37,9 @@
       </label>
       <input id="fileInput" type='file' (change)="onSelectFile($event)" accept="image/*">
     </div>
-    <div>
+    <div style="align-items: center;">
       <label class="hoverable">
-        <img [src]="url ? url : '/assets/layout/images/avatar.png'" style="align-items: center;">
+        <img [src]="url ? url : '/assets/layout/images/avatar.png'">
         <div class="background"></div>
       </label>
     </div>
@@ -67,43 +67,3 @@
   </div>
 </p-dialog>
 
-
-<p-dialog header="Chỉnh sửa trang cá nhân" [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
-  <div>
-
-    <div class="avatar">
-      <span>Ảnh đại diện</span>
-      <label for="fileInput">
-        <span>Thêm</span>
-      </label>
-      <input id="fileInput" type='file' (change)="onSelectFile($event)" accept="image/*">
-    </div>
-    <div>
-      <label class="hoverable">
-        <img [src]="imageUrl">
-        <div class="background"></div>
-      </label>
-    </div>
-
-    <div class="profile-name">
-      <div>
-        <span>Tên hiển thị</span>
-        <span>Thêm</span>
-      </div>
-      <div>
-        <input [value]="getUsername()">
-      </div>
-    </div>
-
-    <div class="description">
-      <div>
-        <span>Mô tả bản thân</span>
-        <span>Thêm</span>
-      </div>
-      <div>
-        <textarea [value]="model.description" ] rows="1" cols="30" pInputTextarea autoResize="autoResize" placeholder="Mô tả bản thân..."></textarea>
-      </div>
-    </div>
-
-  </div>
-</p-dialog>

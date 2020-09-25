@@ -66,6 +66,7 @@ export class ProfileComponent implements OnInit {
 
   file: File = null;
   imageUrl: any = '/assets/layout/images/avatar.png';
+  url: any;
 
   onSelectFile(event) {
     this.profileService.uploadFile(event.file)
