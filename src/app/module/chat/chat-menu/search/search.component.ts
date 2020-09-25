@@ -6,8 +6,8 @@ import {SearchTypeComponent} from './search-type/search-type.component';
 import {UserResponse} from '../../models/user-response';
 import {RoomResponse} from '../../models/room-response';
 import {TabService} from '../../services/tab.service';
-import {subscribePresence} from "../../strophe";
-import {environment} from "../../../../../environments/environment";
+import {subscribePresence} from '../../strophe';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-search',
@@ -44,8 +44,6 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngOnDestroy(): void {
-  }
 
   showSearchType(): void {
     this.isShowSearchType = true;
@@ -124,9 +122,6 @@ export class SearchComponent implements OnInit {
     let username = event.option.value.username;
     //add friend
     this.searchService.addFriend(username);
-    //subcribe
-    subscribePresence(username + '@' + environment.DOMAIN);
-
     this.tabService.addNewChatWindow({username});
     this.addNewFriend.emit(true);
   }

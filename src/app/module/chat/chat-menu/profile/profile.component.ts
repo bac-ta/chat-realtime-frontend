@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {MessageService} from 'primeng';
 import {ProfileService} from '../../services/profile.service';
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -51,7 +52,10 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  getUsername():string {
+  getUsername(): string {
+    if (this.accountService.userValue == null) {
+      return;
+    }
     return this.accountService.userValue.username;
   }
 
