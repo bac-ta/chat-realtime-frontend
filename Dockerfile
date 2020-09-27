@@ -1,11 +1,4 @@
-FROM node:12.7-alpine AS build
-WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
-
-FROM nginx:1.17.1-alpine
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /usr/src/app/dist/aston-villa-app /usr/share/nginx/html
+FROM nginx:1.13.3-alpine
+RUN rm -rf /usr/share/nginx/html/*
+COPY /dist /usr/share/nginx/html
+CMD ["nginx", "-g", "daemon off;"]
