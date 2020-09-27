@@ -1,6 +1,5 @@
 # Create the image based on the official Node 8.9.0 image from Dockerhub
 FROM node:8.9.0 as node
-
 RUN mkdir -p /to-do-app
 WORKDIR /to-do-app
 
