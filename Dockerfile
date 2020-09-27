@@ -1,20 +1,12 @@
-# Create the image based on the official Node 8.9.0 image from Dockerhub
-FROM node:8.9.0 as node
-RUN mkdir -p /to-do-app
-WORKDIR /to-do-app
-
-COPY package.json /to-do-app
-
+FROM tiangolo/node-frontend:10 as build-stage
+WORKDIR /app
+COPY package*.json /app/
 RUN npm install
+COPY ./ /app/
+ARG configuration=production
+RUN npm run build -- --output-path=./dist/out --configuration $configuration
 
-COPY . /to-do-app
 
-EXPOSE 5678
-
-RUN npm run build
-
-FROM nginx:1.13.7-alpine
-
-COPY --from=node /to-do-app/dist/ /usr/share/nginx/html
-
-COPY ./nginx-to-do-app.conf /etc/nginx/conf.d/default.conf
+FROM nginx:1.15
+COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
+COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
