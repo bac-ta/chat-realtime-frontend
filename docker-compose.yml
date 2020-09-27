@@ -3,6 +3,8 @@ version: '3.1'
 services:
   app:
     image: 'chat-app'
-    build: '.'
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - 5678:80
+      - "5678:80"

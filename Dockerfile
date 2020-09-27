@@ -1,15 +1,13 @@
-# Step 1: Build the app in image 'builder'
-FROM node:12.8-alpine AS builder
-
-WORKDIR /usr/src/app
+# Stage 0: compile angular frontend
+FROM node:latest as build
+WORKDIR /app
 COPY . .
-RUN yarn && yarn build
+RUN npm install
+RUN npm run build --prod
 
-# Step 2: Use build output from 'builder'
-FROM nginx:stable-alpine
-LABEL version="1.0"
 
-COPY nginx.conf /etc/nginx/nginx.conf
-
-WORKDIR /usr/share/nginx/html
-COPY --from=builder /usr/src/app/dist/chat-app/ .
+# Stage 1: serve app with nginx server
+FROM nginx:latest
+COPY --from=build /app/dist/pointeuse  /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 5678
