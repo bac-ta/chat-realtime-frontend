@@ -1,4 +1,7 @@
-FROM nginx:1.13.3-alpine
-RUN rm -rf /usr/share/nginx/html/*
-COPY /dist /usr/share/nginx/html
-CMD ["nginx", "-g", "daemon off;"]
+FROM nginx:stable-alpine
+LABEL version="1.0"
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+WORKDIR /usr/share/nginx/html
+COPY dist/my-angular-app/ .
