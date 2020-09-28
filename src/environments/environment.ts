@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://207.148.119.90:1234/api',
-  BOSH_SERVICE: 'http://localhost:7070/http-bind/',
+  BOSH_SERVICE: 'http://207.148.119.90:7070/http-bind/',
   DOMAIN: 'dimagesharevn.develop'
 };
 
