@@ -28,11 +28,11 @@
       </div>
 
       <div class="c-search-content">
-        <p-listbox [options]="users" [(ngModel)]="selectedUsers" [metaKeySelection]="false" [checkbox]="true"
-                   [filter]="true" [multiple]="true" optionLabel="name">
+        <p-listbox [options]="buddyInput" [metaKeySelection]="false" [checkbox]="true"
+                   [filter]="true" [multiple]="true" optionLabel="name" [(ngModel)]="selectedUsers" name="selectUsers">
           <ng-template let-user pTemplate="item">
             <div class="search-item">
-              <div>{{user.value.name}}</div>
+              <div>{{user.username}}</div>
             </div>
           </ng-template>
         </p-listbox>

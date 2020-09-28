@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {User} from '../../../../pre-auth/model/user';
 
 @Component({
   selector: 'app-create-new-room',
@@ -15,22 +16,10 @@ export class CreateNewRoomComponent implements OnInit {
   roomName: string = null;
   isListUserAddToRoom = false;
 
-  users: any[];
+  @Input() buddyInput: User[];
   selectedUsers: any[];
 
   constructor() {
-    this.users = [
-      {name: 'Australia', code: 'AU'},
-      {name: 'Brazil', code: 'BR'},
-      {name: 'China', code: 'CN'},
-      {name: 'Egypt', code: 'EG'},
-      {name: 'France', code: 'FR'},
-      {name: 'Germany', code: 'DE'},
-      {name: 'India', code: 'IN'},
-      {name: 'Japan', code: 'JP'},
-      {name: 'Spain', code: 'ES'},
-      {name: 'United States', code: 'US'}
-    ];
   }
 
   ngOnInit(): void {

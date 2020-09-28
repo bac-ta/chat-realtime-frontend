@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ChatService} from '../services/chat.service';
 import {interval, Subscription} from 'rxjs';
 import {User} from '../../pre-auth/model/user';
