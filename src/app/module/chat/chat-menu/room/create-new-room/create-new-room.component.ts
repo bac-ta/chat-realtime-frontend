@@ -6,10 +6,10 @@ import {User} from '../../../../pre-auth/model/user';
   templateUrl: './create-new-room.component.html',
   styleUrls: ['./create-new-room.component.css'],
   styles: [`
-        :host ::ng-deep .ui-listbox {
-            width: 20em;
-        }
-    `]
+    :host ::ng-deep .ui-listbox {
+      width: 20em;
+    }
+  `]
 })
 export class CreateNewRoomComponent implements OnInit {
   isOpenCreateNewRoomPopup = false;
@@ -17,6 +17,7 @@ export class CreateNewRoomComponent implements OnInit {
   isListUserAddToRoom = false;
 
   @Input() buddyInput: User[];
+  @Input() usernamesOnline: string[];
   selectedUsers: any[];
 
   constructor() {

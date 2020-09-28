@@ -53,3 +53,23 @@ body .p-listbox .p-listbox-header {
   max-height: 400px;
   width: 250px;
 }
+
+.s-status-online {
+  background: #65ff37;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid;
+}
+
+.s-status-offline {
+  background: grey;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid;
+}
+
+.s-search-item {
+  padding-left: 10px;
+}

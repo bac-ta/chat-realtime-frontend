@@ -29,10 +29,12 @@
 
       <div class="c-search-content">
         <p-listbox [options]="buddyInput" [metaKeySelection]="false" [checkbox]="true"
-                   [filter]="true" [multiple]="true" optionLabel="name" [(ngModel)]="selectedUsers" name="selectUsers">
+                   [filter]="true" [multiple]="true" optionLabel="username" [(ngModel)]="selectedUsers" name="selectUsers">
           <ng-template let-user pTemplate="item">
-            <div class="search-item">
-              <div>{{user.username}}</div>
+            <div *ngIf="!usernamesOnline.includes(user.value.username)" class="s-status-offline"></div>
+            <div *ngIf="usernamesOnline.includes(user.value.username)" class="s-status-online"></div>
+            <div class="s-search-item">
+              <div>{{user.value.username}}</div>
             </div>
           </ng-template>
         </p-listbox>
