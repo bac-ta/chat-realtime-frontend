@@ -36,8 +36,6 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getFriends();
-    //subcribe all online friends
-    this.subcribleFriends();
     this.subscriptionRoster = this.chatService.getStatus().subscribe({
       next: (value) => {
         const user = this.buddy.find(u => u.username === value.username);
@@ -68,8 +66,10 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
       }
     });
 
-    //online user, update list friends
-    this.intervalCall = interval(5000).subscribe(() => {
+
+    //online user
+    interval(10000).subscribe(() => {
+
       this.statusService.findUsersOnline().subscribe(response => {
         this.usernamesOnline = response;
       });
@@ -79,7 +79,6 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
 
 
   openChat(user): void {
-    subscribePresence(user.username + '@' + environment.DOMAIN);
     user.notify = 0;
     this.tabService.addNewChatWindow({username: user.username});
   }
@@ -122,12 +121,6 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   refreshFriends(event): void {
     if (event) {
       this.getFriends();
-    }
-  }
-
-  subcribleFriends(): void {
-    for (let item of this.buddy) {
-      subscribePresence(item.username + '@' + environment.DOMAIN);
     }
   }
 }

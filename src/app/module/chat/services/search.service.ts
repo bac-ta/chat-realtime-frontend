@@ -5,6 +5,8 @@ import {map} from 'rxjs/operators';
 import {UserResponse} from '../models/user-response';
 import {Observable} from 'rxjs';
 import {RoomResponse} from '../models/room-response';
+import {subscribePresence} from '../strophe';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

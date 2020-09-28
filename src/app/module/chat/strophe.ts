@@ -123,7 +123,7 @@ export function subscribePresence(jid): void {
   }));
 }
 
-function getPresence(jid): void {
+export function getPresence(jid): void {
   log('getPresence: ' + jid);
   const check = $pres({
     type: 'available',
