@@ -5,6 +5,8 @@ import {map} from 'rxjs/operators';
 import {UserResponse} from '../models/user-response';
 import {Observable} from 'rxjs';
 import {RoomResponse} from '../models/room-response';
+import {subscribePresence} from '../strophe';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +49,8 @@ export class SearchService extends BaseService<any> {
   }
 
   addFriend(username: string): Observable<any> {
+    const toJid = username + '@' + environment.DOMAIN;
+    subscribePresence(toJid);
     return this.post('/user/addFriend/' + username, {}).pipe();
   }
 }
