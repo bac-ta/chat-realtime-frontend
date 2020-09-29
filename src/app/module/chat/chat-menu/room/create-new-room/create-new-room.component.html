@@ -9,11 +9,11 @@
       <div class="c-group-image-view">
         <img src="/assets/layout/images/group-image.png" width="150px" height="150px"/>
       </div>
-      <input type="text" pInputText placeholder="Chat room name" [(ngModel)]="roomName" name="roomNameInput"
+      <input type="text" pInputText placeholder="Chat room name" [(ngModel)]="naturalName" name="roomNameInput"
              (ngModelChange)="onTextChange($event)" class="p-inputtext"/>
       <div class="c-btn-next">
         <button pButton pRipple label="Next" class="p-button-text p-button-rounded"
-                [disabled]="roomName==null || roomName==''" (click)="nextScreentListUserAddToRoom()"></button>
+                [disabled]="naturalName==null || naturalName==''" (click)="nextScreentListUserAddToRoom()"></button>
         <i class="pi pi-chevron-right"></i>
       </div>
     </div>
@@ -24,12 +24,13 @@
                 (click)="prevScreenCreateRoom()" label="Prev"></button>
       </div>
       <div class="c-btn-done">
-        <button pButton pRipple class="p-button-plain p-button-rounded" label="Done"></button>
+        <button pButton pRipple class="p-button-plain p-button-rounded" label="Done" (click)="creatNewRoom()"></button>
       </div>
 
       <div class="c-search-content">
         <p-listbox [options]="buddyInput" [metaKeySelection]="false" [checkbox]="true"
-                   [filter]="true" [multiple]="true" optionLabel="username" [(ngModel)]="selectedUsers" name="selectUsers">
+                   [filter]="true" [multiple]="true" optionLabel="username" [(ngModel)]="selectedUsers"
+                   name="selectUsers">
           <ng-template let-user pTemplate="item">
             <div *ngIf="!usernamesOnline.includes(user.value.username)" class="s-status-offline"></div>
             <div *ngIf="usernamesOnline.includes(user.value.username)" class="s-status-online"></div>

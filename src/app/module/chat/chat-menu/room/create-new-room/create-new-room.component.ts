@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../../pre-auth/model/user';
+import {RoomService} from '../../../services/room.service';
+import {RoomCreateRequest} from '../../../models/roomCreateRequest';
 
 @Component({
   selector: 'app-create-new-room',
@@ -13,14 +15,16 @@ import {User} from '../../../../pre-auth/model/user';
 })
 export class CreateNewRoomComponent implements OnInit {
   isOpenCreateNewRoomPopup = false;
-  roomName: string = null;
+
   isListUserAddToRoom = false;
 
   @Input() buddyInput: User[];
   @Input() usernamesOnline: string[];
-  selectedUsers: any[];
+  selectedUsers: User[];
 
-  constructor() {
+  naturalName: string;
+
+  constructor(private roomService: RoomService) {
   }
 
   ngOnInit(): void {
@@ -31,7 +35,7 @@ export class CreateNewRoomComponent implements OnInit {
   }
 
   onTextChange(value): void {
-    this.roomName = value;
+    this.naturalName = value;
   }
 
   nextScreentListUserAddToRoom(): void {
@@ -46,5 +50,22 @@ export class CreateNewRoomComponent implements OnInit {
   closePopup(): void {
     this.isOpenCreateNewRoomPopup = false;
     this.isListUserAddToRoom = false;
+  }
+
+  creatNewRoom(): void {
+    let request = new RoomCreateRequest();
+    request.naturalName = this.naturalName;
+    let members = [];
+    for (let user of this.selectedUsers) {
+      members.push(user.username);
+    }
+    request.members = members;
+    this.roomService.crateNewRoomChat(request).subscribe(res => {
+      this.closePopup();
+      //Open tabchat for room
+
+    }, error => {
+      console.log(error);
+    });
   }
 }
