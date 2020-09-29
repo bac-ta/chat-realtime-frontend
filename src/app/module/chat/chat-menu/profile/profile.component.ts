@@ -57,16 +57,23 @@ export class ProfileComponent implements OnInit {
   }
 
   //dialog-profile
-  displayBasic: boolean;
   onShowProfileDetail() {
     this.displayBasic = true;
   }
 
-  profile: ProfileResponse;
-
-  file: FileResponse;
-
   url: string | ArrayBuffer;
+  des: boolean= true;
+  displayBasic: boolean;
+  profile: ProfileResponse= {
+    name:'',
+    description: '',
+    avatar: ''
+  };
+  file: FileResponse= {
+    file_name: '',
+    file_uri: '',
+    file_type: '',
+  };
 
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
@@ -96,5 +103,10 @@ export class ProfileComponent implements OnInit {
       .subscribe((data)=>{
         this.profile = data;
       })
+  }
+
+  UpdateDescription() {
+    this.UpdateProfile();
+    this.des = !this.des;
   }
 }

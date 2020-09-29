@@ -31,11 +31,15 @@
 <p-dialog header="Chỉnh sửa trang cá nhân" [(visible)]="displayBasic">
   <div>
     <div class="avatar">
-      <span>Avatar</span>
-      <label for="fileInput">
-        <span style="margin-left: 140px;">Thêm</span>
-      </label>
-      <input id="fileInput" type='file' (change)="onSelectFile($event)" accept="image/*">
+      <span style="font-size: 25px">Avatar</span>
+      <p-button label="Thêm" styleClass="p-button-text" style="margin-left: 178px;">
+        <label for="fileInput">
+        <!--        <span styleClass="p-button-text">Thêm</span>-->
+          <input id="fileInput" type="file" (change)="onSelectFile($event)" accept="image/*">
+        </label>
+      </p-button>
+
+
     </div>
     <div>
       <label class="hoverable">
@@ -48,12 +52,15 @@
 
     <div class="description">
       <div>
-        <span>Mô tả bản thân</span>
-        <span style="margin-left: 73px;" (click)="UpdateProfile()">Thêm</span>
+        <span style="font-size: 25px">Mô tả bản thân</span>
+        <p-toggleButton onLabel="Hủy" offLabel="Thêm" styleClass="p-button-text" style="margin-left: 73px;" (click)="des= !des"></p-toggleButton>
       </div>
       <div>
-        <p [hidden]="false">{{profile.description}}</p>
-        <textarea [hidden]="false" [(ngModel)]="profile.description" rows="1" cols="30" pInputTextarea autoResize="autoResize" placeholder="Mô tả bản thân..."></textarea>
+        <label style="text-wrap: normal" [hidden]="!des">{{profile.description}}</label>
+        <div [hidden]="des">
+            <textarea [(ngModel)]="profile.description" rows="1" cols="30" pInputTextarea autoResize="autoResize" placeholder="Mô tả bản thân..." style="width: 80%"></textarea>
+          <p-button label="Save" icon="pi pi-check" styleClass="p-button-sm" (click)="UpdateDescription()"></p-button>
+        </div>
       </div>
     </div>
 
