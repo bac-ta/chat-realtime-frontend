@@ -28,7 +28,7 @@
 </div>
 
 
-<p-dialog header="Chỉnh sửa trang cá nhân" [(visible)]="displayBasic" [baseZIndex]="10000">
+<p-dialog header="Chỉnh sửa trang cá nhân" [(visible)]="displayBasic">
   <div>
     <div class="avatar">
       <span>Avatar</span>
@@ -37,9 +37,9 @@
       </label>
       <input id="fileInput" type='file' (change)="onSelectFile($event)" accept="image/*">
     </div>
-    <div style="align-items: center;">
+    <div>
       <label class="hoverable">
-        <a [routerLink]="[url]">
+        <a style="align-items: center" [href]="url" target="_self">
           <img [src]="url ? url : '/assets/layout/images/avatar.png'">
         </a>
         <div class="background"></div>
@@ -49,17 +49,17 @@
     <div class="profile-name">
       <div>
         <span>Tên hiển thị</span>
-        <spam style="margin-left: 100px;">Thêm</spam>
+        <span style="margin-left: 100px;">Thêm</span>
       </div>
       <div>
-        <input [(ngModel)]="getUsername()">
+        <h3>{{getUsername()}}</h3>
       </div>
     </div>
 
     <div class="description">
       <div>
         <span>Mô tả bản thân</span>
-        <spam style="margin-left: 73px;">Thêm</spam>
+        <span style="margin-left: 73px;" (click)="UpdateProfile()">Thêm</span>
       </div>
       <div>
         <textarea rows="1" cols="30" pInputTextarea autoResize="autoResize" placeholder="Mô tả bản thân..."></textarea>

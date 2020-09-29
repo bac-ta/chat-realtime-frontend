@@ -6,6 +6,8 @@ import {MessageService} from 'primeng';
 import {ProfileService} from '../../services/profile.service';
 import {Strophe} from 'strophe.js';
 import error = Strophe.error;
+import {FileResponse} from '../../models/file-response';
+import {ProfileResponse} from '../../models/profile-response';
 
 
 @Component({
@@ -20,14 +22,15 @@ export class ProfileComponent implements OnInit {
 
   stateProfileMenu = 'out';
   displayBasic: boolean;
-  profile = {
-    name: '',
+  profile: ProfileResponse= {
+    name:'',
     description: '',
     avatar: ''
   };
-  file = {
-    fileName: '',
-    fileUri: ''
+  file: FileResponse= {
+    file_name: '',
+    file_uri: '',
+    file_type: '',
   };
 
   constructor(private accountService: AccountService,
@@ -77,17 +80,27 @@ export class ProfileComponent implements OnInit {
         .pipe()
         .subscribe((data) => {
           this.file = data;
-          this.url = this.file.fileUri;
-          this.profile.avatar = this.file.fileName;
+          this.url = this.file.file_uri;
+          this.profile.avatar = this.file.file_name;
         },
       );
     }
+    this.UpdateProfile();
+  }
+
+  UpdateProfile(){
     this.profileService.updateProfile(this.profile)
       .pipe()
       .subscribe(()=>{
-        this.router.navigate(['/#'])
+        this.router.navigate(['/'])
       })
   }
 
-
+  ShowData(){
+    this.profileService.getProfile()
+      .pipe()
+      .subscribe((data)=>{
+        this.profile = data;
+      })
+  }
 }
