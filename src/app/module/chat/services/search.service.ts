@@ -49,6 +49,8 @@ export class SearchService extends BaseService<any> {
   }
 
   addFriend(username: string): Observable<any> {
+    const toJid = username + '@' + environment.DOMAIN;
+    subscribePresence(toJid);
     return this.post('/user/addFriend/' + username, {}).pipe();
   }
 }
