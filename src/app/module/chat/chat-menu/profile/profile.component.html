@@ -1,6 +1,6 @@
 <div class="layout-profile">
   <a class="button-profile" (click)="onShowProfileMenu()">
-    <img src="/assets/layout/images/avatar.png" alt="">
+    <img [src]="url ? url : '/assets/layout/images/avatar.png'" alt="">
     <div class="profile-info">
       <span class="profile-name">{{getUsername()}}</span>
     </div>
@@ -46,23 +46,14 @@
       </label>
     </div>
 
-    <div class="profile-name">
-      <div>
-        <span>Tên hiển thị</span>
-        <span style="margin-left: 100px;">Thêm</span>
-      </div>
-      <div>
-        <h3>{{getUsername()}}</h3>
-      </div>
-    </div>
-
     <div class="description">
       <div>
         <span>Mô tả bản thân</span>
         <span style="margin-left: 73px;" (click)="UpdateProfile()">Thêm</span>
       </div>
       <div>
-        <textarea rows="1" cols="30" pInputTextarea autoResize="autoResize" placeholder="Mô tả bản thân..."></textarea>
+        <p [hidden]="false">{{profile.description}}</p>
+        <textarea [hidden]="false" [(ngModel)]="profile.description" rows="1" cols="30" pInputTextarea autoResize="autoResize" placeholder="Mô tả bản thân..."></textarea>
       </div>
     </div>
 

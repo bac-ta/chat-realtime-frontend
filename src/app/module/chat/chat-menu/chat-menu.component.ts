@@ -66,10 +66,8 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
       }
     });
 
-
-    //online user
-    interval(10000).subscribe(() => {
-
+    //online user, update list friends
+    this.intervalCall = interval(5000).subscribe(() => {
       this.statusService.findUsersOnline().subscribe(response => {
         this.usernamesOnline = response;
       });
@@ -79,6 +77,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
 
 
   openChat(user): void {
+    subscribePresence(user.username + '@' + environment.DOMAIN);
     user.notify = 0;
     this.tabService.addNewChatWindow({username: user.username});
   }

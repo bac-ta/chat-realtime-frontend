@@ -21,17 +21,6 @@ import {ProfileResponse} from '../../models/profile-response';
 export class ProfileComponent implements OnInit {
 
   stateProfileMenu = 'out';
-  displayBasic: boolean;
-  profile: ProfileResponse= {
-    name:'',
-    description: '',
-    avatar: ''
-  };
-  file: FileResponse= {
-    file_name: '',
-    file_uri: '',
-    file_type: '',
-  };
 
   constructor(private accountService: AccountService,
               private router: Router,
@@ -68,9 +57,14 @@ export class ProfileComponent implements OnInit {
   }
 
   //dialog-profile
+  displayBasic: boolean;
   onShowProfileDetail() {
     this.displayBasic = true;
   }
+
+  profile: ProfileResponse;
+
+  file: FileResponse;
 
   url: string | ArrayBuffer;
 
