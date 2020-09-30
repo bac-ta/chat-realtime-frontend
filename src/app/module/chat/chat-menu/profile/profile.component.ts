@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
     description: '',
     avatar: ''
   };
-  files: FileResponse = {
+  file: FileResponse = {
     file_name: '',
     file_uri: '',
     file_type: '',
@@ -77,15 +77,15 @@ export class ProfileComponent implements OnInit {
   }
 
   onSelectFile(event) {
-    this.profileService.uploadFile(event.target.files)
+    this.profileService.uploadFile(event.target.files[0])
       .pipe()
       .subscribe(data => {
-          this.files = data;
-          this.url = this.files.file_uri;
-          this.profile.avatar = this.files.file_name;
+          this.file = data;
+          this.url = this.file.file_uri;
+          this.profile.avatar = this.file.file_name;
         },
       );
-    console.log(this.files);
+    console.log(this.file);
     this.UpdateProfile();
   }
 
