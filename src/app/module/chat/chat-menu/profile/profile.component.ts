@@ -5,9 +5,9 @@ import {Router} from '@angular/router';
 import {MessageService} from 'primeng';
 import {ProfileService} from '../../services/profile.service';
 import {Strophe} from 'strophe.js';
-import error = Strophe.error;
 import {FileResponse} from '../../models/file-response';
 import {ProfileResponse} from '../../models/profile-response';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 
 @Component({
@@ -22,15 +22,16 @@ export class ProfileComponent implements OnInit {
 
   stateProfileMenu = 'out';
 
-  constructor(private accountService: AccountService,
-              private router: Router,
-              private messageService: MessageService,
-              private profileService: ProfileService
-  ) {
-  }
-
-  ngOnInit(): void {
-  }
+  profile: ProfileResponse = {
+    name: '',
+    description: '',
+    avatar: ''
+  };
+  files: FileResponse = {
+    file_name: '',
+    file_uri: '',
+    file_type: '',
+  };
 
   onShowProfileMenu(): void {
     this.stateProfileMenu = this.stateProfileMenu === 'out' ? 'in' : 'out';
@@ -64,28 +65,27 @@ export class ProfileComponent implements OnInit {
   url: string | ArrayBuffer;
   des: boolean= true;
   displayBasic: boolean;
-  profile: ProfileResponse= {
-    name:'',
-    description: '',
-    avatar: ''
-  };
-  file: FileResponse= {
-    file_name: '',
-    file_uri: '',
-    file_type: '',
-  };
+
+  constructor(private accountService: AccountService,
+              private router: Router,
+              private messageService: MessageService,
+              private profileService: ProfileService
+  ) {
+  }
+
+  ngOnInit(): void {
+  }
 
   onSelectFile(event) {
-    if (event.target.files && event.target.files[0]) {
-      this.profileService.uploadFile(event.target.files[0])
-        .pipe()
-        .subscribe((data) => {
-          this.file = data;
-          this.url = this.file.file_uri;
-          this.profile.avatar = this.file.file_name;
+    this.profileService.uploadFile(event.target.files)
+      .pipe()
+      .subscribe(data => {
+          this.files = data;
+          this.url = this.files.file_uri;
+          this.profile.avatar = this.files.file_name;
         },
       );
-    }
+    console.log(this.files);
     this.UpdateProfile();
   }
 
@@ -109,4 +109,10 @@ export class ProfileComponent implements OnInit {
     this.UpdateProfile();
     this.des = !this.des;
   }
+
+  // createForm() {
+  //   this.form = this.fb.group({
+  //     file_upload: null
+  //   });
+  // }
 }

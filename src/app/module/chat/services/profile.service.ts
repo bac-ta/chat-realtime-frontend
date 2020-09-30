@@ -15,14 +15,19 @@ export class ProfileService extends BaseService<any> {
     super(injector);
   }
 
-  uploadFile({file}): Observable<FileResponse> {
+  uploadFile(file): Observable<FileResponse> {
     const user = this.accountService.userValue;
     const customHeader = {
       'Authorization': 'Bearer ' + user.accessToken
     };
-    const observable = this.post('/file/upload-file', {file}, customHeader);
-    return observable.pipe(map(res => {
-      return res.body;
+    let formData: FormData = new FormData();
+    formData.append('file', file);
+    return  this.post('/file/upload-file', {formData}, customHeader)
+      .pipe(map(res => {
+      let body = res.body;
+      let fileName: string = body['file_name'];
+      let fileUri: string = body['file_uri'];
+      return new FileResponse(fileName, fileUri);
     }));
   }
 
@@ -31,8 +36,8 @@ export class ProfileService extends BaseService<any> {
     const customHeader = {
       'Authorization': 'Bearer ' + user.accessToken
     };
-    const observable = this.put('/profile/update-profile', {name, description, avatar}, customHeader);
-    return observable.pipe(map(() => {
+    return  this.put('/profile/update-profile', {name, description, avatar}, customHeader)
+     .pipe(map(() => {
       this.router.navigate(['/']);
     }));
   }
@@ -42,9 +47,13 @@ export class ProfileService extends BaseService<any> {
     const customHeader = {
       'Authorization': 'Bearer ' + user.accessToken
     };
-    const observable = this.get('/profile/get-profile', customHeader);
-    return observable.pipe(map(res=> {
-      return res.body;
+    return  this.get('/profile/get-profile', customHeader)
+      .pipe(map(res=> {
+      let body = res.body;
+      let name: string = body['name'];
+      let description: string = body['description'];
+      let avatar: string = body['avatar'];
+      return new ProfileResponse(name, description, avatar);
       })
     );
   }

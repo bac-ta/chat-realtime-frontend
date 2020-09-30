@@ -32,33 +32,30 @@
   <div>
     <div class="avatar">
       <span style="font-size: 25px">Avatar</span>
-      <p-button label="Thêm" styleClass="p-button-text" style="margin-left: 178px;">
         <label for="fileInput">
-        <!--        <span styleClass="p-button-text">Thêm</span>-->
+          <!--        <span>Thêm</span>-->
+          <p-button label="Thêm" styleClass="p-button-text" style="margin-left: 178px;"></p-button>
           <input id="fileInput" type="file" (change)="onSelectFile($event)" accept="image/*">
         </label>
-      </p-button>
-
-
     </div>
-    <div>
-      <label class="hoverable">
-        <a style="align-items: center" [href]="url" target="_self">
-          <img [src]="url ? url : '/assets/layout/images/avatar.png'">
-        </a>
-        <div class="background"></div>
-      </label>
+    <div class="hoverable" style="margin-top: 50px">
+      <a [href]="url" target="_self">
+        <img [src]="url ? url : '/assets/layout/images/avatar.png'">
+      </a>
+      <div class="background"></div>
     </div>
 
-    <div class="description">
+    <div class="description" style="margin-top: 50px">
       <div>
         <span style="font-size: 25px">Mô tả bản thân</span>
-        <p-toggleButton onLabel="Hủy" offLabel="Thêm" styleClass="p-button-text" style="margin-left: 73px;" (click)="des= !des"></p-toggleButton>
+        <p-button (click)="des= !des" label="Thêm" style="margin-left: 73px;"
+                        styleClass="p-button-text"></p-button>
       </div>
       <div>
-        <label style="text-wrap: normal" [hidden]="!des">{{profile.description}}</label>
+        <div style="flex-wrap: wrap; width: 310px" [hidden]="!des">{{profile.description}}</div>
         <div [hidden]="des">
-            <textarea [(ngModel)]="profile.description" rows="1" cols="30" pInputTextarea autoResize="autoResize" placeholder="Mô tả bản thân..." style="width: 80%"></textarea>
+          <textarea [(ngModel)]="profile.description" autoResize="autoResize" cols="30" pInputTextarea placeholder="Mô tả bản thân..."
+                    rows="1" style="width: 80%"></textarea>
           <p-button label="Save" icon="pi pi-check" styleClass="p-button-sm" (click)="UpdateDescription()"></p-button>
         </div>
       </div>
