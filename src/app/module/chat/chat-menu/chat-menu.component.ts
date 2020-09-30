@@ -20,9 +20,11 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   private subscriptionRoster: Subscription;
   private subscriptionNotify: Subscription;
   private subscriptionTab: Subscription;
+  private subscriptionNumOfNotify: Subscription;
   private tabName: string;
   @ViewChild(SearchComponent, {static: false}) searchTypeComponent: SearchComponent;
 
+  numberOfMessage = [];
 
   usernamesOnline: string [] = [];
 
@@ -44,7 +46,16 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
         }
       }
     });
-
+    this.subscriptionNumOfNotify = this.chatService.getNumMessOff().subscribe(response => {
+      this.numberOfMessage = response;
+      // console.log(response);
+      for (let index of this.numberOfMessage) {
+        const user = this.buddy.find(u => u.username === index.username);
+        const numberMess = index.offMessageNumber;
+        user.notify = numberMess;
+        // console.log(user);
+      }
+    });
     this.subscriptionNotify = this.chatService.getReceiver().subscribe({
       next: (msg) => {
         const user = this.buddy.find(u => u.username === msg.username);
@@ -86,6 +97,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     this.subscriptionRoster.unsubscribe();
     this.subscriptionNotify.unsubscribe();
     this.subscriptionTab.unsubscribe();
+    this.subscriptionNumOfNotify.unsubscribe();
     if (this.intervalCall) {
       setTimeout(() => this.intervalCall.unsubscribe(), 0);
     }
