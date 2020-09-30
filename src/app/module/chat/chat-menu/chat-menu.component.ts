@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ChatService} from '../services/chat.service';
 import {interval, Subscription} from 'rxjs';
 import {User} from '../../pre-auth/model/user';
@@ -7,7 +7,8 @@ import {SearchComponent} from './search/search.component';
 import {StatusService} from '../services/status.service';
 import {environment} from '../../../../environments/environment';
 import {subscribePresence} from '../strophe';
-import {AccountService} from '../../pre-auth/services/account.service';
+import {RoomResponse} from '../models/room-response';
+import {RoomService} from '../services/room.service';
 
 @Component({
   selector: 'app-chat-menu',
@@ -28,14 +29,18 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
 
   intervalCall: any;
 
+  roomResponses: RoomResponse[] = [];
+
   constructor(private chatService: ChatService,
               private tabService: TabService,
               private statusService: StatusService,
-              private accountService: AccountService) {
+              private roomService: RoomService) {
   }
+
 
   ngOnInit(): void {
     this.getFriends();
+    this.getRoomsJoined();
     this.subscriptionRoster = this.chatService.getStatus().subscribe({
       next: (value) => {
         const user = this.buddy.find(u => u.username === value.username);
@@ -71,7 +76,6 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
       this.statusService.findUsersOnline().subscribe(response => {
         this.usernamesOnline = response;
       });
-      this.getFriends();
     });
   }
 
@@ -103,6 +107,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
           user.status = 'Online';
         }
         let hasInList = false;
+
         for (let userItem of this.buddy) {
           if (username === userItem.username) {
             userItem.status = user.status;
@@ -117,9 +122,30 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     });
   }
 
-  refreshFriends(event): void {
-    if (event) {
-      this.getFriends();
+  getRoomsJoined(): void {
+    this.roomService.getRoomsJoined().subscribe(response => {
+      this.roomResponses = response;
+    });
+  }
+
+  addNewFriend(newUsername) {
+    let user = new User();
+    user.username = newUsername;
+
+    if (this.usernamesOnline.includes(newUsername)) {
+      user.status = 'Online';
+    }
+    let hasInList = false;
+
+    for (let userItem of this.buddy) {
+      if (newUsername === userItem.username) {
+        userItem.status = user.status;
+        hasInList = true;
+        break;
+      }
+    }
+    if (!hasInList) {
+      this.buddy.push(user);
     }
   }
 }

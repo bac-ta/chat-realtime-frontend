@@ -123,7 +123,7 @@ export class SearchComponent implements OnInit {
     //add friend
     this.searchService.addFriend(username);
     this.tabService.addNewChatWindow({username});
-    this.addNewFriend.emit(true);
+    this.addNewFriend.emit(username);
   }
 
 }

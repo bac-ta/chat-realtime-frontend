@@ -4,7 +4,7 @@
   </div>
 
   <div>
-    <app-search [usernamesOnline]="usernamesOnline" (addNewFriend)="refreshFriends($event)"></app-search>
+    <app-search [usernamesOnline]="usernamesOnline" (addNewFriend)="addNewFriend($event)"></app-search>
   </div>
 
 
@@ -15,7 +15,9 @@
 
     <div class="category-room">Room</div>
     <div class="category-item">
-      <a href="#">Room 1</a>
+      <a href="#" *ngFor="let room of roomResponses" class="info">
+        <div class="name">{{room.naturalName}}</div>
+      </a>
     </div>
     <div class="category">People</div>
     <div class="category-item" *ngFor="let fr of buddy">
