@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {BaseService} from '../../../core/services/base.service';
 import {catchError, map} from 'rxjs/operators';
 import {NewPassword} from '../model/new-password';
+import {ChatService} from '../../chat/services/chat.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class AccountService extends BaseService<User> {
 
   constructor(
     private router: Router,
-    protected injector: Injector
+    protected injector: Injector,
+    private chatService: ChatService
   ) {
     super(injector);
     this.userSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('user')));
@@ -45,8 +47,13 @@ export class AccountService extends BaseService<User> {
   }
 
   logout(): Observable<any> {
+    this.chatService.disconnect();
     const user = this.userValue;
-    console.log(user);
+
+    if (user == null) {
+      this.router.navigate(['/pre-auth/login']);
+      return;
+    }
 
     const customHeaders = {
       'Authorization': 'Bearer ' + user.accessToken
