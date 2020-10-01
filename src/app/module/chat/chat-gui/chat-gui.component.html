@@ -5,10 +5,10 @@
     <p-tabPanel *ngFor="let item of chatWindows; let i = index" [selected]="i == activeTab"
                 [closable]="true">
       <ng-template pTemplate="header">
-        <app-chat-header [title]="item.username"></app-chat-header>
+        <app-chat-header [title]="item.username?item.username:item.naturalName"></app-chat-header>
       </ng-template>
       <ng-template pTemplate="content">
-        <app-chat-window [chatWith]= "item.username"></app-chat-window>
+        <app-chat-window [chatWith]="item.username"></app-chat-window>
       </ng-template>
     </p-tabPanel>
   </p-tabView>
