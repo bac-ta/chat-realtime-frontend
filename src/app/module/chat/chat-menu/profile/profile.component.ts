@@ -60,6 +60,7 @@ export class ProfileComponent implements OnInit {
   //dialog-profile
   onShowProfileDetail() {
     this.displayBasic = true;
+    this.showData();
   }
 
   url: string | ArrayBuffer;
@@ -74,7 +75,6 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showData();
   }
 
   showData(){
