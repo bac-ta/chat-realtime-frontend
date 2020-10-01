@@ -33,6 +33,12 @@ export class BaseService<T> {
     });
   }
 
+  public upLoadFile(url: string, data): Observable<HttpResponse<T>> {
+    return this.http.post<T>(this.baseUrl + url, data, {
+      observe: 'response'
+    });
+  }
+
   public put(url: string, data, customHeaders = {}): Observable<HttpResponse<T>> {
     const headers = new HttpHeaders(Object.assign({
       'Content-Type': 'application/json',

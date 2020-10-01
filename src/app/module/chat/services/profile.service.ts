@@ -18,10 +18,10 @@ export class ProfileService extends BaseService<any> {
   uploadFile(file: File): Observable<FileResponse> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    return  this.post('/file/upload-file', formData)
+    return this.upLoadFile('/file/upload-file', formData)
       .pipe(map(res => {
-      return res.body;
-    }));
+        return res.body;
+      }));
   }
 
   updateProfile({name, description, avatar}): Observable<any> {
