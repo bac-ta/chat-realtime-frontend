@@ -88,10 +88,6 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     this.tabService.addNewChatWindow({username: user.username});
   }
 
-  openChatForRoom(room): void {
-    this.tabService.addNewChatWindow({roomID: room.roomID});
-  }
-
   ngOnDestroy(): void {
     this.subscriptionRoster.unsubscribe();
     this.subscriptionNotify.unsubscribe();
@@ -166,9 +162,6 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
         }
       }
     });
-  }
-  addNewGroup(): void {
-
   }
 
 }

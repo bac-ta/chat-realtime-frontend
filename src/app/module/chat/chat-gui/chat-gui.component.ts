@@ -7,6 +7,7 @@ import {TabService} from '../services/tab.service';
 export class ChatWindow {
   username: string;
   roomID: number;
+  naturalName: string;
 }
 
 @Component({
@@ -47,6 +48,7 @@ export class ChatGuiComponent implements OnInit {
         if (this.chatWindows.filter(w => w.roomID === value.roomID).length <= 0) {
           this.chatWindows.push(value);
           this.tabService.modifyListWindow(true, value.roomID);
+          this.tabService.modifyListWindow(true, value.naturalName);
         }
 
         this.activeTab = this.chatWindows.map(e => e.roomID).indexOf(value.roomID);

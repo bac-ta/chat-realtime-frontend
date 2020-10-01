@@ -13,7 +13,9 @@ export class TabService {
   chatWindowName = new Set<string>([]);
 
   constructor(private accountService: AccountService) {
-    this.chatWindows = new BehaviorSubject<ChatWindow>({username: accountService.userValue.username, roomID: null});
+    this.chatWindows = new BehaviorSubject<ChatWindow>(
+      {username: accountService.userValue.username, roomID: null, naturalName: null}
+    );
   }
 
   addNewChatWindow(chatWindow): void {
