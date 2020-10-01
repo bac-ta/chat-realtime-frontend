@@ -1,13 +1,13 @@
 <div class="layout-profile">
   <a class="button-profile" (click)="onShowProfileMenu()">
-    <img src="/assets/layout/images/avatar.png" alt="">
+    <img [src]="url ? url : '/assets/layout/images/avatar.png'" alt="">
     <div class="profile-info">
       <span class="profile-name">{{getUsername()}}</span>
     </div>
   </a>
   <ul [@slideInOut]="stateProfileMenu" class="profile-menu">
     <li role="menuitem">
-      <a href="#" class="ripplelink">
+      <a href="#" class="ripplelink" (click)="onShowProfileDetail()">
         <em class="material-icons">account_circle</em>
         <span>Profile</span>
       </a>
@@ -26,3 +26,35 @@
     </li>
   </ul>
 </div>
+
+
+<p-dialog header="My Profile" [(visible)]="displayBasic">
+  <div>
+    <form enctype="multipart/form-data" method="POST">
+    <div class="avatar">
+      <span style="font-size: 25px">Avatar</span>
+        <label for="fileInput">
+          <span style="margin-left: 190px; border: solid 2px #0C1322; border-radius: 10%">More</span>
+          <input id="fileInput" type="file" (change)="onSelectFile($event)" accept="image/*">
+        </label>
+    </div>
+    <div class="hoverable" style="margin-top: 50px">
+      <a [href]="url" target="_self">
+        <img [src]="url ? url : '/assets/layout/images/avatar.png'" alt="">
+      </a>
+      <div class="background"></div>
+    </div>
+
+    <div class="description" style="margin-top: 50px">
+      <div>
+        <span style="font-size: 25px">Description</span>
+      </div>
+      <div>
+        <textarea [(ngModel)]="profile.description" autoResize="autoResize" cols="30" pInputTextarea placeholder="describe yourself..." rows="1" style="width: 80%; font-size: 16px; overflow: inherit"></textarea>
+        <p-button label="Save" icon="pi pi-check" styleClass="p-button-sm" (click)="UpdateProfile()"></p-button>
+      </div>
+    </div>
+    </form>
+  </div>
+</p-dialog>
+
