@@ -74,12 +74,20 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ShowData();
+    this.showData();
+  }
+
+  showData(){
+    this.profileService.getProfile()
+      .pipe()
+      .subscribe((data)=>{
+        this.profile = data;
+      })
   }
 
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]){
-      this.profileService.uploadFile(event.target.files)
+      this.profileService.uploadFile(event.target.files[0])
         .pipe()
         .subscribe(data => {
             this.file = data;
@@ -88,7 +96,6 @@ export class ProfileComponent implements OnInit {
     }
     this.url = this.file.file_uri;
     this.profile.avatar = this.file.file_name;
-    console.log(this.file);
     this.UpdateProfile();
   }
 
@@ -100,12 +107,6 @@ export class ProfileComponent implements OnInit {
       })
   }
 
-  ShowData(){
-    this.profileService.getProfile()
-      .pipe()
-      .subscribe((data)=>{
-        this.profile = data;
-      })
-  }
+
 
 }

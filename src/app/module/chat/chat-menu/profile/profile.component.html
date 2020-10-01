@@ -30,6 +30,7 @@
 
 <p-dialog header="Chỉnh sửa trang cá nhân" [(visible)]="displayBasic">
   <div>
+    <form enctype="multipart/form-data" method="POST">
     <div class="avatar">
       <span style="font-size: 25px">Avatar</span>
         <label for="fileInput">
@@ -49,11 +50,11 @@
         <span style="font-size: 25px">Mô tả bản thân</span>
       </div>
       <div>
-        <textarea [value]="profile.description" autoResize="autoResize" cols="30" pInputTextarea placeholder="Mô tả bản thân..." rows="1" style="width: 80%"></textarea>
+        <textarea [(ngModel)]="profile.description" autoResize="autoResize" cols="30" pInputTextarea placeholder="Mô tả bản thân..." rows="1" style="width: 80%; font-size: 16px; overflow: inherit"></textarea>
         <p-button label="Save" icon="pi pi-check" styleClass="p-button-sm" (click)="UpdateProfile()"></p-button>
       </div>
     </div>
-
+    </form>
   </div>
 </p-dialog>
 
