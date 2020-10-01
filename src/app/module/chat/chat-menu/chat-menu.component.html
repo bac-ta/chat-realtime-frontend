@@ -15,7 +15,7 @@
 
     <div class="category-room">Room</div>
     <div class="category-item">
-      <a href="#" *ngFor="let room of roomResponses" class="info">
+      <a href="#" *ngFor="let room of roomResponses" class="info" (click)="openChatForRoom(room)">
         <div class="name">{{room.naturalName}}</div>
       </a>
     </div>

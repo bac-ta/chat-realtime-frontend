@@ -1,5 +1,4 @@
-import {Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild} from '@angular/core';
-import {PickerComponent} from '@ctrl/ngx-emoji-mart';
+import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MessageChat} from '../chat-content/chat-content.component';
 
 @Component({
