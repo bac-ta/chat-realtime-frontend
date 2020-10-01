@@ -128,7 +128,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     });
   }
 
-  addNewFriend(newUsername) {
+  addNewFriend(newUsername): void {
     let user = new User();
     user.username = newUsername;
 
@@ -147,5 +147,9 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     if (!hasInList) {
       this.buddy.push(user);
     }
+  }
+
+  addNewGroup(): void {
+
   }
 }

@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ChatService} from '../services/chat.service';
 import {Subscription} from 'rxjs';
 import {TabView} from 'primeng';
