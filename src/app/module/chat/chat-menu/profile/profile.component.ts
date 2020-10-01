@@ -77,14 +77,16 @@ export class ProfileComponent implements OnInit {
   }
 
   onSelectFile(event) {
-    this.profileService.uploadFile(event.target.files[0])
-      .pipe()
-      .subscribe(data => {
-          this.file = data;
-          this.url = this.file.file_uri;
-          this.profile.avatar = this.file.file_name;
-        },
-      );
+    if (event.target.files && event.target.files[0]){
+      this.profileService.uploadFile(event.target.files)
+        .pipe()
+        .subscribe(data => {
+            this.file = data;
+          },
+        );
+    }
+    this.url = this.file.file_uri;
+    this.profile.avatar = this.file.file_name;
     console.log(this.file);
     this.UpdateProfile();
   }
@@ -110,9 +112,4 @@ export class ProfileComponent implements OnInit {
     this.des = !this.des;
   }
 
-  // createForm() {
-  //   this.form = this.fb.group({
-  //     file_upload: null
-  //   });
-  // }
 }

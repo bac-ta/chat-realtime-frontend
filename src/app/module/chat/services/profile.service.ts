@@ -15,14 +15,10 @@ export class ProfileService extends BaseService<any> {
     super(injector);
   }
 
-  uploadFile(file): Observable<FileResponse> {
-    const user = this.accountService.userValue;
-    const customHeader = {
-      'Authorization': 'Bearer ' + user.accessToken
-    };
-    let formData: FormData = new FormData();
+  uploadFile(file: File): Observable<FileResponse> {
+    const formData: FormData = new FormData();
     formData.append('file', file);
-    return  this.post('/file/upload-file', {formData}, customHeader)
+    return  this.post('/file/upload-file', {formData})
       .pipe(map(res => {
       let body = res.body;
       let fileName: string = body['file_name'];
@@ -32,22 +28,14 @@ export class ProfileService extends BaseService<any> {
   }
 
   updateProfile({name, description, avatar}): Observable<any> {
-    const user = this.accountService.userValue;
-    const customHeader = {
-      'Authorization': 'Bearer ' + user.accessToken
-    };
-    return  this.put('/profile/update-profile', {name, description, avatar}, customHeader)
+    return  this.put('/profile/update-profile', {name, description, avatar})
      .pipe(map(() => {
       this.router.navigate(['/']);
     }));
   }
 
   getProfile(): Observable<ProfileResponse>{
-    const user = this.accountService.userValue;
-    const customHeader = {
-      'Authorization': 'Bearer ' + user.accessToken
-    };
-    return  this.get('/profile/get-profile', customHeader)
+    return  this.get('/profile/get-profile')
       .pipe(map(res=> {
       let body = res.body;
       let name: string = body['name'];
