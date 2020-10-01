@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit {
   }
 
   url: string | ArrayBuffer;
-  des: boolean= true;
+
   displayBasic: boolean;
 
   constructor(private accountService: AccountService,
@@ -74,6 +74,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.ShowData();
   }
 
   onSelectFile(event) {
@@ -105,11 +106,6 @@ export class ProfileComponent implements OnInit {
       .subscribe((data)=>{
         this.profile = data;
       })
-  }
-
-  UpdateDescription() {
-    this.UpdateProfile();
-    this.des = !this.des;
   }
 
 }

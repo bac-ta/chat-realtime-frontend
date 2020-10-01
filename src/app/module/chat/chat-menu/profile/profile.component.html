@@ -33,14 +33,13 @@
     <div class="avatar">
       <span style="font-size: 25px">Avatar</span>
         <label for="fileInput">
-          <span style="margin-left: 190px">Thêm</span>
-<!--          <p-button label="Thêm" styleClass="p-button-text" style="margin-left: 178px;"></p-button>-->
+          <span style="margin-left: 190px; border: solid 2px #0C1322; border-radius: 10%">Thêm</span>
           <input id="fileInput" type="file" (change)="onSelectFile($event)" accept="image/*">
         </label>
     </div>
     <div class="hoverable" style="margin-top: 50px">
       <a [href]="url" target="_self">
-        <img [src]="url ? url : '/assets/layout/images/avatar.png'">
+        <img [src]="url ? url : '/assets/layout/images/avatar.png'" alt="">
       </a>
       <div class="background"></div>
     </div>
@@ -48,16 +47,10 @@
     <div class="description" style="margin-top: 50px">
       <div>
         <span style="font-size: 25px">Mô tả bản thân</span>
-        <p-button (click)="des= !des" label="Thêm" style="margin-left: 73px;"
-                        styleClass="p-button-text"></p-button>
       </div>
       <div>
-        <div style="flex-wrap: wrap; width: 310px" [hidden]="!des">{{profile.description}}</div>
-        <div [hidden]="des">
-          <textarea [(ngModel)]="profile.description" autoResize="autoResize" cols="30" pInputTextarea placeholder="Mô tả bản thân..."
-                    rows="1" style="width: 80%"></textarea>
-          <p-button label="Save" icon="pi pi-check" styleClass="p-button-sm" (click)="UpdateDescription()"></p-button>
-        </div>
+        <textarea [value]="profile.description" autoResize="autoResize" cols="30" pInputTextarea placeholder="Mô tả bản thân..." rows="1" style="width: 80%"></textarea>
+        <p-button label="Save" icon="pi pi-check" styleClass="p-button-sm" (click)="UpdateProfile()"></p-button>
       </div>
     </div>
 

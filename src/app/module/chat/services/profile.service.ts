@@ -18,12 +18,9 @@ export class ProfileService extends BaseService<any> {
   uploadFile(file: File): Observable<FileResponse> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    return  this.post('/file/upload-file', {formData})
+    return  this.post('/file/upload-file', formData)
       .pipe(map(res => {
-      let body = res.body;
-      let fileName: string = body['file_name'];
-      let fileUri: string = body['file_uri'];
-      return new FileResponse(fileName, fileUri);
+      return res.body;
     }));
   }
 
@@ -37,11 +34,7 @@ export class ProfileService extends BaseService<any> {
   getProfile(): Observable<ProfileResponse>{
     return  this.get('/profile/get-profile')
       .pipe(map(res=> {
-      let body = res.body;
-      let name: string = body['name'];
-      let description: string = body['description'];
-      let avatar: string = body['avatar'];
-      return new ProfileResponse(name, description, avatar);
+        return res.body;
       })
     );
   }
