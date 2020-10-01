@@ -24,6 +24,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   private tabName: string;
   @ViewChild(SearchComponent, {static: false}) searchTypeComponent: SearchComponent;
 
+  numberOfMessage = [];
 
   usernamesOnline: string [] = [];
 
@@ -41,6 +42,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getFriends();
     this.getRoomsJoined();
+    this.loadOffMessage();
     this.subscriptionRoster = this.chatService.getStatus().subscribe({
       next: (value) => {
         const user = this.buddy.find(u => u.username === value.username);
@@ -132,7 +134,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     });
   }
 
-  addNewFriend(newUsername): void {
+  addNewFriend(newUsername) {
     let user = new User();
     user.username = newUsername;
 
@@ -153,7 +155,20 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     }
   }
 
+  loadOffMessage(): void {
+    this.chatService.getNumMessOff().subscribe(response => {
+      this.numberOfMessage = response;
+      for (let index of this.numberOfMessage) {
+        const user = this.buddy.find(u => u.username === index.username);
+        if (user) {
+          const numberMess = index.offMessageNumber;
+          user.notify = numberMess;
+        }
+      }
+    });
+  }
   addNewGroup(): void {
 
   }
+
 }
