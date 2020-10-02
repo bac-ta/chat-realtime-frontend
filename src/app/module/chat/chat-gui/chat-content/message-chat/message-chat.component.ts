@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MessageChat} from '../chat-content.component';
 import {EmojiService} from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import {AccountService} from '../../../../pre-auth/services/account.service';
+import {MessageBody} from '../../../models/message-body';
+import {TabService} from '../../../services/tab.service';
 
 class Text {
   isEmoji: boolean;
@@ -19,12 +21,16 @@ export class MessageChatComponent implements OnInit {
   listStr: Text[] = [];
   clzz = '';
   clzzWrapper = '';
+  messageBody: MessageBody;
 
   constructor(private emojiService: EmojiService,
-              private accountService: AccountService) {
+              private accountService: AccountService,
+              private tabService: TabService) {
   }
 
   ngOnInit(): void {
+    this.tabService.messageBody.subscribe(value => this.messageBody = value);
+    console.log(this.messageBody);
     if (!this.msg.avatarUrl) {
       this.msg.avatarUrl = '/assets/layout/images/avatar.png';
     }
