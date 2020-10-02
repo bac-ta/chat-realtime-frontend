@@ -15,8 +15,13 @@
 
     <div class="category-room">Room</div>
     <div class="category-item">
-      <a href="#" *ngFor="let room of roomResponses" class="info" (click)="openChatForRoom(room)">
-        <div class="name">{{room.naturalName}}</div>
+      <a href="#" *ngFor="let room of roomResponses" class="p-d-flex p-align-center" (click)="openChatForRoom(room)">
+        <div class="menu-avatar">
+          <img src="/assets/layout/images/group.jpeg" width="55px" height="15px">
+        </div>
+        <div class="info">
+          <div class="name">{{room.naturalName}}</div>
+        </div>
       </a>
     </div>
     <div class="category">People</div>

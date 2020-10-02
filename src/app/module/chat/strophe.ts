@@ -1,15 +1,13 @@
-import {Strophe, $build, $iq, $msg, $pres} from 'strophe.js';
+import {$iq, $msg, $pres, Strophe} from 'strophe.js';
 import {environment} from '../../../environments/environment';
 import * as $ from 'jquery';
 import {Subject} from 'rxjs';
 import {MessageChat} from './chat-gui/chat-content/chat-content.component';
 import {User} from '../pre-auth/model/user';
-import {Howl, Howler} from 'howler';
-import {ajax} from 'rxjs/ajax';
-import {buffer, concatMap, map} from 'rxjs/operators';
+import {Howl} from 'howler';
 
 export const receiver = new Subject<MessageChat>();
-export const roster = new Subject<User>();
+export const rosterSubject = new Subject<User>();
 // const sessionCheck = (user) => {
 //   return ajax({
 //     url: environment.apiOP + 'sessions/' + user.username,
@@ -104,6 +102,7 @@ function onConnect(s: Strophe.Status): void {
   } else if (s === Strophe.Status.DISCONNECTING) {
     log('Strophe is disconnecting.');
   } else if (s === Strophe.Status.DISCONNECTED) {
+    log('Strophe is disconnected.');
   } else if (s === Strophe.Status.CONNECTED) {
     log('Strophe is connected.');
     getRoster();
@@ -114,6 +113,8 @@ function onConnect(s: Strophe.Status): void {
     connection.send($pres().tree());
   }
 }
+
+
 
 export function subscribePresence(jid): void {
   log('subscribePresence: ' + jid);
@@ -152,7 +153,7 @@ function rosterCallback(iq): void {
       listCheck.push(jid);
       const user = new User();
       user.username = jid;
-      roster.next(user);
+      rosterSubject.next(user);
     }
   });
 }
@@ -201,5 +202,6 @@ export function getConnection(jid, password): Strophe.Connection {
   connection.disconnect('open again');
   connection.reset();
   connection.connect(jid, password, onConnect);
+
   return connection;
 }

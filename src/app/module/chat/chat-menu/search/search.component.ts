@@ -125,5 +125,8 @@ export class SearchComponent implements OnInit {
     this.tabService.addNewChatWindow({username});
     this.addNewFriend.emit(username);
   }
+  joinRoom(): void {
+
+  }
 
 }
