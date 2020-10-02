@@ -4,7 +4,8 @@
   </div>
 
   <div>
-    <app-search [usernamesOnline]="usernamesOnline" (addNewFriend)="addNewFriend($event)"></app-search>
+    <app-search [usernamesOnline]="usernamesOnline" (addNewFriend)="addNewFriend($event)"
+                (joinedRoom)="addNewRoom($event)"></app-search>
   </div>
 
 

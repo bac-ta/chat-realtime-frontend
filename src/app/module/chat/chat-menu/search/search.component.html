@@ -36,7 +36,8 @@
 
   <p-listbox [options]="rooms" [(ngModel)]="selectedRooms" [filter]="false" [multiple]="true"
              optionLabel="name" [listStyle]="{'max-height':'350px'}"
-             *ngIf="!activeItem || activeItem.label=='All'|| activeItem.label=='Rooms'">
+             *ngIf="!activeItem || activeItem.label=='All'|| activeItem.label=='Rooms'"
+             (onClick)="openChatRoomWindow($event)">
     <ng-template pTemplate="header">
       Rooms
     </ng-template>

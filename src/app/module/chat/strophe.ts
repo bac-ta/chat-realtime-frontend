@@ -115,6 +115,12 @@ function onConnect(s: Strophe.Status): void {
 }
 
 
+export function joinRoom(roomName): void {
+  const roomXmppDomainName = roomName + '@' + environment.DOMAIN;
+  const m = $pres(roomXmppDomainName);
+  connection.send(m.tree());
+}
+
 
 export function subscribePresence(jid): void {
   log('subscribePresence: ' + jid);
@@ -205,3 +211,4 @@ export function getConnection(jid, password): Strophe.Connection {
 
   return connection;
 }
+

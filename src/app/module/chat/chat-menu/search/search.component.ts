@@ -6,8 +6,7 @@ import {SearchTypeComponent} from './search-type/search-type.component';
 import {UserResponse} from '../../models/user-response';
 import {RoomResponse} from '../../models/room-response';
 import {TabService} from '../../services/tab.service';
-import {subscribePresence} from '../../strophe';
-import {environment} from '../../../../../environments/environment';
+import {RoomService} from '../../services/room.service';
 
 @Component({
   selector: 'app-search',
@@ -35,9 +34,11 @@ export class SearchComponent implements OnInit {
 
   @ViewChild(SearchTypeComponent, {static: false}) searchTypeComponent: SearchTypeComponent;
   @Output() addNewFriend: EventEmitter<any> = new EventEmitter();
+  @Output() joinedRoom: EventEmitter<any> = new EventEmitter();
 
 
-  constructor(private searchService: SearchService, private tabService: TabService) {
+  constructor(private searchService: SearchService, private tabService: TabService,
+              private roomService: RoomService) {
   }
 
 
@@ -111,7 +112,7 @@ export class SearchComponent implements OnInit {
       const room = {
         name: item.name,
         naturalName: item.naturalName,
-        description: item.description
+        roomID: item.roomID
       };
       rooms.push(room);
     }
@@ -125,8 +126,20 @@ export class SearchComponent implements OnInit {
     this.tabService.addNewChatWindow({username});
     this.addNewFriend.emit(username);
   }
-  joinRoom(): void {
 
+  openChatRoomWindow(event): void {
+    const roomName = event.option.value.name;
+    //joine room
+    this.roomService.joinRoom(roomName).subscribe();
+    const roomID = event.option.value.roomID;
+    const naturalName = event.option.value.naturalName;
+    this.tabService.addNewChatWindow({roomID, naturalName});
+
+    let room = new RoomResponse();
+    room.roomID = roomID;
+    room.naturalName = naturalName;
+    room.name = roomName;
+    this.joinedRoom.emit(room);
   }
 
 }

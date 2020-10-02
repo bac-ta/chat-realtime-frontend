@@ -155,6 +155,19 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     }
   }
 
+  addNewRoom(newRoom): void {
+    let hasInList = false;
+    for (let roomItem of this.roomResponses) {
+      if (roomItem.roomID === newRoom.roomID) {
+        hasInList = true;
+        break;
+      }
+    }
+    if (!hasInList) {
+      this.roomResponses.push(newRoom);
+    }
+  }
+
   loadOffMessage(): void {
     this.chatService.getNumMessOff().subscribe(response => {
       this.numberOfMessage = response;

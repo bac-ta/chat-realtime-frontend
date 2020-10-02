@@ -40,7 +40,7 @@ export class SearchService extends BaseService<any> {
       for (let roomElement of roomResponsesObj) {
         let roomResponse = new RoomResponse();
         roomResponse.name = roomElement['name'];
-        roomResponse.description = roomElement['description'];
+        roomResponse.roomID = roomElement['roomID'];
         roomResponse.naturalName = roomElement['naturalName'];
         roomResponses.push(roomResponse);
       }
