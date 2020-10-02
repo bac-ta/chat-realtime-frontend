@@ -20,7 +20,7 @@ export class CreateNewRoomComponent implements OnInit {
 
   @Input() buddyInput: User[];
   @Input() usernamesOnline: string[];
-  selectedUsers: User[];
+  selectedUsers: User[] = [];
 
   naturalName: string;
 
