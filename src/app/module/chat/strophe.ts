@@ -55,12 +55,13 @@ function onOwnMessage(msg: Element): boolean {
 }
 
 function onMessage(msg: Element): boolean {
+  alert('vao day')
   const to = msg.getAttribute('to');
   const from = msg.getAttribute('from');
   const type = msg.getAttribute('type');
   const elems = msg.getElementsByTagName('body');
 
-  if (type === 'chat' && elems.length > 0) {
+  if (type === 'chat' || type === 'groupchat' && elems.length > 0) {
     sound.play();
     const body = elems[0];
 
@@ -90,6 +91,18 @@ export function sendMessage(message, to): void {
   }
 }
 
+export function senMessageInRoom(message, to) {
+  if (message && to) {
+    const reply = $msg({
+      to,
+      type: 'groupchat'
+    }).c('body').t(message);
+
+    connection.send(reply);
+  }
+}
+
+
 const connection = new Strophe.Connection(environment.BOSH_SERVICE, {keepalive: true});
 connection.rawInput = rawInput;
 connection.rawOutput = rawOutput;
@@ -117,7 +130,8 @@ function onConnect(s: Strophe.Status): void {
 
 export function joinRoom(roomName): void {
   const roomXmppDomainName = roomName + '@' + environment.DOMAIN;
-  const m = $pres(roomXmppDomainName);
+  // const m = $pres(roomXmppDomainName);
+  const m = $pres('bac@dimagesharevn.develop');
   connection.send(m.tree());
 }
 

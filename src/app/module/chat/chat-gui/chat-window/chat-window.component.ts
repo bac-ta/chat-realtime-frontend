@@ -12,7 +12,7 @@ import {Subscription} from 'rxjs';
 })
 export class ChatWindowComponent implements OnInit, OnDestroy {
 
-  @Input() chatWith: string;
+  @Input() chatWith: any;
   private currentUser: User;
   private chatWithUser: User;
   chatMsgs: MessageChat[] = [];
@@ -51,7 +51,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     if (e.isMe) {
       e.username = this.currentUser.username;
     }
-    this.chatService.sendMsg(e.detail, this.chatWith);
+
+    if (this.chatWith.username)
+      this.chatService.sendMsg(e.detail, this.chatWith.username);
+    else {
+      this.chatService.sendMsgInRoom(e.detail, this.chatWith.roomName);
+    }
     this.chatMsgs.unshift(e);
   }
 }

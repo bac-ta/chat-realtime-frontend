@@ -6,8 +6,9 @@ import {TabService} from '../services/tab.service';
 
 export class ChatWindow {
   username: string;
-  roomID: number;
-  naturalName: string;
+  roomID: number; //of room
+  naturalName: string; //of room
+  roomName: string;
 }
 
 @Component({
@@ -21,7 +22,6 @@ export class ChatGuiComponent implements OnInit {
   chatWindows: ChatWindow[] = [];
   chatSubscription: Subscription;
   activeTab = 0;
-
 
   constructor(private chatService: ChatService,
               private tabService: TabService) {
@@ -49,6 +49,7 @@ export class ChatGuiComponent implements OnInit {
           this.chatWindows.push(value);
           this.tabService.modifyListWindow(true, value.roomID);
           this.tabService.modifyListWindow(true, value.naturalName);
+          this.tabService.modifyListWindow(true, value.roomName);
         }
 
         this.activeTab = this.chatWindows.map(e => e.roomID).indexOf(value.roomID);

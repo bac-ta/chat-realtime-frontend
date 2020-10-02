@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {RoomResponse} from '../models/room-response';
 import {map} from 'rxjs/operators';
 import {environment} from '../../../../environments/environment';
-import {subscribePresence} from '../strophe';
+import {joinRoom, subscribePresence} from '../strophe';
 import {UserType} from '../enums/user-type';
 
 @Injectable({
@@ -34,6 +34,8 @@ export class RoomService extends BaseService<any> {
   joinRoom(roomName: string): Observable<any> {
     const toJid = roomName + '@' + environment.DOMAIN;
     subscribePresence(toJid);
+    // joinRoom(roomName);
+
     const uri = '/room/joined/' + roomName + '/' + UserType.MEMBERS;
     return this.post(uri, {}).pipe();
   }

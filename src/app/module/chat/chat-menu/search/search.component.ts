@@ -133,7 +133,7 @@ export class SearchComponent implements OnInit {
     this.roomService.joinRoom(roomName).subscribe();
     const roomID = event.option.value.roomID;
     const naturalName = event.option.value.naturalName;
-    this.tabService.addNewChatWindow({roomID, naturalName});
+    this.tabService.addNewChatWindow({roomID, naturalName, roomName});
 
     let room = new RoomResponse();
     room.roomID = roomID;

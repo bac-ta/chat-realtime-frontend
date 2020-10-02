@@ -1,7 +1,7 @@
 import {Injectable, Injector} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {environment} from '../../../../environments/environment';
-import {getConnection, receiver, sendMessage, status, subscribePresence} from '../strophe';
+import {getConnection, receiver, sendMessage, senMessageInRoom, status, subscribePresence} from '../strophe';
 import {MessageChat} from '../chat-gui/chat-content/chat-content.component';
 import {User} from '../../pre-auth/model/user';
 import {BaseService} from '../../../core/services/base.service';
@@ -38,6 +38,15 @@ export class ChatService extends BaseService<any> {
     to = to + '@' + environment.DOMAIN;
     subscribePresence(to);
     sendMessage(msg, to);
+  }
+
+  sendMsgInRoom(msg, to): void {
+    to = to + '@' + environment.DOMAIN;
+
+    console.log('room la')
+    console.log(to);
+    subscribePresence(to);
+    senMessageInRoom(msg, to);
   }
 
   getRoster(): Observable<any> {
