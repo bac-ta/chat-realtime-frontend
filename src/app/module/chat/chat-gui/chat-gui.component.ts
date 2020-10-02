@@ -22,6 +22,7 @@ export class ChatGuiComponent implements OnInit {
   chatSubscription: Subscription;
   activeTab = 0;
 
+
   constructor(private chatService: ChatService,
               private tabService: TabService) {
   }
@@ -41,7 +42,6 @@ export class ChatGuiComponent implements OnInit {
           this.tabView.activeIndexChange.emit(this.activeTab);
         }
         this.tabService.setActiveTab(this.chatWindows[this.activeTab].username);
-
       }
       //For room
       else {
