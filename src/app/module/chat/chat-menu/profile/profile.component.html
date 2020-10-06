@@ -39,7 +39,7 @@
         </label>
     </div>
     <div class="hoverable" style="margin-top: 50px">
-      <a [href]="url" target="_self">
+      <a [href]="url" target="_self" >
         <img [src]="url ? url : '/assets/layout/images/avatar.png'" alt="">
       </a>
       <div class="background"></div>
@@ -51,7 +51,7 @@
       </div>
       <div>
         <textarea [(ngModel)]="profile.description" name="description" autoResize="autoResize" cols="30" pInputTextarea placeholder="describe yourself..." rows="1" style="width: 80%; font-size: 16px; overflow: inherit"></textarea>
-        <p-button label="Save" icon="pi pi-check" styleClass="p-button-sm" (click)="UpdateProfile()"></p-button>
+        <p-button label="Save" icon="pi pi-check" styleClass="p-button-sm" (click)="updateProfile()"></p-button>
       </div>
     </div>
     </form>

@@ -9,6 +9,7 @@ import {Observable} from 'rxjs';
 export class BaseService<T> {
   protected http: HttpClient = this.injector.get(HttpClient);
   private readonly baseUrl: string;
+
   constructor(protected injector: Injector) {
     this.baseUrl = environment.apiUrl;
   }
@@ -34,6 +35,9 @@ export class BaseService<T> {
   }
 
   public upLoadFile(url: string, data): Observable<HttpResponse<T>> {
+    const headers = new HttpHeaders(Object.assign({
+      'Content-Type': 'multipart/form-data',
+    }));
     return this.http.post<T>(this.baseUrl + url, data, {
       observe: 'response'
     });

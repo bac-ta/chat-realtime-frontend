@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit {
     file_name: '',
     file_uri: '',
     file_type: '',
+    size: 0
   };
 
   onShowProfileMenu(): void {
@@ -89,17 +90,18 @@ export class ProfileComponent implements OnInit {
     if (event.target.files && event.target.files[0]){
       this.profileService.uploadFile(event.target.files[0])
         .pipe()
-        .subscribe(data => {
+        .subscribe((data) => {
             this.file = data;
-          },
+            this.url = this.file.file_uri;
+            this.profile.avatar = this.file.file_name;
+            console.log(this.profile);
+            this.updateProfile();
+          }
         );
     }
-    this.url = this.file.file_uri;
-    this.profile.avatar = this.file.file_name;
-    this.UpdateProfile();
   }
 
-  UpdateProfile(){
+  updateProfile(){
     this.profileService.updateProfile(this.profile)
       .pipe()
       .subscribe(()=>{

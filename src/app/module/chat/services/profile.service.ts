@@ -25,14 +25,14 @@ export class ProfileService extends BaseService<any> {
   }
 
   updateProfile({name, description, avatar}): Observable<any> {
-    return  this.put('/profile/update-profile', {name, description, avatar})
+    return this.put('/profile/update-profile', {name, description, avatar})
      .pipe(map(() => {
       this.router.navigate(['/']);
     }));
   }
 
   getProfile(): Observable<ProfileResponse>{
-    return  this.get('/profile/get-profile')
+    return this.get('/profile/get-profile')
       .pipe(map(res=> {
         return res.body;
       })
