@@ -8,6 +8,7 @@ import {Strophe} from 'strophe.js';
 import {FileResponse} from '../../models/file-response';
 import {ProfileResponse} from '../../models/profile-response';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {environment} from '../../../../../environments/environment';
 
 
 @Component({
@@ -64,7 +65,7 @@ export class ProfileComponent implements OnInit {
     this.showData();
   }
 
-  url: string | ArrayBuffer;
+  private readonly baseUrl: String;
 
   displayBasic: boolean;
 
@@ -73,7 +74,10 @@ export class ProfileComponent implements OnInit {
               private messageService: MessageService,
               private profileService: ProfileService
   ) {
+    this.baseUrl = environment.apiUrl;
   }
+
+  url: string|ArrayBuffer;
 
   ngOnInit(): void {
   }
@@ -83,6 +87,9 @@ export class ProfileComponent implements OnInit {
       .pipe()
       .subscribe((data)=>{
         this.profile = data;
+        if (this.profile.avatar != null){
+          this.url = this.baseUrl + '/file/view-file/'+ this.profile.avatar;
+        }
       })
   }
 
@@ -94,7 +101,6 @@ export class ProfileComponent implements OnInit {
             this.file = data;
             this.url = this.file.file_uri;
             this.profile.avatar = this.file.file_name;
-            console.log(this.profile);
             this.updateProfile();
           }
         );
