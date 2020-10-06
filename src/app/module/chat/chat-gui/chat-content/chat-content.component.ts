@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {TabService} from '../../services/tab.service';
+import {ChatService} from '../../services/chat.service';
 
 export class MessageChat {
   username: string;
@@ -19,8 +21,21 @@ export class MessageChat {
 export class ChatContentComponent implements OnInit {
 
   @Input() chatMsgs: MessageChat[] = [];
-  constructor() { }
+  @Input() chatWith: string;
+
+  constructor(private tabService: TabService,
+              private chatService: ChatService ) { }
 
   ngOnInit(): void {
+
+    this.chatService.getMessage(this.chatWith).subscribe(msgs => {
+      const msgChat = msgs.map(m => {
+        const c = new MessageChat();
+        c.detail = m.body;
+        return c;
+      })
+      this.chatMsgs.push(...msgChat);
+      console.log('msgChat', msgChat);
+    });
   }
 }

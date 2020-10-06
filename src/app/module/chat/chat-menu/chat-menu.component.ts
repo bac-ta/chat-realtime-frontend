@@ -84,9 +84,6 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     subscribePresence(user.username + '@' + environment.DOMAIN);
     user.notify = 0;
     this.tabService.addNewChatWindow({username: user.username});
-    this.chatService.getMessage(user.username).subscribe(response => {
-      return this.tabService.addMessageBody(response);
-    });
   }
 
   ngOnDestroy(): void {

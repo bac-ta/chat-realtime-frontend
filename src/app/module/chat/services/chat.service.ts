@@ -51,8 +51,8 @@ export class ChatService extends BaseService<any> {
     return status;
   }
 
-  getMessage(toJID: string): Observable<MessageBody[]> {
-    return this.get('/chat/loadHistory' + '?toJID=' + toJID , {}).pipe(map(response => {
+  getMessage(userNameTo: string): Observable<MessageBody[]> {
+    return this.get('/chat/loadHistory' + '?toJID=' + userNameTo , {}).pipe(map(response => {
       this.messageBody = response.body;
       return this.messageBody;
     }));
