@@ -17,7 +17,8 @@
 <div *ngIf="isShowSearchType" class="s-search-content">
   <p-listbox [options]="users" [(ngModel)]="selectedUsers" [filter]="false" [multiple]="true"
              optionLabel="name" [listStyle]="{'max-height':'350px'}"
-             *ngIf="!activeItem || activeItem.label=='All'|| activeItem.label=='People'" (onClick)="openChatWindow($event)">
+             *ngIf="!activeItem || activeItem.label=='All'|| activeItem.label=='People'"
+             (onClick)="openChatWindow($event)">
     <ng-template pTemplate="header">
       People
     </ng-template>
@@ -33,11 +34,17 @@
     </ng-template>
   </p-listbox>
 
-  <p-listbox [options]="fetchRoomResponses()" [(ngModel)]="selectedRooms" [filter]="false" [multiple]="true"
+  <p-listbox [options]="rooms" [(ngModel)]="selectedRooms" [filter]="false" [multiple]="true"
              optionLabel="name" [listStyle]="{'max-height':'350px'}"
-             *ngIf="!activeItem || activeItem.label=='All'|| activeItem.label=='Rooms'">
+             *ngIf="!activeItem || activeItem.label=='All'|| activeItem.label=='Rooms'"
+             (onClick)="openChatRoomWindow($event)">
     <ng-template pTemplate="header">
       Rooms
+    </ng-template>
+    <ng-template let-room pTemplate="item">
+      <div class="s-search-item">
+        {{room.value.naturalName}}
+      </div>
     </ng-template>
   </p-listbox>
 </div>
