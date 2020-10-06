@@ -24,6 +24,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   private tabName: string;
   @ViewChild(SearchComponent, {static: false}) searchTypeComponent: SearchComponent;
 
+  numberOfMessage = [];
 
   usernamesOnline: string [] = [];
 
@@ -41,6 +42,7 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getFriends();
     this.getRoomsJoined();
+    this.loadOffMessage();
     this.subscriptionRoster = this.chatService.getStatus().subscribe({
       next: (value) => {
         const user = this.buddy.find(u => u.username === value.username);
@@ -84,6 +86,10 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
     subscribePresence(user.username + '@' + environment.DOMAIN);
     user.notify = 0;
     this.tabService.addNewChatWindow({username: user.username});
+  }
+
+  openChatForRoom(room): void {
+    this.tabService.addNewChatWindow({roomID: room.roomID, naturalName: room.naturalName});
   }
 
   ngOnDestroy(): void {
@@ -148,4 +154,31 @@ export class ChatMenuComponent implements OnInit, OnDestroy {
       this.buddy.push(user);
     }
   }
+
+  addNewRoom(newRoom): void {
+    let hasInList = false;
+    for (let roomItem of this.roomResponses) {
+      if (roomItem.roomID === newRoom.roomID) {
+        hasInList = true;
+        break;
+      }
+    }
+    if (!hasInList) {
+      this.roomResponses.push(newRoom);
+    }
+  }
+
+  loadOffMessage(): void {
+    this.chatService.getNumMessOff().subscribe(response => {
+      this.numberOfMessage = response;
+      for (let index of this.numberOfMessage) {
+        const user = this.buddy.find(u => u.username === index.username);
+        if (user) {
+          const numberMess = index.offMessageNumber;
+          user.notify = numberMess;
+        }
+      }
+    });
+  }
+
 }

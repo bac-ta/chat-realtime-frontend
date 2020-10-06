@@ -1,6 +1,5 @@
 export class RoomResponse {
+  roomID: number;
   name: string;
   naturalName: string;
-  description: string;
-  roomID: string;
 }

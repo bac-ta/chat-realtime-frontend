@@ -5,8 +5,8 @@ import {getConnection, receiver, sendMessage, status, subscribePresence} from '.
 import {MessageChat} from '../chat-gui/chat-content/chat-content.component';
 import {User} from '../../pre-auth/model/user';
 import {BaseService} from '../../../core/services/base.service';
-import {MessageBody} from '../models/message-body';
 import {map} from 'rxjs/operators';
+import {MessageBody} from '../models/message-body';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +44,12 @@ export class ChatService extends BaseService<any> {
 
   getRoster(): Observable<any> {
     return this.get('/user/getFriends', {}).pipe();
+  }
+
+  getNumMessOff(): Observable<any> {
+    return this.get('/chat/numOfMessOff', {}).pipe(map(responses => {
+      return responses.body;
+    }));
   }
 
   getStatus(): Subject<User> {
