@@ -4,10 +4,8 @@ import {AccountService} from '../../../pre-auth/services/account.service';
 import {Router} from '@angular/router';
 import {MessageService} from 'primeng';
 import {ProfileService} from '../../services/profile.service';
-import {Strophe} from 'strophe.js';
 import {FileResponse} from '../../models/file-response';
 import {ProfileResponse} from '../../models/profile-response';
-import {FormBuilder, FormGroup} from '@angular/forms';
 import {environment} from '../../../../../environments/environment';
 
 
@@ -80,6 +78,7 @@ export class ProfileComponent implements OnInit {
   url: string|ArrayBuffer;
 
   ngOnInit(): void {
+    this.showData();
   }
 
   showData(){
@@ -98,11 +97,10 @@ export class ProfileComponent implements OnInit {
       this.profileService.uploadFile(event.target.files[0])
         .pipe()
         .subscribe((data) => {
-            this.file = data;
-            this.url = this.file.file_uri;
-            this.profile.avatar = this.file.file_name;
-            this.updateProfile();
-          }
+          this.file = data;
+          this.url = this.file.file_uri;
+          this.profile.avatar = this.file.file_name;
+          },
         );
     }
   }
@@ -111,10 +109,8 @@ export class ProfileComponent implements OnInit {
     this.profileService.updateProfile(this.profile)
       .pipe()
       .subscribe(()=>{
-        this.router.navigate(['/'])
+        this.router.navigate(['/']);
       })
   }
-
-
 
 }
