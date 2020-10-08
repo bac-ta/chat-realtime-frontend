@@ -7,7 +7,7 @@ import {ProfileService} from '../../services/profile.service';
 import {FileResponse} from '../../models/file-response';
 import {ProfileResponse} from '../../models/profile-response';
 import {environment} from '../../../../../environments/environment';
-
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-profile',
@@ -60,28 +60,28 @@ export class ProfileComponent implements OnInit {
   //dialog-profile
   onShowProfileDetail() {
     this.displayBasic = true;
-    this.showData();
+    this.getData();
   }
 
   private readonly baseUrl: String;
-
   displayBasic: boolean;
 
   constructor(private accountService: AccountService,
               private router: Router,
               private messageService: MessageService,
-              private profileService: ProfileService
+              private profileService: ProfileService,
   ) {
     this.baseUrl = environment.apiUrl;
   }
 
   url: string|ArrayBuffer;
 
+
   ngOnInit(): void {
-    this.showData();
+    this.getData();
   }
 
-  showData(){
+  getData(){
     this.profileService.getProfile()
       .pipe()
       .subscribe((data)=>{
@@ -113,4 +113,10 @@ export class ProfileComponent implements OnInit {
       })
   }
 
+  modalDisplay: boolean;
+  mask: boolean = false;
+  showAvatar(){
+    this.modalDisplay = true;
+    this.mask = true;
+  }
 }
