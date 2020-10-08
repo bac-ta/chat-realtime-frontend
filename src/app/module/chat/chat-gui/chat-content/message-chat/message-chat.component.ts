@@ -16,17 +16,20 @@ class Text {
 export class MessageChatComponent implements OnInit {
 
   @Input() msg: MessageChat;
+  @Input() chatWith: string;
   listStr: Text[] = [];
   clzz = '';
   clzzWrapper = '';
+  text: string;
 
   constructor(private emojiService: EmojiService,
               private accountService: AccountService) {
   }
 
   ngOnInit(): void {
+    this.text = this.msg.username;
     if (!this.msg.avatarUrl) {
-      this.msg.avatarUrl = '/assets/layout/images/mai.jpg';
+      this.msg.avatarUrl = `/assets/layout/images/${(this.text)}.jpg`;
     }
     if (this.msg.isMe) {
       this.clzz = 'my-message';
