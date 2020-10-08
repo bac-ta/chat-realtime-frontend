@@ -8,7 +8,8 @@
 }
 
 .button-profile img {
-  width: 96px;
+  width: 90px;
+  height: 90px;
   margin-bottom: 12px;
   display: inline-block;
 }
@@ -17,6 +18,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-left: 10px;
 }
 
 .profile-info .profile-name {
@@ -79,14 +81,15 @@ img {
   border-radius: 50%;
   margin-left: 18%;
 }
-.hoverable .hover-text{
-  position: absolute;
-  display: none;
-  top: 50%;
-  left:  50%;
-  transform: translate(-50%,-50%);
-  z-index: 2;
-}
+
+/*.hoverable .hover-text{*/
+/*  position: absolute;*/
+/*  display: none;*/
+/*  top: 50%;*/
+/*  left:  50%;*/
+/*  transform: translate(-50%,-50%);*/
+/*  z-index: 2;*/
+/*}*/
 .hoverable .background{
   position: absolute;
   display: none;

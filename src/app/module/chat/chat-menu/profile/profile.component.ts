@@ -4,10 +4,9 @@ import {AccountService} from '../../../pre-auth/services/account.service';
 import {Router} from '@angular/router';
 import {MessageService} from 'primeng';
 import {ProfileService} from '../../services/profile.service';
-import {Strophe} from 'strophe.js';
 import {FileResponse} from '../../models/file-response';
 import {ProfileResponse} from '../../models/profile-response';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {environment} from '../../../../../environments/environment';
 
 
 @Component({
@@ -31,6 +30,7 @@ export class ProfileComponent implements OnInit {
     file_name: '',
     file_uri: '',
     file_type: '',
+    size: 0
   };
 
   onShowProfileMenu(): void {
@@ -60,9 +60,10 @@ export class ProfileComponent implements OnInit {
   //dialog-profile
   onShowProfileDetail() {
     this.displayBasic = true;
+    this.showData();
   }
 
-  url: string | ArrayBuffer;
+  private readonly baseUrl: String;
 
   displayBasic: boolean;
 
@@ -71,10 +72,13 @@ export class ProfileComponent implements OnInit {
               private messageService: MessageService,
               private profileService: ProfileService
   ) {
+    this.baseUrl = environment.apiUrl;
   }
 
+  url: string|ArrayBuffer;
+
   ngOnInit(): void {
-    // this.showData();
+    this.showData();
   }
 
   showData(){
@@ -82,6 +86,9 @@ export class ProfileComponent implements OnInit {
       .pipe()
       .subscribe((data)=>{
         this.profile = data;
+        if (this.profile.avatar != null){
+          this.url = this.baseUrl + '/file/view-file/'+ this.profile.avatar;
+        }
       })
   }
 
@@ -89,24 +96,21 @@ export class ProfileComponent implements OnInit {
     if (event.target.files && event.target.files[0]){
       this.profileService.uploadFile(event.target.files[0])
         .pipe()
-        .subscribe(data => {
-            this.file = data;
+        .subscribe((data) => {
+          this.file = data;
+          this.url = this.file.file_uri;
+          this.profile.avatar = this.file.file_name;
           },
         );
     }
-    this.url = this.file.file_uri;
-    this.profile.avatar = this.file.file_name;
-    this.UpdateProfile();
   }
 
-  UpdateProfile(){
+  updateProfile(){
     this.profileService.updateProfile(this.profile)
       .pipe()
       .subscribe(()=>{
-        this.router.navigate(['/'])
+        this.router.navigate(['/']);
       })
   }
-
-
 
 }
