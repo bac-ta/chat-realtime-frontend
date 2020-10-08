@@ -114,9 +114,7 @@ export class ProfileComponent implements OnInit {
   }
 
   modalDisplay: boolean;
-  mask: boolean = false;
   showAvatar(){
     this.modalDisplay = true;
-    this.mask = true;
   }
 }
