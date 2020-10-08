@@ -39,8 +39,9 @@
         </label>
     </div>
     <div class="hoverable" style="margin-top: 50px">
-      <a [href]="url" target="_self">
+      <a class="example-image-link" [href]="url" data-lightbox="avatar">
         <img [src]="url ? url : '/assets/layout/images/avatar.png'" alt="">
+        <input type="hidden" [(ngModel)]="profile.avatar" name="file-name">
       </a>
       <div class="background"></div>
     </div>
@@ -50,8 +51,8 @@
         <span style="font-size: 25px">Description</span>
       </div>
       <div>
-        <textarea [(ngModel)]="profile.description" autoResize="autoResize" cols="30" pInputTextarea placeholder="describe yourself..." rows="1" style="width: 80%; font-size: 16px; overflow: inherit"></textarea>
-        <p-button label="Save" icon="pi pi-check" styleClass="p-button-sm" (click)="UpdateProfile()"></p-button>
+        <textarea [(ngModel)]="profile.description" name="description" autoResize="autoResize" cols="30" pInputTextarea placeholder="describe yourself..." rows="1" style="width: 80%; font-size: 16px; overflow: visible"></textarea>
+        <p-button label="Save" icon="pi pi-check" styleClass="p-button-sm" (click)="updateProfile()"></p-button>
       </div>
     </div>
     </form>
