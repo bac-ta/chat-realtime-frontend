@@ -29,8 +29,7 @@
 
 
 <p-dialog header="My Profile" [(visible)]="displayBasic">
-  <div>
-    <form enctype="multipart/form-data" method="POST">
+
     <div class="avatar">
       <span style="font-size: 25px">Avatar</span>
         <label for="fileInput">
@@ -39,10 +38,8 @@
         </label>
     </div>
     <div class="hoverable" style="margin-top: 50px">
-      <a class="example-image-link" [href]="url" data-lightbox="avatar">
-        <img [src]="url ? url : '/assets/layout/images/avatar.png'" alt="">
-        <input type="hidden" [(ngModel)]="profile.avatar" name="file-name">
-      </a>
+      <img [src]="url ? url : '/assets/layout/images/avatar.png'" alt="" (click)="showAvatar()">
+      <input type="hidden" [(ngModel)]="profile.avatar" name="file-name">
       <div class="background"></div>
     </div>
 
@@ -55,7 +52,10 @@
         <p-button label="Save" icon="pi pi-check" styleClass="p-button-sm" (click)="updateProfile()"></p-button>
       </div>
     </div>
-    </form>
-  </div>
+
+</p-dialog>
+
+<p-dialog [(visible)]="modalDisplay" dismissableMask="true" [showHeader]="false" modal="true">
+  <img [src]="url" alt="">
 </p-dialog>
 

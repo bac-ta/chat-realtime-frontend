@@ -11,6 +11,7 @@
   width: 90px;
   height: 90px;
   margin-bottom: 12px;
+  border-radius: 50%;
   display: inline-block;
 }
 
@@ -66,7 +67,7 @@ p-dialog{
   display: none;
 }
 
-img {
+.hoverable img {
   height: 100%;
   width: 100%;
   border-radius: 50%;
