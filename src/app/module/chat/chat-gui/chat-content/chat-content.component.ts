@@ -24,6 +24,8 @@ export class ChatContentComponent implements OnInit {
   @Input() chatMsgs: MessageChat[] = [];
   @Input() chatWith: string;
 
+  sentDateNext: number;
+
   constructor(private tabService: TabService,
               private chatService: ChatService,
               private accountService: AccountService) {
@@ -40,7 +42,6 @@ export class ChatContentComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.getUsername();
-    console.log(this.user);
     this.chatService.getMessage(this.chatWith).subscribe(messageBody => {
       const msgChat = messageBody.map(mb => {
         const mc = new MessageChat();
@@ -51,8 +52,29 @@ export class ChatContentComponent implements OnInit {
         return mc;
       });
       this.chatMsgs.push(...msgChat);
-      console.log('msgChat', msgChat);
-      console.log('sdfsfd', messageBody);
+      let sentDateFirst = Math.min.apply(Math, messageBody.map(function(o) {
+        return o.sentDate;
+      }));
+      this.sentDateNext = sentDateFirst;
+    });
+  }
+
+  onScrollUp() {
+    this.chatService.getMessage(this.chatWith, this.sentDateNext).subscribe(messageBody => {
+      const msgChat = messageBody.map(mb => {
+        const mc = new MessageChat();
+        mc.username = mb.userNameFrom.replace('@dimagesharevn.develop', '');
+        mc.timeChat = mb.sentDate;
+        mc.detail = mb.body;
+        mc.isMe = (this.user == mc.username);
+        return mc;
+      });
+      this.chatMsgs.push(...msgChat);
+      if (messageBody == null) return;
+      let sentDate = Math.min.apply(Math, messageBody.map(function(o) {
+        return o.sentDate;
+      }));
+      this.sentDateNext = sentDate;
     });
   }
 }
