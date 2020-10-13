@@ -18,7 +18,7 @@ import {PeopleComponent} from './chat-menu/people/people.component';
 import {SearchTypeComponent} from './chat-menu/search/search-type/search-type.component';
 import {DialogModule, ListboxModule, TabMenuModule} from 'primeng';
 import {CreateNewRoomComponent} from './chat-menu/room/create-new-room/create-new-room.component';
-
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [ChatMenuComponent, ChatComponent, ProfileComponent, ChatGuiComponent, ChatWindowComponent, ChatHeaderComponent, ChatEditorComponent, FileManagerComponent,
@@ -28,7 +28,8 @@ import {CreateNewRoomComponent} from './chat-menu/room/create-new-room/create-ne
     SharedModule,
     TabMenuModule,
     DialogModule,
-    ListboxModule
+    ListboxModule,
+    InfiniteScrollModule
   ],
   providers: [
     ChatService

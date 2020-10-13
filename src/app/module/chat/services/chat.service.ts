@@ -6,6 +6,7 @@ import {MessageChat} from '../chat-gui/chat-content/chat-content.component';
 import {User} from '../../pre-auth/model/user';
 import {BaseService} from '../../../core/services/base.service';
 import {map} from 'rxjs/operators';
+import {MessageBody} from '../models/message-body';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class ChatService extends BaseService<any> {
   // remove when has load history
   listMsgNotDisplayed: MessageChat[];
   private statusSubject = new Subject<User>();
+  messageBody: MessageBody[];
 
   constructor(protected injector: Injector) {
     super(injector);
@@ -53,5 +55,19 @@ export class ChatService extends BaseService<any> {
   getStatus(): Subject<User> {
     this.statusSubject.subscribe();
     return status;
+  }
+
+  getMessage(userNameTo: string, sentDate?: number): Observable<MessageBody[]> {
+    if (sentDate == null) {
+      return this.get('/chat/loadHistory' + '?toJID=' + userNameTo, {}).pipe(map(response => {
+        this.messageBody = response.body;
+        return this.messageBody;
+      }));
+    } else {
+      return this.get('/chat/loadHistory' + '?toJID=' + userNameTo + '&sentDate=' + sentDate, {}).pipe(map(response => {
+        this.messageBody = response.body;
+        return this.messageBody;
+      }));
+    }
   }
 }

@@ -1,6 +1,13 @@
-
 <div class="content" *ngIf="chatMsgs.length > 0">
+  <div
+    infiniteScroll
+    [infiniteScrollUpDistance]="0"
+    [infiniteScrollThrottle]="500"
+    [infiniteScrollContainer]="'.content'"
+    [fromRoot]="true"
+    (scrolledUp)="onScrollUp()">
+  </div>
   <div *ngFor="let item of chatMsgs; let i = index" [ngClass]="item.isMe ? 'p-justify-end' : 'p-justify-start'">
-    <app-message-chat [msg]="item"></app-message-chat>
+    <app-message-chat [msg]="item" [chatWith]="chatWith"></app-message-chat>
   </div>
 </div>
